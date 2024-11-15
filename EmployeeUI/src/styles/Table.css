@@ -1,0 +1,185 @@
+/* General container styling */
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Header container styling */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.add-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1890ff; /* Ant Design primary color */
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #40a9ff;
+}
+
+.search-container {
+  flex-grow: 1; /* Allows search bar to take available space */
+  display: flex;
+  justify-content: flex-end; /* Aligns the search bar to the right */
+}
+
+.search-bar {
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 250px; /* Adjust width as needed */
+  font-size: 14px;
+}
+/* Table styling */
+.table {
+  display: inline-block; /* Makes the table inline */
+  border: 1px solid #ddd;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+/* Ensure that table cells (td) are displayed inline */
+
+
+/* Table header styling */
+.table-striped th {
+  cursor: pointer;
+  font-weight: bold !important; /* Ensures bold text for headers */
+  padding: 4px 8px; /* Reduced padding */
+  font-size: 12px;
+  text-align: left;
+}
+
+/* Table cell styling */
+.table-striped td {
+
+  padding: 4px 8px; /* Reduced padding */
+  font-size: 12px;
+  text-align: left;
+}
+
+/* Table alternating row colors */
+.table-striped tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-striped td {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Badge styling */
+.badge {
+  display: inline; /* Use inline to make badges appear side by side */
+  padding: 4px 8px; /* Reduced padding for a more compact look */
+  border-radius: 12px;
+  color: white;
+  font-weight: bold; /* Bold text for badges */
+  font-size: 0.8rem; /* Smaller font size */
+}
+
+/* Specific badge colors */
+.badge-prospect { background-color: #f0ad4e; }
+.badge-lanes { background-color: #5bc0de; }
+.badge-product { background-color: #5cb85c; }
+.badge-email { background-color: #d9534f; }
+.badge-carrier { background-color: #5e5e5e; }
+.badge-quotation { background-color: #ffc107; }
+.badge-broker { background-color: #d43f15; }
+.badge-voicemail { background-color: #6f5499; }
+.badge-different { background-color: #337ab7; }
+.badge-callback { background-color: #f7e05b; }
+.badge-not-interested { background-color: #c9302c; }
+.badge-asset { background-color: #5bc0de; }
+.badge-default { background-color: #ccc; }
+
+
+/* Button group styling to display actions inline */
+.button-group {
+  display: flex; /* Use flexbox to arrange items horizontally */
+  gap: 10px; /* Add space between the buttons */
+  justify-content: center; /* Optionally center the buttons */
+  align-items: center; /* Vertically align the buttons */
+}
+
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-edit:hover {
+  color: #1890ff; /* Hover color for the edit button */
+}
+
+.btn-delete:hover {
+  color: #ff4d4f; /* Hover color for the delete button */
+}
+
+/* Pagination styling */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-controls {
+  display: inline-flex;
+  align-items: center;
+}
+
+.previous,
+.next {
+  background: #1890ff;
+  border: none;
+  color: white;
+  padding: 5px 10px; /* Adjust padding for smaller buttons */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.8rem; /* Smaller font size for pagination text */
+}
+
+.previous:disabled,
+.next:disabled {
+  background: #d9d9d9;
+  cursor: not-allowed;
+}
+
+.previous:hover:not(:disabled),
+.next:hover:not(:disabled) {
+  background-color: #40a9ff;
+}
+
+/* Spinner animation */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #1890ff;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

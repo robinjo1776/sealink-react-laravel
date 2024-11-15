@@ -1,0 +1,39 @@
+/* src/common/Modal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Darker background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure the modal is above other content */
+}
+
+.modal-content {
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  width: 500px; /* Adjust as necessary */
+  max-height: 90vh; /* Limit the height of the modal */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  max-height: 70vh; /* Adjust height for content */
+  overflow-y: auto; /* Enable scrolling for the body */
+}
