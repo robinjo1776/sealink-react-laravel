@@ -11,7 +11,7 @@ import { UserContext } from "../../UserProvider"; // Adjust the import as needed
 const LeadTable = () => {
   const users = useContext(UserContext);
   const [followUps, setFollowUps] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Loading state
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lead_date");
   const [sortDesc, setSortDesc] = useState(true);
@@ -34,6 +34,7 @@ const LeadTable = () => {
           throw new Error("No token found");
         }
 
+        setLoading(true);  // Set loading to true before fetching
         const { data } = await axios.get(
           "http://127.0.0.1:8000/api/lead-followup",
           {
@@ -47,7 +48,7 @@ const LeadTable = () => {
         console.error("Error loading followups:", error);
         handleFetchError(error);
       } finally {
-        setLoading(false);
+        setLoading(false);  // Set loading to false once data is fetched
       }
     };
 
@@ -193,58 +194,64 @@ const LeadTable = () => {
       ),
     },
   ];
+
   const getStatusClass = (status) => {
     switch (status) {
-      case "new": return "badge-new";
-      case "in_progress": return "badge-in-progress";
-      case "completed": return "badge-completed";
-      case "on_hold": return "badge-on-hold";
-      case "lost": return "badge-lost";
-      default: return "badge-default";
+      case "New":
+        return "badge-new";
+      case "In Progress":
+        return "badge-in-progress";
+      case "Completed":
+        return "badge-completed";
+      case "On Hold":
+        return "badge-on-hold";
+      case "Lost":
+        return "badge-lost";
+      default:
+        return "badge-default";
     }
   };
+
   return (
     <div>
-            <style>
-        {`
-          .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-          }
-          .badge-new { background-color: #f0ad4e; }
-          .badge-in-progress { background-color: #5bc0de; }
-          .badge-completed { background-color: #5cb85c; }
-          .badge-on-hold { background-color: #d9534f; }
-          .badge-default { background-color: #ccc; }
-        `}
-      </style>
-      <div className="header-container">
-        <button onClick={openAddModal} className="add-button">
-          Add Followup
-        </button>
-        <div className="search-container">
-          <input
-            className="search-bar"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
-          />
+      {/* Loading state: Show a loading indicator */}
+      {loading ? (
+        <div className="loading-indicator">
+          <span>Loading follow-ups...</span>
         </div>
-      </div>
-      <Table
-        data={paginatedData}
-        headers={headers}
-        handleSort={handleSort}
-        sortBy={sortBy}
-        sortDesc={sortDesc}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-        onEditClick={openEditModal}
-      />
+      ) : (
+        <>
+          {/* Header with Add Followup button and search input */}
+          <div className="header-container">
+            <button onClick={openAddModal} className="add-button">
+              Add Followup
+            </button>
+            <div className="search-container">
+              <input
+                className="search-bar"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+              />
+            </div>
+          </div>
+
+          {/* Table component */}
+          <Table
+            data={paginatedData}
+            headers={headers}
+            handleSort={handleSort}
+            sortBy={sortBy}
+            sortDesc={sortDesc}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+            onEditClick={openEditModal}
+          />
+        </>
+      )}
+
+      {/* Edit Followup Modal */}
       <Modal
         isOpen={isEditModalOpen}
         onClose={closeEditModal}
@@ -258,6 +265,8 @@ const LeadTable = () => {
           />
         )}
       </Modal>
+
+      {/* Add Followup Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={closeAddModal}

@@ -1,15 +1,24 @@
-/* General container styling */
+/* src/styles/Table.css */
 .container {
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
-/* Header container styling */
+/* src/styles/Table.css */
 .header-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin: 20px 0;
+  justify-content: space-between; /* Ensures space between button and search bar */
+  margin: 20px 0; /* Adds vertical margin above and below the header */
+  margin-top: 40px; /* Adds more space specifically at the top to account for the sidebar */
+}
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 18px;
+  color: #333;
 }
 
 .add-button {
@@ -37,41 +46,40 @@
 }
 
 .search-bar {
-  padding: 6px;
+  padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 250px; /* Adjust width as needed */
   font-size: 14px;
 }
-/* Table styling */
+
+/* Other styles remain the same */
+
 .table {
-  display: inline-block; /* Makes the table inline */
-  border: 1px solid #ddd;
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
-/* Ensure that table cells (td) are displayed inline */
 
+.table-striped {
+  border: 1px solid #ddd;
+}
 
-/* Table header styling */
+.table-striped thead {
+  background-color: #f4f4f4;
+}
+
+.table-striped th,
+.table-striped td {
+  padding: 8px; /* Adjust padding for a more compact table */
+  text-align: left;
+  font-size: 12px; /* Adjusted font size for table text */
+}
+
 .table-striped th {
   cursor: pointer;
-  font-weight: bold !important; /* Ensures bold text for headers */
-  padding: 4px 8px; /* Reduced padding */
-  font-size: 12px;
-  text-align: left;
 }
 
-/* Table cell styling */
-.table-striped td {
-
-  padding: 4px 8px; /* Reduced padding */
-  font-size: 12px;
-  text-align: left;
-}
-
-/* Table alternating row colors */
 .table-striped tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -80,38 +88,9 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* Badge styling */
-.badge {
-  display: inline; /* Use inline to make badges appear side by side */
-  padding: 4px 8px; /* Reduced padding for a more compact look */
-  border-radius: 12px;
-  color: white;
-  font-weight: bold; /* Bold text for badges */
-  font-size: 0.8rem; /* Smaller font size */
-}
-
-/* Specific badge colors */
-.badge-prospect { background-color: #f0ad4e; }
-.badge-lanes { background-color: #5bc0de; }
-.badge-product { background-color: #5cb85c; }
-.badge-email { background-color: #d9534f; }
-.badge-carrier { background-color: #5e5e5e; }
-.badge-quotation { background-color: #ffc107; }
-.badge-broker { background-color: #d43f15; }
-.badge-voicemail { background-color: #6f5499; }
-.badge-different { background-color: #337ab7; }
-.badge-callback { background-color: #f7e05b; }
-.badge-not-interested { background-color: #c9302c; }
-.badge-asset { background-color: #5bc0de; }
-.badge-default { background-color: #ccc; }
-
-
-/* Button group styling to display actions inline */
 .button-group {
-  display: flex; /* Use flexbox to arrange items horizontally */
-  gap: 10px; /* Add space between the buttons */
-  justify-content: center; /* Optionally center the buttons */
-  align-items: center; /* Vertically align the buttons */
+  display: flex;
+  gap: 10px;
 }
 
 .btn-edit,
@@ -124,14 +103,103 @@
 }
 
 .btn-edit:hover {
-  color: #1890ff; /* Hover color for the edit button */
+  color: #1890ff;
 }
 
 .btn-delete:hover {
-  color: #ff4d4f; /* Hover color for the delete button */
+  color: #ff4d4f;
 }
 
-/* Pagination styling */
+/* src/styles/Table.css */
+
+/* For Lead Status Badges */
+.badge-prospect {
+  background-color: #ff7a45; /* Orange-red */
+}
+
+.badge-lanes {
+  background-color: #ffbf00; /* Yellow */
+}
+
+.badge-product {
+  background-color: #52c41a; /* Green */
+}
+
+.badge-email {
+  background-color: #13c2c2; /* Cyan */
+}
+
+.badge-carrier {
+  background-color: #108ee9; /* Blue */
+}
+
+.badge-quotation {
+  background-color: #108ee9; /* Blue */
+}
+
+.badge-broker {
+  background-color: #f5222d; /* Red */
+}
+
+.badge-voicemail {
+  background-color: #fa8c16; /* Orange */
+}
+
+.badge-different {
+  background-color: #eb2f96; /* Pink */
+}
+
+.badge-callback {
+  background-color: #f5a623; /* Light Orange */
+}
+
+.badge-not-interested {
+  background-color: #d4380d; /* Dark Red */
+}
+
+.badge-asset {
+  background-color: #2f54eb; /* Blue */
+}
+
+/* Default badge style */
+.badge-default {
+  background-color: #d9d9d9; /* Gray */
+  color: #000; /* Black text */
+}
+
+/* Additional styles for badges, if needed */
+.badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.7rem; /* Smaller font size for badges */
+  font-weight: 500; /* Adjust font weight if needed */
+}
+
+
+.badge-default {
+  background-color: #d9d9d9;
+  color: #000;
+}
+.badge-new {
+  background-color: #52c41a; /* Green */
+}
+
+.badge-in-progress {
+  background-color: #fa8c16; /* Orange */
+}
+
+.badge-completed {
+  background-color: #108ee9; /* Blue */
+}
+
+.badge-on-hold {
+  background-color: #ffbf00; /* Yellow */
+}
+
+.badge-lost {
+  background-color: #f5222d; /* Red */
+}
 .pagination {
   margin-top: 20px;
   text-align: center;
@@ -165,7 +233,6 @@
   background-color: #40a9ff;
 }
 
-/* Spinner animation */
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;

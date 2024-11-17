@@ -11,7 +11,7 @@ import { UserContext } from '../../UserProvider'; // Adjust the import as needed
 const LeadTable = () => {
   const users = useContext(UserContext);
   const [leads, setLeads] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);  // Loading state
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lead_date");
   const [sortDesc, setSortDesc] = useState(true);
@@ -34,6 +34,7 @@ const LeadTable = () => {
           throw new Error("No token found");
         }
 
+        setLoading(true);  // Set loading to true before fetching
         const { data } = await axios.get("http://127.0.0.1:8000/api/lead", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +45,7 @@ const LeadTable = () => {
         console.error("Error loading leads:", error);
         handleFetchError(error);
       } finally {
-        setLoading(false);
+        setLoading(false);  // Set loading to false once data is fetched
       }
     };
 
@@ -154,14 +155,14 @@ const LeadTable = () => {
     { key: "customer_name", label: "Name" },
     { key: "email", label: "Email" },
     { key: "equipment_type", label: "Equipment Type" },
-    { key: "address", label: "Address" },
+    { key: "state", label: "Province/State" },
     { key: "lead_type", label: "Type" },
     { key: "assigned_to", label: "Assigned To" },
     {
       key: "lead_status",
       label: "Status",
       render: (item) => (
-        <span className={`badge ${getStatusClass(item.lead_status)}`}>
+        <span className={`badge ${getStatusClass(item.lead_status)}`} >
           {item.lead_status}
         </span>
       ),
@@ -202,30 +203,7 @@ const LeadTable = () => {
 
   return (
     <div>
-      <style>
-        {`
-          .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-          }
-          .badge-prospect { background-color: #f0ad4e; }
-          .badge-lanes { background-color: #5bc0de; }
-          .badge-product { background-color: #5cb85c; }
-          .badge-email { background-color: #d9534f; }
-          .badge-carrier { background-color: #5e5e5e; }
-          .badge-quotation { background-color: #ffc107; }
-          .badge-broker { background-color: #d43f15; }
-          .badge-voicemail { background-color: #6f5499; }
-          .badge-different { background-color: #337ab7; }
-          .badge-callback { background-color: #f7e05b; }
-          .badge-not-interested { background-color: #c9302c; }
-          .badge-asset { background-color: #5bc0de; }
-          .badge-default { background-color: #ccc; }
-        `}
-      </style>
+      {/* Header with Add Lead button and search input */}
       <div className="header-container">
         <button onClick={openAddModal} className="add-button">
           Add Lead
@@ -239,30 +217,35 @@ const LeadTable = () => {
           />
         </div>
       </div>
-      <Table
-        data={paginatedData}
-        headers={headers}
-        handleSort={handleSort}
-        sortBy={sortBy}
-        sortDesc={sortDesc}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-        onEditClick={openEditModal}
-      />
-      <Modal
-        isOpen={isEditModalOpen}
-        onClose={closeEditModal}
-        title="Edit Lead"
-      >
+
+      {/* Loading state: Show a loading indicator */}
+      {loading ? (
+        <div className="loading-indicator">
+          <span>Loading leads...</span>
+        </div>
+      ) : (
+        // Table will show only once data is fetched
+        <Table
+          data={paginatedData}
+          headers={headers}
+          handleSort={handleSort}
+          sortBy={sortBy}
+          sortDesc={sortDesc}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+          onEditClick={openEditModal}
+        />
+      )}
+
+      {/* Edit Lead Modal */}
+      <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Lead">
         {selectedLead && (
-          <EditLeadForm
-            lead={selectedLead}
-            onClose={closeEditModal}
-            onUpdate={updateLead}
-          />
+          <EditLeadForm lead={selectedLead} onClose={closeEditModal} onUpdate={updateLead} />
         )}
       </Modal>
+
+      {/* Add Lead Modal */}
       <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Lead">
         <AddLeadForm
           onClose={closeAddModal}

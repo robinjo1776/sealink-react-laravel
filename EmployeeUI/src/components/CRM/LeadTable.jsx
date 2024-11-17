@@ -7,6 +7,7 @@ import EditLeadForm from "./EditLeadForm";
 import AddLeadForm from "./AddLeadForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { UserContext } from '../../UserProvider'; // Assuming this provides the current user context
+import LeadFollowupTable from "./LeadFollowupTable"; // Import your LeadFollowupTable
 
 const LeadTable = () => {
   const currentUser = useContext(UserContext); // Get current user from context
@@ -17,9 +18,12 @@ const LeadTable = () => {
   const [sortBy, setSortBy] = useState("lead_date");
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedLead, setSelectedLead] = useState(null);
+  const [selectedLead, setSelectedLead] = useState(null);  // Selected lead for follow-up
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isFollowupModalOpen, setFollowupModalOpen] = useState(false); // State for Follow-up Modal
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+
   const perPage = 8;
 
   // Fetch leads and users from API
@@ -45,11 +49,13 @@ const LeadTable = () => {
 
         setLeads(leadsResponse.data);
         setUsers(usersResponse.data); // Store users data
+        setIsLoading(false); // Data is fetched, set loading to false
+
       } catch (error) {
         console.error("Error loading data:", error);
         handleFetchError(error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Data has been loaded (or error occurred)
       }
     };
 
@@ -94,6 +100,8 @@ const LeadTable = () => {
         await axios.delete(`http://127.0.0.1:8000/api/lead/${id}`);
         setLeads((prevLeads) => prevLeads.filter((lead) => lead.id !== id));
         Swal.fire("Deleted!", "The lead has been deleted.", "success");
+        setIsLoading(false); // Data is fetched, set loading to false
+
       } catch (error) {
         console.error("Error deleting lead:", error);
         Swal.fire("Error!", "Failed to delete the lead.", "error");
@@ -126,6 +134,28 @@ const LeadTable = () => {
 
   const closeAddModal = () => {
     setAddModalOpen(false);
+  };
+
+  const openFollowupModal = (lead) => {
+    console.log("openFollowupModal called"); // Log to check if this is triggered
+    if (!lead) {
+      console.log("No lead selected"); // Log if no lead is selected
+      Swal.fire({
+        icon: 'warning',
+        title: 'No lead selected',
+        text: 'Please select a lead to view follow-ups.',
+      });
+      return;
+    }
+    
+    setSelectedLead(lead);  // Set selected lead
+    console.log("Selected Lead:", lead); // Log selected lead
+    setFollowupModalOpen(true); // Open the Follow-up modal
+  };
+
+  const closeFollowupModal = () => {
+    setFollowupModalOpen(false);
+    setSelectedLead(null);
   };
 
   const normalizedSearchQuery = searchQuery.toLowerCase();
@@ -163,13 +193,6 @@ const LeadTable = () => {
 
   const totalPages = Math.ceil(filteredAndSortedLeads.length / perPage);
 
-  // Get the name of the user assigned to the lead
-  const getAssignedToName = (assignedToName) => {
-    if (!assignedToName) return 'Unknown'; // Safeguard against null/undefined
-    const user = users.find(user => user.name && user.name.toLowerCase() === assignedToName.toLowerCase()); // Compare names case-insensitively
-    return user ? user.name : 'Unknown'; // If user not found, return 'Unknown'
-  };
-
   const headers = [
     { key: "lead_no", label: "Lead#" },
     { key: "lead_date", label: "Date" },
@@ -204,10 +227,17 @@ const LeadTable = () => {
           <button onClick={() => deleteLead(item.id)} className="btn-delete">
             <DeleteOutlined />
           </button>
+     
         </>
       ),
     },
   ];
+
+  const getAssignedToName = (assignedToName) => {
+    if (!assignedToName) return 'Unknown'; // Safeguard against null/undefined
+    const user = users.find(user => user.name === assignedToName);
+    return user ? user.name : "Unknown";
+  };
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -220,42 +250,48 @@ const LeadTable = () => {
       case "Fob/Have broker": return "badge-broker";
       case "Voicemail/No answer": return "badge-voicemail";
       case "Different Department": return "badge-different";
-      case "No answer/Callback/Under Review": return "badge-callback";
-      case "Deal closed": return "badge-closed";
+      case "No answer/Callback/Voicemail": return "badge-callback";
+      case "Not interested reason provided in notes": return "badge-not-interested";
+      case "Asset based only": return "badge-asset";
       default: return "badge-default";
     }
   };
 
   return (
-    <div className="lead-table">
-      <Table
-        data={paginatedData}
-        headers={headers}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-        onEditClick={openEditModal}
-      />
+    <div>
+    <div className="header-container">
+        <button onClick={openFollowupModal} className="add-button">
+          Follow-ups
+        </button>
+        <div className="search-container">
+          <input
+            className="search-bar"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query
+            placeholder="Search..."
+          />
+        </div>
+      </div>
+      {isLoading ? (
+        <div className="loading-indicator">
+          <span>Loading...</span>
+        </div>
+          ) : (
 
+      <Table headers={headers} data={paginatedData} />
+    )}
+      {/* Follow-up Modal */}
+      <Modal isOpen={isFollowupModalOpen} onClose={closeFollowupModal} title="Lead Follow-ups">
+        <LeadFollowupTable lead={selectedLead} />
+      </Modal>
+
+      {/* Edit Modal */}
       <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Lead">
-        {selectedLead && (
-          <EditLeadForm lead={selectedLead} onClose={closeEditModal} onUpdate={updateLead} />
-        )}
+        <EditLeadForm lead={selectedLead} updateLead={updateLead}  />
       </Modal>
 
-      <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Lead">
-        <AddLeadForm
-          onClose={closeAddModal}
-          onAddLead={(newLead) => {
-            setLeads((prevLeads) => [...prevLeads, newLead]);
-            closeAddModal();
-          }}
-        />
-      </Modal>
     </div>
   );
 };
 
 export default LeadTable;
- 
-

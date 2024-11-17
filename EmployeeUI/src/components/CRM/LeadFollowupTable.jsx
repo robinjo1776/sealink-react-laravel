@@ -10,7 +10,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const LeadFollowupTable = () => {
-  const { currentUser, loading } = useContext(UserContext);
+  const { currentUser, loading: userLoading } = useContext(UserContext);
   const [followUps, setFollowUps] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lead_date");
@@ -19,6 +19,7 @@ const LeadFollowupTable = () => {
   const [selectedFollowup, setSelectedFollowup] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   const navigate = useNavigate();
   const perPage = 8;
@@ -43,6 +44,7 @@ const LeadFollowupTable = () => {
       });
       console.log("Fetched Follow-ups:", data);
       setFollowUps(data);
+      setIsLoading(false); // Data is fetched, set loading to false
     } catch (error) {
       console.error("Error loading followups:", error);
       if (error.response && error.response.status === 401) {
@@ -58,14 +60,15 @@ const LeadFollowupTable = () => {
           text: "Failed to load followups.",
         });
       }
+      setIsLoading(false); // If error occurs, stop the loading state
     }
   }, [currentUser, navigate]);
 
   useEffect(() => {
-    if (!loading) {
+    if (!userLoading) {
       fetchFollowUps();
     }
-  }, [currentUser, loading, fetchFollowUps]);
+  }, [currentUser, userLoading, fetchFollowUps]);
 
   // Handle delete action
   const handleDelete = async (id) => {
@@ -187,29 +190,57 @@ const LeadFollowupTable = () => {
     { key: "customer_name", label: "Customer Name" },
     { key: "phone", label: "Phone" },
     { key: "email", label: "Email" },
-    { key: "actions", label: "Actions" },
+    {
+      key: "actions",
+      label: "Actions",
+      render: (item) => (
+        <>
+          <button onClick={() => openEditModal(item)} className="btn-edit">
+            <EditOutlined />
+          </button>
+          <button onClick={() => deleteFollowup (item.id)} className="btn-delete">
+            <DeleteOutlined />
+          </button>
+        </>
+      ),
+    },
   ];
 
   return (
     <div className="lead-followup-table">
-      <button onClick={openAddModal}>Add Follow-up</button>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search..."
-      />
-      <Table
-        data={paginatedData}
-        headers={headers}
-        onSort={handleSort}
-        sortBy={sortBy}
-        sortDesc={sortDesc}
-        onEdit={openEditModal}
-        onDelete={handleDelete} // Pass the handleDelete function here
-      />
+       <div className="header-container">
+        <button onClick={openAddModal} className="add-button">
+          Add Follow-up
+        </button>
+        <div className="search-container">
+          <input
+            className="search-bar"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query
+            placeholder="Search..."
+          />
+        </div>
+      </div>
+      {isLoading ? (
+        <div className="loading-indicator">
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <Table
+          data={paginatedData}
+          headers={headers}
+          onSort={handleSort}
+          sortBy={sortBy}
+          sortDesc={sortDesc}
+          onEdit={openEditModal}
+          onDelete={handleDelete} // Pass the handleDelete function here
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
       {isEditModalOpen && (
-        <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
+        <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Follow-up">
           <EditLeadFollowupForm followup={selectedFollowup} onSave={handleSaveEdit} />
         </Modal>
       )}
