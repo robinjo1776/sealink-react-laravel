@@ -166,7 +166,6 @@ const CustomerTable = () => {
     { key: "cust_primary_city", label: "Primary City" },
     { key: "cust_primary_state", label: "Primary State" },
     { key: "cust_primary_country", label: "Primary Country" },
-    { key: "cust_credit_status", label: "Credit Status" },
     {
       key: "cust_credit_status",
       label: "Status",

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 09:45 AM
+-- Generation Time: Dec 06, 2024 at 08:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,7 +70,7 @@ CREATE TABLE `customers` (
   `cust_credit_terms` varchar(255) DEFAULT NULL,
   `cust_credit_limit` varchar(255) DEFAULT NULL,
   `cust_credit_notes` varchar(255) DEFAULT NULL,
-  `cust_credit_application` tinyint(4) DEFAULT NULL,
+  `cust_credit_application` tinyint(1) DEFAULT NULL,
   `cust_credit_currency` varchar(255) DEFAULT NULL,
   `cust_sbk_agreement` varchar(255) DEFAULT NULL,
   `cust_credit_agreement` varchar(255) DEFAULT NULL,
@@ -85,7 +85,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `cust_name`, `cust_type`, `cust_ref_no`, `cust_website`, `cust_email`, `cust_contact_no`, `cust_contact_no_ext`, `cust_tax_id`, `cust_primary_address`, `cust_primary_city`, `cust_primary_state`, `cust_primary_country`, `cust_primary_postal`, `cust_primary_unit_no`, `cust_mailing_address`, `cust_mailing_city`, `cust_mailing_state`, `cust_mailing_country`, `cust_mailing_postal`, `cust_mailing_unit_no`, `cust_ap_name`, `cust_ap_address`, `cust_ap_city`, `cust_ap_state`, `cust_ap_country`, `cust_ap_postal`, `cust_ap_unit_no`, `cust_ap_email`, `cust_ap_phone`, `cust_ap_phone_ext`, `cust_ap_fax`, `cust_broker_name`, `cust_bkp_notes`, `cust_bkspl_notes`, `cust_credit_status`, `cust_credit_mop`, `cust_credit_appd`, `cust_credit_expd`, `cust_credit_terms`, `cust_credit_limit`, `cust_credit_notes`, `cust_credit_application`, `cust_credit_currency`, `cust_sbk_agreement`, `cust_credit_agreement`, `cust_contact`, `cust_equipment`, `created_at`, `updated_at`) VALUES
-(1, 'Robin Joseph', 'Distributor', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Dr, Toronto, M1M 2G7, Canada', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, NULL, '2024-09-23 04:17:43', '2024-09-23 04:17:43');
+(1, 'Robin Joseph', 'Trader', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Drive', 'Toronto', 'Ontario', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, '[]', '2024-09-23 04:17:43', '2024-12-05 22:30:27'),
+(7, 'Rajesh', 'Distributor', '46446467', 'www.ffrg.com', 'rajesh@gmail.com', 'on', '209', 'JN 6756', '30 Greenwich Avenue', 'New York', 'New York', 'United States', '10011', NULL, '8', NULL, NULL, NULL, NULL, NULL, NULL, '90 Feet Road', 'Patna', 'Bihar', 'India', NULL, NULL, NULL, NULL, NULL, NULL, 'Broker 2', 'good', 'hgjg', 'Not Approved', 'Wire Transfer', '2024-12-03', '2025-01-03', '39', '7', 'fhjfhj', 1, 'USD', 'http://127.0.0.1:8000/storage/uploads/VKobKSy3BoCpXLdU0z3oELwmLV9vCpObFAzMo2qx.pdf', 'http://127.0.0.1:8000/storage/uploads/Vqr9npXj8Vk1OjFFWEzpQXKMCBRlbvxm73s8TESS.pdf', '[]', '[]', '2024-11-21 22:31:55', '2024-12-06 01:13:38');
 
 -- --------------------------------------------------------
 
@@ -140,24 +141,17 @@ CREATE TABLE `leads` (
 --
 
 INSERT INTO `leads` (`id`, `lead_no`, `lead_date`, `follow_up_date`, `customer_name`, `phone`, `email`, `website`, `equipment_type`, `address`, `city`, `state`, `country`, `postal_code`, `unit_no`, `lead_type`, `contact_person`, `lead_status`, `notes`, `contacts`, `created_at`, `updated_at`, `assigned_to`) VALUES
-(1, 765, '2024-08-01', '2024-08-21', 'Ron Desantis1', 568848874, 'ron@desasntis.com', 'www.rondesantis.com', 'Van', '400 Slater Street', 'Ottawa', 'ON', 'Canada', 'K1R 7S7', 400, 'AB', 'Ronnie', 'Prospect customer', 'Quotations', '[]', '2024-08-02 04:43:22', '2024-08-17 04:53:22', NULL),
-(2, 765, '2024-07-30', '2024-08-28', 'Rakesh Sawant', 8887487454, 'rakesh@gmail.com', 'www.rakesh.com', 'Btrain', '50 Laurier Avenue East', 'Ottawa', 'ON', 'Canada', 'K1N 1H7', 50, 'DPD MAGMA', 'Jordan', 'Fob/Have broker', 'Has left without notice', '[]', '2024-08-03 22:56:28', '2024-08-03 22:56:28', NULL),
-(3, 543, '2024-09-10', NULL, 'Fred', 645645433, 'fred@gmail.com', 'www.fred.com', 'Triaxle', '50 Rideau Street', 'Ottawa', 'ON', 'Canada', 'K1N 9J7', 50, 'BC', 'Rakesh', 'Quotations', 'In Transit', '[{\"name\":\"Tina\",\"contact_no\":\"9807742422\",\"email\":\"tina@gmail.com\"}]', '2024-09-09 22:33:26', '2024-09-09 22:33:26', NULL),
-(4, 334, '2024-10-04', '2024-11-07', 'rgeg', 453534, 'bfgbgf@gmail.com', 'www.ffrg.com', 'Roll tite', '490', 'Ottawa', 'Ontario', 'Canada', 'K1N 1G8', 456, 'DPD MAGMA', 'bgb', 'Fob/Have broker', 'bfgbf', '[]', '2024-09-15 03:18:41', '2024-10-21 06:14:18', NULL),
-(5, 33, '2024-09-09', NULL, 'gfdgdf', 234423423423, 'grgrgre@gsfgs.com', 'http://www.rondesantis.com', 'Maxi', '320', 'Ottawa', 'Ontario', 'Canada', 'K1R 7Y5', 33, 'Super Leads', 'gregr', 'E-mail sent to concerned person', 'gregre', '[]', '2024-09-15 04:38:50', '2024-09-15 04:38:50', NULL),
 (6, 4242, '2024-09-16', NULL, 'gfdgdf', 234423423423, 'grgrgre@gsfgs.com', 'http://www.rondesantis.com', 'Triaxle', '490', 'Ottawa', 'Ontario', 'Canada', 'K1N 1G8', 33, 'CA', 'gregr', 'Carrier portal registration', 'grrg', '[{\"name\":\"gfdgd\",\"contact_no\":\"423423423423\",\"email\":\"dfbddg@gmail.com\"}]', '2024-09-15 04:57:47', '2024-09-15 04:57:47', NULL),
 (16, 544, '2024-09-08', '2024-10-22', 'Walinker', 3653635635, 'gjkk@kol.com', 'www.jiklo.com', 'Reefer', '377', 'Ottawa', 'Ontario', 'Canada', 'K2P 2M2', NULL, 'ON', 'fre', 'Different Department', 'fgdgdf', '[]', '2024-09-15 05:09:03', '2024-10-21 06:15:06', NULL),
-(17, 423, '2024-09-19', '2024-09-11', 'Cindy', 46536335635356, 'fred@gmail.com', 'www.fred.com', 'Flatbed', '720 S Michigan Ave, Chicago, IL 60605, USA', 'Chicago', 'Illinois', 'United States', '60605', 3, 'MB', 'Ridney', 'Lanes discussed', 'Humanitarian', '[]', '2024-09-15 05:13:37', '2024-10-18 23:25:53', NULL),
-(18, 666, '2024-09-14', NULL, 'Xavier', 8575765333, 'xavier@gmail.com', 'www.xavier.com', 'Maxi', '3rd Street Promenade, Santa Monica, CA 90401, USA', 'Santa Monica', 'California', 'United States', '90401', 3, 'BDS', 'Ivy', 'Prospect customer', 'Tory', '[]', '2024-09-15 05:34:14', '2024-09-15 05:34:14', NULL),
-(19, 442, '2024-09-14', NULL, 'Maria', 9055675744, 'maria@gmail.com', 'www.mariam.com', 'Reefer', '34 St - Herald Sq, New York, NY 10001, USA', 'New York', 'New York', 'United States', '10001', 34, 'CA', 'Jane', 'Product/Equipment discussed', 'Janith', '[]', '2024-09-15 05:40:02', '2024-09-15 05:40:02', NULL),
-(20, 545, '2024-10-08', '2024-10-29', 'Robin Joseph Kuracheril', 4379713752, 'robinjo1776@gmail.com', 'www.fred.com', 'Btrain', '30 Greendowns Dr, Toronto, M1M 2G7, Canada', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', 44, 'BC', 'Gregory Smith', 'No answer/Callback/Voicemail', 'jytjtyj', '[]', '2024-10-18 23:26:32', '2024-10-21 06:13:31', NULL),
-(21, 777, '2024-10-15', '2024-10-30', 'Gregory Smith', 9876546544, 'gregsmith@gmail.com', 'http://www.rondesantis.com', 'Maxi', '330 Sparks Street', 'Mumbai', 'ON', 'Canada', 'M1M 2G7', 65, 'CA', 'Gregory Smith', 'Carrier portal registration', 'hty', '[]', '2024-10-19 00:56:50', '2024-10-21 06:13:23', NULL),
-(22, 999, '2024-10-02', NULL, 'Ashley', 8877764644, 'hugh@gamil.com', 'www.ffrg.com', 'Roll tite', '425 Park Ave, New York, NY 10022, USA', 'New York', 'New York', 'United States', '10022', 33, 'MB', 'Tim', 'Fob/Have broker', 'nhng', '[]', '2024-10-19 01:08:04', '2024-10-19 01:08:04', NULL),
-(23, 35642, '2024-10-19', '2024-10-30', 'Bell', 5345345345, 'bell@gmail.com', 'www.fred.com', 'Maxi', '400 Michigan Ave, Chicago, IL 60605, USA', 'Chicago', 'Illinois', 'United States', '60605', 400, 'TBAB', 'Gregory Smith', 'Fob/Have broker', 'fgfhfh', '[]', '2024-10-19 01:09:09', '2024-10-24 08:46:07', '6'),
-(24, 556, '2024-10-19', '2024-10-31', 'Capri', 467743656, 'capri@gmail.com', 'www.rondesantis.com', 'Van', '50 Laurier Avenue East', 'Ottawa', 'ON', 'Canada', 'K1N 1H7', 44, 'DPD MAGMA', 'John', 'Product/Equipment discussed', 'jjtytyj', '[{\"name\":\"Sam\",\"phone\":\"9097755754\",\"email\":\"sam234@gmail.com\"},{\"name\":\"Ruben\",\"phone\":\"64654564644\",\"email\":\"rubel@gmail\"}]', '2024-10-19 01:11:55', '2024-10-24 06:17:53', '7'),
-(25, 888, '2024-10-19', '2024-10-29', 'Ashish', 908855433, 'ashish23@gmail.com', 'www.ashish.com', 'Reefer', '770 Broadway, New York, NY 10003, USA', 'New York', 'New York', 'United States', '10003', 770, 'DPD MAGMA', 'Eddy', 'Prospect customer', 'effefe', '[]', '2024-10-19 01:27:54', '2024-10-26 01:08:30', 'Daniel'),
-(26, 789, '2024-10-19', '2024-10-23', 'Rajesh', 664335656, 'rajesh@gmail.com', 'www.rajesh.com', 'Triaxle', '2nd Ave, New York, NY, USA', 'New York', 'New York', 'United States', NULL, 2, 'BDS', 'David', 'Different Department', 'ghjgjg', '[{\"name\":\"Abel\",\"phone\":null,\"email\":\"abel@gmial.com\",\"contact_no\":\"9043868768\"}]', '2024-10-19 01:46:04', '2024-10-19 01:46:04', NULL),
-(27, 6783, '2024-10-21', '2024-11-01', 'Eglington', 7664674474, 'eglington@gmail.com', 'www.eglington.com', 'Maxi', '2nd Ave, New York, NY, USA', 'New York', 'New York', 'United States', NULL, 2, 'CA', 'Van', 'Different Department', 'gfger', '[]', '2024-10-21 03:00:50', '2024-10-24 08:49:46', '6');
+(18, 663, '2024-09-14', NULL, 'Xavier', 8575765333, 'xavier@gmail.com', 'www.xavier.com', 'Maxi', '3rd Street Promenade, Santa Monica, CA 90401, USA', 'Santa Monica', 'California', 'United States', '90401', 3, 'BDS', 'Ivy', 'Prospect customer', 'Tory', '[]', '2024-09-15 05:34:14', '2024-11-29 01:42:24', NULL),
+(23, 35642, '2024-10-19', '2024-10-30', 'Bell', 5345345345, 'bell@gmail.com', 'www.fred.com', 'Maxi', '400 Michigan Ave, Chicago, IL 60605, USA', 'Chicago', 'Illinois', 'United States', '60605', 400, 'TBAB', 'Gregory Smith', 'Fob/Have broker', 'fgfhfh', '[]', '2024-10-19 01:09:09', '2024-11-19 09:48:04', 'Kuber'),
+(27, 6783, '2024-10-21', '2024-11-01', 'Eglington', 7664674474, 'eglington@gmail.com', 'www.eglington.com', 'Maxi', '2nd Ave, New York, NY, USA', 'New York', 'New York', 'United States', NULL, 2, 'CA', 'Van', 'Different Department', 'gfger', '[]', '2024-10-21 03:00:50', '2024-11-19 09:47:56', 'Kuber'),
+(28, 7763, '2024-11-17', '2024-11-21', 'Aiden', 905887533, 'dan@gmail.com', 'www.kol.com', 'Flatbed', '5th Ave, Grace Park West, Caloocan, Metro Manila, Philippines', 'Caloocan', 'Metro Manila', 'Philippines', NULL, 34, 'BDS', 'sam', 'Lanes discussed', 'hjjg', '[]', '2024-11-17 08:44:54', '2024-12-01 23:07:24', 'Daniel'),
+(30, 4032, '2024-11-18', '2024-12-05', 'Julian', 8587858578, 'jul@gmail.com', 'www.julian.com', 'Flatbed', '6th Road', 'Rawalpindi', 'Punjab', 'Pakistan', 'C1414', 9, 'MB', 'Robin', 'No answer/Callback/Voicemail', 'hjhgjh', '[{\"name\":\"Kasturba\",\"phone\":\"8848748486\",\"email\":\"kas@gmail.com\"}]', '2024-11-17 23:22:50', '2024-12-01 23:23:50', 'Kuber'),
+(31, 6762, '2024-11-22', '2024-12-05', 'Benjamin', 9087554747, 'benjamin@gmail.com', 'www.benjamin.com', 'Maxi', '38 Oxley Rd, Singapore 238629', 'Singapore', 'Singapore', 'Singapore', '238629', 38, 'DPD MAGMA', 'Russell', 'Quotations', 'vdvd', '[{\"name\":\"Jill\",\"phone\":\"7667747467\",\"email\":\"jill43@gmail.com\"}]', '2024-11-21 20:30:09', '2024-12-02 21:56:59', 'Daniel'),
+(32, 32678, '2024-12-02', '2024-12-18', 'Panket', 9085686866, 'pankit@gmail.com', 'www.pankit.com', 'Reefer', 'Birlik, 365 AVM, 06610 Çankaya/Ankara, Türkiye', 'Ankara', 'Ankara', 'Türkiye', '06610', 35, 'ON', 'Biplov', 'Quotations', 'vvsf', '[]', '2024-12-01 20:37:31', '2024-12-05 22:31:06', 'Daniel'),
+(33, 507, '2024-12-04', '2024-12-25', 'Oswald', 9045674356, 'oswaldgracious@gmail.com', 'www.oswald.com', 'Reefer', '300 Landsberger Allee', 'Berlin', 'Berlin', 'Germany', '13055', NULL, 'ON', 'Home', 'Product/Equipment discussed', 'nhgng', '[{\"name\":\"Howley\",\"phone\":\"8789384942\",\"email\":\"howley@gmail.com\"}]', '2024-12-03 20:38:44', '2024-12-03 20:39:00', 'Daniel'),
+(34, 3290, '2024-12-06', '2024-12-19', 'Erin', 4950868635, 'erinjade@gmail.com', 'www.erinjade.com', 'Maxi', '671 Lincoln Avenue', 'Winnetka', 'Illinois', 'United States', '60093', NULL, 'MB', 'Ivan', 'E-mail sent to concerned person', 'hhrthrt', '[{\"name\":\"Rubel Hossain\",\"phone\":\"79695353\",\"email\":\"ruelhossain@gmail.com\"}]', '2024-12-05 22:28:25', '2024-12-05 22:28:47', 'Daniel');
 
 -- --------------------------------------------------------
 
@@ -196,16 +190,22 @@ CREATE TABLE `lead_follow_up` (
 --
 
 INSERT INTO `lead_follow_up` (`id`, `lead_status`, `next_follow_up_date`, `remarks`, `equipment`, `lead_no`, `lead_date`, `customer_name`, `phone`, `email`, `address`, `city`, `state`, `country`, `postal_code`, `unit_no`, `lead_type`, `contact_person`, `notes`, `contacts`, `created_at`, `updated_at`, `products`) VALUES
-(2, 'bgfb', '2024-09-24', NULL, NULL, '543', '2024-09-17', 'Robin Joseph', '4379713752', 'robinjo1776@gmail.com', '50 Hudson Yards, New York, NY 10001, USA', 'New York', 'New York', 'United States', '10001', '33', 'cdsvs', 'Robin Joseph', 'hgfhgfh', NULL, '2024-09-21 20:54:56', '2024-09-21 20:54:56', NULL),
-(3, 'Given', '2024-10-01', NULL, NULL, '533', '2024-09-24', 'Ruben', '6635363563', 'rub@gmail.com', '34 St - Herald Sq, New York, NY 10001, USA', 'New York', 'New York', 'United States', '10001', '34', 'Urgent', 'Ben', 'great', NULL, '2024-09-21 23:32:13', '2024-09-21 23:32:13', NULL),
-(5, 'completed', '2024-09-15', NULL, NULL, '443', '2024-09-17', 'Shivam', '534534533', 'shiva23@gmail.com', '3rd Street Promenade, Santa Monica, CA 90401, USA', 'Santa Monica', 'California', 'United States', '90401', '3', 'Urgent', 'Wendy', NULL, NULL, '2024-09-23 00:35:03', '2024-09-23 00:35:03', NULL),
-(6, 'completed', '2024-10-03', NULL, NULL, '442', '2024-09-17', 'Faisan', '54524222432', 'faizan@gmail.com', '400 Michigan Ave, Chicago, IL 60605, USA', 'Chicago', 'Illinois', 'United States', '60605', NULL, 'Urgent', 'Faizan', 'Urgent', NULL, '2024-09-23 00:41:08', '2024-09-23 00:41:08', NULL),
-(7, 'in_progress', '2024-09-28', NULL, NULL, '422', '2024-09-18', 'Denzel', '98787687484', 'denzel@gmail.com', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', 'M1M 2G7', NULL, 'Urgent', 'Faizan', 'Urgent', NULL, '2024-09-23 00:43:13', '2024-09-23 00:43:13', NULL),
-(8, 'completed', '2024-10-03', NULL, NULL, '54353', '2024-09-16', 'ffsf', '34324324234', 'dfbdd@vvre.com', '50 Hudson Yards, New York, NY, USA', 'New York', 'New York', 'United States', '10001', '33', 'cdsvs', 'vxcvxcv', 'vxcvcx', NULL, '2024-09-23 01:28:06', '2024-09-23 01:28:06', NULL),
-(9, 'completed', '2024-09-18', NULL, NULL, '34232', '2024-09-16', 'Bell', '5345345345', 'bell@gmail.com', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', 'gdfgfd', '4', 'Urgent', 'gfdgdg', 'gdfdfg', NULL, '2024-09-23 01:31:29', '2024-09-23 01:31:29', NULL),
-(10, 'new', '2024-10-03', NULL, NULL, '88554', '2024-09-15', 'nhnhg', '67567567567', 'bell@gmail.com', '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', '4', 'Urgent', 'gfdgdg', 'mgjmgjm', NULL, '2024-09-23 01:32:28', '2024-09-23 01:32:28', NULL),
-(11, 'lost', '2024-09-10', 'bgbdbd', 'equipment3', '678474', '2024-09-16', 'fsdfds', '423423423432', 'bell@gmail.com', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', 'M1M 2G7', '4', 'Urgent', 'gfdgdg', 'bdgbdg', '[{\"name\":\"gdfgdfg\",\"phone\":\"43543534534\"}]', '2024-09-23 01:37:12', '2024-09-23 01:37:12', '[{\"name\":\"gfdgdf\",\"quantity\":\"4\"}]'),
-(12, 'In Progress', '2024-11-29', 'kiku', NULL, '888', '2024-10-19', 'Ashish', '908855433', 'ashish23@gmail.com', '770 Broadway, New York, NY 10003, USA', 'New York', 'New York', 'United States', '10003', '770', 'DPD MAGMA', 'hgjg', 'kiuku', '[]', '2024-11-07 23:11:20', '2024-11-07 23:11:20', '[]');
+(14, 'New', '2024-11-28', 'fghgfhf', 'Reefer', '9889', '2024-11-17', 'Brendon', '8877764644', 'brendon@gmail.com', '425 Park Ave, New York, NY 10022, USA', 'New York', 'New York', 'United States', '10022', '425', 'Good', 'Ben', 'hgfhf', '[]', '2024-11-17 08:55:25', '2024-11-17 08:55:25', '[]'),
+(15, 'Completed', '2024-12-04', 'ghjjg', 'Flatbed', '345', '2024-11-18', 'Ryan', '90775675757', 'ryangosling@gmail.com', '7th Ave, New York, NY, USA', 'New York', 'New York', 'United States', 'M2J 3Z7', '7', 'hjgj', 'jhg', 'jghjhg', '[]', '2024-11-17 20:47:24', '2024-11-17 20:47:24', '[]'),
+(16, 'On Hold', '2024-12-04', 'jhjgj', 'Maxi', '909', '2024-11-18', 'Aria', '9886885675', 'rubel@gmail', '4K Chowrangi, Sector 5 D New Karachi Town, Karachi, Karachi City, Sindh, Pakistan', 'Karachi', 'Sindh', 'Pakistan', '775544', '7', 'jhjghjgh', 'jghjghj', 'jhgjhgjg', '[]', '2024-11-17 20:51:18', '2024-11-17 20:51:18', '[]'),
+(17, 'Lost', '2024-11-29', 'vgvgf', 'Triaxle', '789', '2024-11-18', 'Queeny', '9804840383', 'queen@gmail.com', 'Av. Córdoba 5160, C1414BAW Cdad. Autónoma de Buenos Aires, Argentina', 'Buenos Aires', 'Ciudad Autónoma de Buenos Aires', 'Argentina', 'C1414', '5', 'Urgent', 'Ashley', 'gfv', '[]', '2024-11-17 23:25:58', '2024-11-17 23:25:58', '[]'),
+(18, 'New', '2024-11-27', 'hngh', 'Roll tite', '6752', '2024-11-18', 'Shane Watson', '908858755', 'shane@gmail.com', '3rd Street Promenade, Santa Monica, CA 90401, USA', 'Santa Monica', 'California', 'United States', '90401', '3', 'bh', 'bghb', 'jhjg', '[{\"name\":\"Hugo\",\"phone\":\"8587585855\",\"email\":\"hugo@gmail.com\"}]', '2024-11-17 23:58:37', '2024-11-19 01:47:50', '[]'),
+(19, 'Completed', '2024-12-06', NULL, 'Triaxle', '9885', '2024-11-21', 'Brendon', '8877764644', 'brendon@gmail.com', '425 Park Ave, New York, NY 10022, USA', 'New York', 'New York', 'United States', '10022', '425', 'Good', 'Ben', 'mjmjhm', '[]', '2024-11-20 22:06:01', '2024-11-20 22:06:01', '[]'),
+(21, 'On Hold', '2024-11-27', 'fssdfsd', 'Btrain', '5643', '2024-11-21', 'Ariana', '576757567567', 'ariel@gmail.com', '3', 'New York', 'New York', 'United States', '10022', '425', 'Good', 'Ben', 'fsdfsd', '[]', '2024-11-20 22:23:40', '2024-11-20 22:23:40', '[]'),
+(22, 'Completed', '2024-12-06', 'vfdvfd', 'Flatbed', '795', '2024-11-21', 'Greg Chapell', '9085765755', 'greg@gmail.com', '4', 'Calgary', 'Ontario', 'Canada', 'M2J 3Z7', '4', 'vfdvfd', 'vfd', 'vfv', '[]', '2024-11-20 22:40:36', '2024-11-20 22:40:36', '[]'),
+(23, 'Completed', '2024-12-05', 'fdfsd', 'Triaxle', '603', '2024-11-21', 'Samuel Jones', '90847466242', 'sam64@gmail.com', '4K Chowrangi, Sector 5 D New Karachi Town, Karachi, Karachi City, Sindh, Pakistan', 'Karachi', 'Sindh', 'Pakistan', 'M1M 2G7', '4', 'fsdff', 'fdsf', 'fdsfsd', '[]', '2024-11-21 00:56:36', '2024-11-21 00:56:36', '[]'),
+(24, 'In Progress', '2024-12-06', 'frefer', 'Maxi', '32878', '2024-11-22', 'Craig', '9086657655', 'craig34@gmail.com', 'Birlik, 365 AVM, 06610 Çankaya/Ankara, Türkiye', 'Turkey', 'Ankara', 'Türkiye', '06610', '3', 'Good', 'vfvfd', 'frefr', '[{\"name\":\"Alex\",\"phone\":\"877687686786\",\"email\":\"alex34@gmail.com\"}]', '2024-11-21 22:03:03', '2024-12-05 22:29:25', '[]'),
+(25, 'On Hold', '2024-12-04', 'vfvdvdf', 'Triaxle', '7890', '2024-11-22', 'Vesley', '9086758333', 'vesley34@gmail.com', '5th Ave, Grace Park West, Caloocan, Metro Manila, Philippines', 'Caloocan', 'Metro Manila', 'Philippines', 'vvdvdf', '44', 'vfdv', 'dfvfdv', 'vfdvfd', '[{\"name\":\"Calinte\",\"phone\":\"9084474242\",\"email\":\"cali34@gmail.com\"}]', '2024-11-21 22:16:35', '2024-12-03 20:40:39', '[]'),
+(26, 'New', '2024-12-05', 'vfvvfdv', 'Btrain', '7895', '2024-11-22', 'Terminator', '9085756755', 'terminator305@gmail.com', 'Mahmutbey, 212 İstanbul Power Outlet AVM, 34100 Bağcılar/İstanbul, Türkiye', 'İstanbul', 'İstanbul', 'Türkiye', '34100', '23', 'vsfs', 'vfsvs', 'vfdvfd', '[{\"name\":\"Nukem\",\"phone\":\"9087686424\",\"email\":\"nukem34@gmail.com\"}]', '2024-11-21 22:20:52', '2024-11-21 22:21:06', '[{\"name\":\"Cutter\",\"quantity\":\"3\"}]'),
+(27, 'In Progress', '2024-12-04', 'nnhn', 'Triaxle', '7894', '2024-11-22', 'Terminator', '9085756755', 'terminator305@gmail.com', 'Mahmutbey, 212 İstanbul Power Outlet AVM, 34100 Bağcılar/İstanbul, Türkiye', 'İstanbul', 'İstanbul', 'Türkiye', '34100', '23', 'vsfs', 'vfsvs', 'nhng', '[{\"name\":\"Jules\",\"phone\":\"90876577374\",\"email\":\"jules34@gmail.com\"}]', '2024-11-21 22:40:58', '2024-11-21 22:40:58', '[{\"name\":\"Cutter\",\"quantity\":\"3\"}]'),
+(29, 'In Progress', '2024-11-27', 'vfvfd', 'Triaxle', '45678', '2024-11-22', 'Terminator', '9085756755', 'terminator305@gmail.com', 'Mahmutbey, 212 İstanbul Power Outlet AVM, 34100 Bağcılar/İstanbul, Türkiye', 'İstanbul', 'İstanbul', 'Türkiye', '34100', '23', 'vsfs', 'vfsvs', 'vfdf', '[{\"name\":\"Jules\",\"phone\":\"90876577374\",\"email\":\"jules34@gmail.com\"}]', '2024-11-21 23:06:16', '2024-11-21 23:06:16', '[{\"name\":\"Cutter\",\"quantity\":\"3\"}]'),
+(30, 'In Progress', '2024-11-29', 'njgng', 'Btrain', '676', '2024-11-22', 'Benjamin', '9087554747', 'benjamin@gmail.com', '38 Oxley Rd, Singapore 238629', 'nhg', 'nhg', 'Singapore', '238629', '54', 'ngn', 'ngj', 'njgng', '[{\"name\":\"Jules\",\"phone\":\"90876577374\",\"email\":\"jules34@gmail.com\"}]', '2024-11-21 23:08:34', '2024-11-21 23:08:34', '[{\"name\":\"Cutter\",\"quantity\":\"3\"}]'),
+(31, 'In Progress', '2024-12-05', 'hgfh', 'Reefer', '6762', '2024-11-22', 'Benjamin', '9087554747', 'benjamin@gmail.com', '38 Oxley Rd, Singapore 238629', 'nhg', 'nhg', 'Singapore', '238629', '54', 'ngn', 'ngj', 'hgfhgfhf', '[]', '2024-11-27 00:43:00', '2024-12-03 00:17:50', '[]');
 
 -- --------------------------------------------------------
 
@@ -238,7 +238,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (32, '2024_10_23_045324_add_role_to_users_table', 7),
 (33, '2024_10_23_054846_add_emp_code_to_users_table', 8),
 (34, '2024_10_23_063306_update_role_column_in_users_table', 9),
-(35, '2024_10_24_112556_add_assigned_to_to_leads_table', 10);
+(35, '2024_10_24_112556_add_assigned_to_to_leads_table', 10),
+(36, '2024_12_06_044821_modify_cust_credit_application_column_in_customers_table', 11);
 
 -- --------------------------------------------------------
 
@@ -489,14 +490,96 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (502, 'App\\Models\\User', 7, 'API Token', '848e4bc37bd0fb998727b6dbc643be40175c5d0a83e19ebc1d1d5a8d51bdf88f', '[\"*\"]', NULL, NULL, '2024-11-15 05:36:00', '2024-11-15 05:36:00'),
 (503, 'App\\Models\\User', 7, 'API Token', 'b49ba9e6b6ec69adfed2a812f41a30fac4cfc1c3c60a4ce50d8f277adb695522', '[\"*\"]', NULL, NULL, '2024-11-15 05:37:45', '2024-11-15 05:37:45'),
 (504, 'App\\Models\\User', 7, 'API Token', 'eb710bd4580d3cd0e58522634b8feae134e5b5025ff783da4b8e3bdb6d966e95', '[\"*\"]', '2024-11-16 22:37:33', NULL, '2024-11-15 05:46:44', '2024-11-16 22:37:33'),
-(505, 'App\\Models\\User', 7, 'API Token', '3e2d840ce54d83266121731d9e7da32121368dfa5a8f943916b01a3f97478269', '[\"*\"]', '2024-11-15 06:09:10', NULL, '2024-11-15 05:50:01', '2024-11-15 06:09:10'),
+(505, 'App\\Models\\User', 7, 'API Token', '3e2d840ce54d83266121731d9e7da32121368dfa5a8f943916b01a3f97478269', '[\"*\"]', '2024-11-24 05:58:05', NULL, '2024-11-15 05:50:01', '2024-11-24 05:58:05'),
 (506, 'App\\Models\\User', 1, 'API Token', '8466b72892063c9fc049d1720e6bf7e95ef5fddf2f3e1194521ef9e0c06f2cc3', '[\"*\"]', '2024-11-15 22:35:39', NULL, '2024-11-15 20:49:02', '2024-11-15 22:35:39'),
 (507, 'App\\Models\\User', 7, 'API Token', '85c9014c9014d47b17c3f95b8bba8eb830cdef1f59a35f7d785416498a65717d', '[\"*\"]', '2024-11-15 23:02:26', NULL, '2024-11-15 23:02:02', '2024-11-15 23:02:26'),
 (508, 'App\\Models\\User', 1, 'API Token', '0a488e3a5b9df94f20f1758248ab0af53aac1f7137cd7eea6eb2a33ae0c6ae13', '[\"*\"]', '2024-11-15 23:02:51', NULL, '2024-11-15 23:02:48', '2024-11-15 23:02:51'),
 (509, 'App\\Models\\User', 1, 'API Token', '2a1afbfb35b674668ee646f5174684f7c730a82b5cd08ba58a52b2b9b3e4c43a', '[\"*\"]', '2024-11-16 22:29:22', NULL, '2024-11-15 23:08:58', '2024-11-16 22:29:22'),
 (510, 'App\\Models\\User', 1, 'API Token', '6393e48951ebdfe476aa2bbdf0ab6450a61125a1aa779b23048d82cc7388397e', '[\"*\"]', '2024-11-16 22:52:17', NULL, '2024-11-16 22:33:41', '2024-11-16 22:52:17'),
-(511, 'App\\Models\\User', 7, 'API Token', '80534f64490c385e09464e38a4809b5c70fd0d44d646bdd6b8a2e0505b46e8fb', '[\"*\"]', '2024-11-17 01:14:27', NULL, '2024-11-17 01:14:22', '2024-11-17 01:14:27'),
-(512, 'App\\Models\\User', 1, 'API Token', '18c5ff1cbc4311fb14fc22474848eb02391f14de5c201d9c6e810c8cf1068285', '[\"*\"]', '2024-11-17 01:14:46', NULL, '2024-11-17 01:14:32', '2024-11-17 01:14:46');
+(511, 'App\\Models\\User', 7, 'API Token', '80534f64490c385e09464e38a4809b5c70fd0d44d646bdd6b8a2e0505b46e8fb', '[\"*\"]', '2024-11-17 03:53:12', NULL, '2024-11-17 01:14:22', '2024-11-17 03:53:12'),
+(512, 'App\\Models\\User', 1, 'API Token', '18c5ff1cbc4311fb14fc22474848eb02391f14de5c201d9c6e810c8cf1068285', '[\"*\"]', '2024-11-17 04:14:06', NULL, '2024-11-17 01:14:32', '2024-11-17 04:14:06'),
+(513, 'App\\Models\\User', 1, 'API Token', '3ba33818204cecabcb549fdc250e26609e494de202284b133c13c5d208e5194a', '[\"*\"]', '2024-11-17 04:34:35', NULL, '2024-11-17 04:15:28', '2024-11-17 04:34:35'),
+(514, 'App\\Models\\User', 1, 'API Token', '310476f073356ba0e1bbf5238463848519a592e4fdbaf1a34ea0f4934f00253b', '[\"*\"]', '2024-11-17 06:21:18', NULL, '2024-11-17 04:35:21', '2024-11-17 06:21:18'),
+(515, 'App\\Models\\User', 7, 'API Token', 'f0a89d17d437d55da7128d2a10b464ad8ce3ad285fd4f01ae9a0ad2dce790260', '[\"*\"]', '2024-11-17 09:37:40', NULL, '2024-11-17 08:32:13', '2024-11-17 09:37:40'),
+(516, 'App\\Models\\User', 1, 'API Token', '29757c295b2f0c566b41a8212e751c716cb25092bbab4ad4959084fdc64626f0', '[\"*\"]', '2024-11-18 03:29:05', NULL, '2024-11-17 08:32:41', '2024-11-18 03:29:05'),
+(517, 'App\\Models\\User', 1, 'API Token', '3ef515f218f5b8df6f473d310ccf0c4c58f730a76a9afd73b7a55685bf9515fc', '[\"*\"]', '2024-11-18 21:04:15', NULL, '2024-11-18 08:39:23', '2024-11-18 21:04:15'),
+(518, 'App\\Models\\User', 1, 'API Token', '8ea1708f297f3b696eb687f836322f0f8438ee0595d13a5b46962616deb24312', '[\"*\"]', '2024-11-19 00:55:50', NULL, '2024-11-18 21:15:51', '2024-11-19 00:55:50'),
+(519, 'App\\Models\\User', 1, 'API Token', '2ee86a03c4ab972f370aa61c364413c28a7f09811e143f9e770f1b5635c5c357', '[\"*\"]', '2024-11-19 01:48:04', NULL, '2024-11-19 00:57:51', '2024-11-19 01:48:04'),
+(520, 'App\\Models\\User', 1, 'API Token', '5d1aac28b67ff030eb3c21789ccdaf292273dc3c6dc809ffff0662c7088237ce', '[\"*\"]', '2024-11-19 09:53:58', NULL, '2024-11-19 09:07:47', '2024-11-19 09:53:58'),
+(521, 'App\\Models\\User', 7, 'API Token', '84e43f45e79e83be7e08ccbf2c6cf51edfc882754b54bd40c4fb6d6a96c862fe', '[\"*\"]', '2024-11-19 10:03:06', NULL, '2024-11-19 09:49:38', '2024-11-19 10:03:06'),
+(522, 'App\\Models\\User', 7, 'API Token', '644d7b07385856fec94790c04211c64e3a47844cd57108fa3b2883f152a7a11b', '[\"*\"]', '2024-11-19 10:15:15', NULL, '2024-11-19 10:05:15', '2024-11-19 10:15:15'),
+(523, 'App\\Models\\User', 7, 'API Token', '81c0e8d81496f1f5cf72cd8690e6b553e7d1e9478896f09517a3d05bb53bc861', '[\"*\"]', '2024-11-19 10:23:48', NULL, '2024-11-19 10:15:19', '2024-11-19 10:23:48'),
+(524, 'App\\Models\\User', 7, 'API Token', '9a36d7a0699836f04dd88b19a350b862a7688728a00944d398ea23e9f352f2c9', '[\"*\"]', '2024-11-19 23:32:15', NULL, '2024-11-19 10:23:51', '2024-11-19 23:32:15'),
+(525, 'App\\Models\\User', 7, 'API Token', '330f317ec9159d43280700bf4771283c8feeb274b81da579d581252354d4c7c1', '[\"*\"]', '2024-11-20 06:57:34', NULL, '2024-11-19 23:32:28', '2024-11-20 06:57:34'),
+(526, 'App\\Models\\User', 1, 'API Token', '77c2b06a833e16e911e877608dbb04d62d4ce0edf4df27317ca3e69d541956f1', '[\"*\"]', '2024-11-20 06:16:30', NULL, '2024-11-20 04:42:21', '2024-11-20 06:16:30'),
+(527, 'App\\Models\\User', 7, 'API Token', '748921c09fe58a04568449388f778d5858d610d67fcebe41dbc543fbeee694e3', '[\"*\"]', '2024-11-21 01:03:59', NULL, '2024-11-20 20:15:53', '2024-11-21 01:03:59'),
+(528, 'App\\Models\\User', 1, 'API Token', '6c2a5d267c7124dd24b06cf6c12aed272dbf30a2180f99214a7ce9c6db61d0f7', '[\"*\"]', '2024-11-21 01:33:37', NULL, '2024-11-21 01:26:00', '2024-11-21 01:33:37'),
+(529, 'App\\Models\\User', 7, 'API Token', 'd196945f0a1b9656fc98540772d701f397a3e02f62d1ee22ff726917519e1dc7', '[\"*\"]', '2024-11-22 00:19:04', NULL, '2024-11-21 08:05:35', '2024-11-22 00:19:04'),
+(530, 'App\\Models\\User', 1, 'API Token', '32cadbe6c2372186dfff4bb2ce15f3ab4181fc4fa028118ae24f885a0b6ceb87', '[\"*\"]', '2024-11-22 00:09:33', NULL, '2024-11-21 08:41:34', '2024-11-22 00:09:33'),
+(531, 'App\\Models\\User', 1, 'API Token', 'ae00dc8a28b2fabeac909b43589d2529ee039164a1c458e196ded4824ae43c0f', '[\"*\"]', '2024-11-23 06:22:30', NULL, '2024-11-22 08:43:00', '2024-11-23 06:22:30'),
+(532, 'App\\Models\\User', 7, 'API Token', '628bf376bff305331709bf6ee11f711ffc6d7bf0c12700336679b64e47a78fe7', '[\"*\"]', '2024-11-23 06:25:30', NULL, '2024-11-23 00:45:25', '2024-11-23 06:25:30'),
+(533, 'App\\Models\\User', 1, 'API Token', 'bf5543ccf48ee742ee35114ba0e1c00f7eea870806dd27676b9bc0b802e09650', '[\"*\"]', '2024-11-24 00:03:37', NULL, '2024-11-23 07:13:34', '2024-11-24 00:03:37'),
+(534, 'App\\Models\\User', 1, 'API Token', '61b507022d7d8240d1622a83396f160baaabcfd4a8acbebb9cd37395328f5d58', '[\"*\"]', '2024-11-24 00:22:41', NULL, '2024-11-24 00:05:49', '2024-11-24 00:22:41'),
+(535, 'App\\Models\\User', 1, 'API Token', '46aa51376b2b62c085d2040727c0b67560f34fdf67fac6ca56a10b7202b6f76b', '[\"*\"]', '2024-11-24 05:38:41', NULL, '2024-11-24 05:35:46', '2024-11-24 05:38:41'),
+(536, 'App\\Models\\User', 7, 'API Token', 'bdb96671f8bc62678181b2db221a115988c8035d5ae4774ad8dd0b60d088a0de', '[\"*\"]', '2024-11-24 05:38:49', NULL, '2024-11-24 05:38:46', '2024-11-24 05:38:49'),
+(537, 'App\\Models\\User', 1, 'API Token', '68a3415e029e1420e51b2940f2a79508d1bbba73b500d79ec45b98dff6853085', '[\"*\"]', '2024-11-24 05:44:16', NULL, '2024-11-24 05:42:57', '2024-11-24 05:44:16'),
+(538, 'App\\Models\\User', 1, 'API Token', '15d52b0fcd822043c896b7e066f5d2ea6282c6e2eaeae49a07fbe1176d74c55d', '[\"*\"]', '2024-11-24 05:45:47', NULL, '2024-11-24 05:45:45', '2024-11-24 05:45:47'),
+(539, 'App\\Models\\User', 1, 'API Token', '6759ebfb0ab44e9e27360564114eb9e6c74f362bfdb9464ae08a2842e8bc8d23', '[\"*\"]', '2024-11-24 06:13:02', NULL, '2024-11-24 05:46:06', '2024-11-24 06:13:02'),
+(540, 'App\\Models\\User', 7, 'API Token', '2aecfb74873259d3d0733e8dc17e7d66fddae539e5b8a924c8cb1aa82f3155cd', '[\"*\"]', '2024-11-24 06:03:16', NULL, '2024-11-24 05:48:27', '2024-11-24 06:03:16'),
+(541, 'App\\Models\\User', 7, 'API Token', 'fb946ca01d4b6719c615408ab6701781342b08067602a293f62f6a3a5f3869a9', '[\"*\"]', NULL, NULL, '2024-11-24 05:57:56', '2024-11-24 05:57:56'),
+(542, 'App\\Models\\User', 1, 'API Token', '1223a21a29abd800b8dac5c0c8d46067c1cfa906d77b16c4cae26cb82db9c6f2', '[\"*\"]', '2024-11-24 06:30:37', NULL, '2024-11-24 06:28:53', '2024-11-24 06:30:37'),
+(543, 'App\\Models\\User', 7, 'API Token', 'd21a1d425940f5f151c41015524b29c55e10409c03b7ea0e8279e8e34b821d14', '[\"*\"]', '2024-11-24 06:31:29', NULL, '2024-11-24 06:31:00', '2024-11-24 06:31:29'),
+(544, 'App\\Models\\User', 1, 'API Token', '90cea1f78d7e64bb0c58f3dac7ffc8819ed8c26ca36dff11e494db31508cefd7', '[\"*\"]', '2024-11-25 00:19:39', NULL, '2024-11-24 06:32:02', '2024-11-25 00:19:39'),
+(545, 'App\\Models\\User', 7, 'API Token', '4cce259b6ff7505b30cfc19aadfdbfea3a852a93544f97a0b08753cce98562b5', '[\"*\"]', '2024-11-24 23:04:28', NULL, '2024-11-24 06:32:23', '2024-11-24 23:04:28'),
+(546, 'App\\Models\\User', 1, 'API Token', '365370eea6e08a811dc28de75b201523bd9e4bb764853fce790b54353c008874', '[\"*\"]', '2024-11-25 01:12:14', NULL, '2024-11-25 01:10:31', '2024-11-25 01:12:14'),
+(547, 'App\\Models\\User', 7, 'API Token', '2df7157211a9c9fc0b2f01c24706d8afbdaff75ddbce0e26585637f95a8cdc25', '[\"*\"]', '2024-11-25 01:13:26', NULL, '2024-11-25 01:12:51', '2024-11-25 01:13:26'),
+(548, 'App\\Models\\User', 1, 'API Token', 'e0d0602b655f920b5f046166e9c86ecbe35fc190e4ee6d5193963bbde519e3df', '[\"*\"]', '2024-11-26 04:00:59', NULL, '2024-11-25 01:13:58', '2024-11-26 04:00:59'),
+(549, 'App\\Models\\User', 7, 'API Token', '3fb324dfa9703b44772eaa078570fd7a6ba00fcf5f932932c6b2213b571116e3', '[\"*\"]', '2024-11-25 02:36:56', NULL, '2024-11-25 01:22:10', '2024-11-25 02:36:56'),
+(550, 'App\\Models\\User', 1, 'API Token', 'a09a3be64e5ac6e33943f3663d9ca0ed15af97126c839ee4badb6dc460a7818e', '[\"*\"]', '2024-12-05 04:56:35', NULL, '2024-11-25 03:17:28', '2024-12-05 04:56:35'),
+(551, 'App\\Models\\User', 1, 'API Token', 'acd89d448169deda9e2f7838d24206ec197d228ccc459e0505b0b24632811ee5', '[\"*\"]', '2024-11-26 09:35:20', NULL, '2024-11-26 09:07:10', '2024-11-26 09:35:20'),
+(552, 'App\\Models\\User', 1, 'API Token', 'f4752489c2e104b63b1c19d9936357a287375d38bb7f8e6d300ff7f5ae31b52a', '[\"*\"]', '2024-11-26 23:02:31', NULL, '2024-11-26 20:48:43', '2024-11-26 23:02:31'),
+(553, 'App\\Models\\User', 7, 'API Token', '4b39d7c39c38e7f80e1b0ffb3e286693d245f86584d0ac8258d688854c508663', '[\"*\"]', '2024-11-26 23:03:17', NULL, '2024-11-26 23:03:07', '2024-11-26 23:03:17'),
+(554, 'App\\Models\\User', 7, 'API Token', '7d0a2f0181f985ae6f0ffac01fce228d81530ab38005ad2e303003eb61696dd0', '[\"*\"]', '2024-11-27 01:00:24', NULL, '2024-11-27 00:41:00', '2024-11-27 01:00:24'),
+(555, 'App\\Models\\User', 1, 'API Token', '693635b0df7c886bbd173a9130390cda760534c21fd32ee1416e8de76712fca7', '[\"*\"]', '2024-11-27 00:41:32', NULL, '2024-11-27 00:41:30', '2024-11-27 00:41:32'),
+(556, 'App\\Models\\User', 7, 'API Token', 'd1a57aa6aecf3dc5dec91e3e9ac1d9b88a3165709a797128cdd5b8c58804fb3c', '[\"*\"]', '2024-11-27 04:45:41', NULL, '2024-11-27 02:28:46', '2024-11-27 04:45:41'),
+(557, 'App\\Models\\User', 7, 'API Token', 'd5aa256c377fd9dae248f029a5625332efe4b0d334348a0bb730ba03982090e1', '[\"*\"]', '2024-11-27 22:12:42', NULL, '2024-11-27 04:53:26', '2024-11-27 22:12:42'),
+(558, 'App\\Models\\User', 7, 'API Token', '69e9fe19a13cdf4dab79bb1e52cdf1b7b08b78b3c19ab546d56a3f2b9f39ae99', '[\"*\"]', '2024-11-28 00:02:50', NULL, '2024-11-27 23:34:00', '2024-11-28 00:02:50'),
+(559, 'App\\Models\\User', 7, 'API Token', '1bb3fef8a0b95bcd7dfa68f21c3efee3d5bf83bd1ea805138ca988c95fd25028', '[\"*\"]', NULL, NULL, '2024-11-28 00:13:56', '2024-11-28 00:13:56'),
+(560, 'App\\Models\\User', 7, 'API Token', '5b671faf1bc6c3c72c624c2040f665350e10d2f100ecaf60f41a0371d6faa05e', '[\"*\"]', NULL, NULL, '2024-11-28 00:16:16', '2024-11-28 00:16:16'),
+(561, 'App\\Models\\User', 7, 'API Token', '5fea6a345e30ffb627dc8961c284757f58305a8b5f2716e7f15895c517b74688', '[\"*\"]', NULL, NULL, '2024-11-28 00:18:07', '2024-11-28 00:18:07'),
+(562, 'App\\Models\\User', 7, 'API Token', '4cdc92f34da7a987c4fc0a01a4eadc9b38edb3c979a524ce256120ac846bb041', '[\"*\"]', NULL, NULL, '2024-11-28 00:18:40', '2024-11-28 00:18:40'),
+(563, 'App\\Models\\User', 7, 'API Token', '375b76cfd26b22b511ccef19e6155dd8e01f1f93537e3f24ad397d486e8aa79f', '[\"*\"]', NULL, NULL, '2024-11-28 00:18:53', '2024-11-28 00:18:53'),
+(564, 'App\\Models\\User', 7, 'API Token', '208100ec39051dbf95835d6ea835bc2dc313c07bd128b71c29d71677220f5c8b', '[\"*\"]', '2024-11-28 00:51:50', NULL, '2024-11-28 00:31:11', '2024-11-28 00:51:50'),
+(565, 'App\\Models\\User', 7, 'API Token', '67d398da03d5a52180d69af32398408cc24e486bc0f6f8d1c2d8a14ecaabed02', '[\"*\"]', '2024-11-28 23:55:01', NULL, '2024-11-28 21:37:06', '2024-11-28 23:55:01'),
+(566, 'App\\Models\\User', 1, 'API Token', '67415dd64e48757dc940023e64984b6769956e4db3a1e63001cb0bfc940b48d9', '[\"*\"]', '2024-11-28 23:55:04', NULL, '2024-11-28 21:37:42', '2024-11-28 23:55:04'),
+(567, 'App\\Models\\User', 1, 'API Token', 'f6546b27a7fb50d83b69947d2a906e35598146b01d5737342b46fd0d36769f5e', '[\"*\"]', '2024-11-28 23:58:37', NULL, '2024-11-28 23:57:02', '2024-11-28 23:58:37'),
+(568, 'App\\Models\\User', 7, 'API Token', 'ac144a9dc1c0dbf601b51ac511e3e67bd54b59d23a92307c422902689d3e60ab', '[\"*\"]', '2024-11-29 00:00:40', NULL, '2024-11-28 23:59:05', '2024-11-29 00:00:40'),
+(569, 'App\\Models\\User', 7, 'API Token', '9253cb4e17729ac237427cec58fad0d54c26d0e6368385f4986c46a6670a381f', '[\"*\"]', '2024-11-29 00:14:56', NULL, '2024-11-29 00:00:58', '2024-11-29 00:14:56'),
+(570, 'App\\Models\\User', 1, 'API Token', 'd305d185a3801d235e3d2879b712ea3cefabbcd271025ea8c699aadf268ea950', '[\"*\"]', '2024-11-29 00:03:00', NULL, '2024-11-29 00:01:33', '2024-11-29 00:03:00'),
+(571, 'App\\Models\\User', 7, 'API Token', '909a14edff212e2dbc770e6386b0d84f1538e0b9665e2755f9b25a5268b2e16f', '[\"*\"]', '2024-11-29 00:16:37', NULL, '2024-11-29 00:15:03', '2024-11-29 00:16:37'),
+(572, 'App\\Models\\User', 7, 'API Token', '7fdaf74b3a8b36b265dc4224211a105e18637e235080028d24d0c804eb38432f', '[\"*\"]', '2024-11-29 00:18:32', NULL, '2024-11-29 00:16:50', '2024-11-29 00:18:32'),
+(573, 'App\\Models\\User', 7, 'API Token', 'f4667a42076db4ad5b37a5ba834094355aeaede85eaeb3f9e6d495ad29d98c29', '[\"*\"]', '2024-11-29 00:19:49', NULL, '2024-11-29 00:18:50', '2024-11-29 00:19:49'),
+(574, 'App\\Models\\User', 7, 'API Token', '791b48cc5069f835a33cc36afa63985580eb2352e06507074f9e1a277cf7fd5c', '[\"*\"]', '2024-11-29 01:34:26', NULL, '2024-11-29 01:33:52', '2024-11-29 01:34:26'),
+(575, 'App\\Models\\User', 1, 'API Token', 'e5fc730f05db60341b732b201159a4f24bbaa0ada1eeb1d2b22f9041550828cf', '[\"*\"]', '2024-11-29 01:38:21', NULL, '2024-11-29 01:36:34', '2024-11-29 01:38:21'),
+(576, 'App\\Models\\User', 7, 'API Token', '937adadb0b52f495e832e9aafe7e2e6cb08abae4e5af6ded1d4347cd83a9fc05', '[\"*\"]', '2024-11-29 01:41:11', NULL, '2024-11-29 01:38:55', '2024-11-29 01:41:11'),
+(577, 'App\\Models\\User', 7, 'API Token', 'a6765380246b9a22a126a52c117b0254025383f0ae38bc6ca257baa7c3461a5f', '[\"*\"]', '2024-11-29 01:41:26', NULL, '2024-11-29 01:41:21', '2024-11-29 01:41:26'),
+(578, 'App\\Models\\User', 1, 'API Token', '234e6a7dc2dc35764b64fed810c5b55f265a5bc89ccbd87920773049798df0dd', '[\"*\"]', '2024-11-29 01:43:27', NULL, '2024-11-29 01:42:03', '2024-11-29 01:43:27'),
+(579, 'App\\Models\\User', 7, 'API Token', 'd721a7c5b77998775e63edf8848e96c5d7e363a05e06bdcfc28d064cc992f17e', '[\"*\"]', '2024-11-29 01:43:59', NULL, '2024-11-29 01:43:42', '2024-11-29 01:43:59'),
+(580, 'App\\Models\\User', 1, 'API Token', '884d972ea239182a77bd271ce6a1d208613fb0c6ee090ca31d3b38304549904c', '[\"*\"]', '2024-11-29 07:02:25', NULL, '2024-11-29 05:41:47', '2024-11-29 07:02:25'),
+(581, 'App\\Models\\User', 1, 'API Token', 'e19582c3f1e2d0b64e10a9c741e482593bdf47b3056095af81429d5f594892a4', '[\"*\"]', '2024-12-01 07:58:36', NULL, '2024-11-29 09:32:56', '2024-12-01 07:58:36'),
+(582, 'App\\Models\\User', 1, 'API Token', 'ea52a3909d296b16dea0b4e641e1d9b485039b9a9ea72d0a6c7e91ef058e1377', '[\"*\"]', '2024-12-01 23:25:36', NULL, '2024-12-01 20:35:44', '2024-12-01 23:25:36'),
+(583, 'App\\Models\\User', 1, 'API Token', '795054421dff8ebf33eeeedc9276e9f58b557f06032878b2a8663e4bea4dd40e', '[\"*\"]', '2024-12-02 06:10:40', NULL, '2024-12-02 06:08:07', '2024-12-02 06:10:40'),
+(584, 'App\\Models\\User', 7, 'API Token', 'cbc957066f0f64f41220b96a5d82edd2df04c6586d883c50f1ba3265a5a4c77a', '[\"*\"]', '2024-12-02 10:09:40', NULL, '2024-12-02 09:43:14', '2024-12-02 10:09:40'),
+(585, 'App\\Models\\User', 7, 'API Token', '90ec6e71da0f7b6e5f3f970a7b79686c8a5d19a98a3d4d0efaf320b67b077cbd', '[\"*\"]', '2024-12-02 20:19:02', NULL, '2024-12-02 20:18:57', '2024-12-02 20:19:02'),
+(586, 'App\\Models\\User', 7, 'API Token', 'a2e518d1391d411e250a0458e5cd6fca8c42837a62033279f604de728898f337', '[\"*\"]', '2024-12-02 21:59:35', NULL, '2024-12-02 21:30:02', '2024-12-02 21:59:35'),
+(587, 'App\\Models\\User', 1, 'API Token', '11e99ed2ed351ca89542e2f4a9c663dad52238629947a8bb678c82007f308ff1', '[\"*\"]', '2024-12-02 22:12:36', NULL, '2024-12-02 21:56:14', '2024-12-02 22:12:36'),
+(588, 'App\\Models\\User', 7, 'API Token', 'c8242cde2553e4d3300c53cd8919d4c265ef8fb81bf24799530702240907ff13', '[\"*\"]', '2024-12-02 22:11:07', NULL, '2024-12-02 22:01:13', '2024-12-02 22:11:07'),
+(589, 'App\\Models\\User', 1, 'API Token', '328fb62dac63345510cada40d06755a48cf277c5c24dcb962aa7dd77da94870e', '[\"*\"]', '2024-12-04 02:26:11', NULL, '2024-12-03 00:10:10', '2024-12-04 02:26:11'),
+(590, 'App\\Models\\User', 7, 'API Token', '687fe27542e3d194c9e847d7ce7252812d2a0035f4ed880ace986540d395b4a8', '[\"*\"]', '2024-12-04 01:27:37', NULL, '2024-12-03 00:17:40', '2024-12-04 01:27:37'),
+(591, 'App\\Models\\User', 1, 'API Token', 'c65547b7cffb0de5cac68adb56a15f8f528834bf4e664533ac5a9866e052bade', '[\"*\"]', '2024-12-04 07:37:50', NULL, '2024-12-04 03:00:43', '2024-12-04 07:37:50'),
+(592, 'App\\Models\\User', 1, 'API Token', 'f013981f35e7561d9810749a9835e4d9184911e1ed7d06592cef819442a1ef87', '[\"*\"]', '2024-12-05 09:07:11', NULL, '2024-12-04 08:35:10', '2024-12-05 09:07:11'),
+(593, 'App\\Models\\User', 1, 'API Token', '2dc9cee9b389124f757709e5058cebbf95c02d0089df9298ce3ba23c95052725', '[\"*\"]', '2024-12-06 01:13:38', NULL, '2024-12-05 19:59:11', '2024-12-06 01:13:38'),
+(594, 'App\\Models\\User', 7, 'API Token', 'db4c5ff7352b921de6a896e11d47351b682240f502e43a3962b58b19ec6a7e48', '[\"*\"]', '2024-12-05 22:37:34', NULL, '2024-12-05 22:25:54', '2024-12-05 22:37:34');
 
 -- --------------------------------------------------------
 
@@ -599,7 +682,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -611,19 +694,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `lead_follow_up`
 --
 ALTER TABLE `lead_follow_up`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -635,7 +718,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=513;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
 
 --
 -- AUTO_INCREMENT for table `users`

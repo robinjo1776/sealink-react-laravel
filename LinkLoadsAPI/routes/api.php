@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\LeadController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\LeadFollowupController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\EmployeeLeadController;
+use App\Http\Controllers\LeadFollowupController;
 
 // Public routes (no authentication required)
 Route::post('/register', [AuthController::class, 'register']); // Register route
@@ -33,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Fetch Lead Followups for logged-in employee
     Route::get('/employee', [EmployeeController::class, 'index']);
+
+    Route::post('/upload', [FileUploadController::class, 'uploadFile']);
 
     // CRUD operations for Customers
     Route::get('/customer', [CustomerController::class,'index']);

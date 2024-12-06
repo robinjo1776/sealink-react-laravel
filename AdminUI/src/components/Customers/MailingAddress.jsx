@@ -68,111 +68,136 @@ function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
     const component = components.find((c) => c.types.includes(type));
     return component ? component.long_name : fallback;
   };
+
+  // Handle checkbox change
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setformCustomer((prevCustomer) => ({
+      ...prevCustomer,
+      sameAsPrimary: checked, // Update the sameAsPrimary state
+      // Optionally clear mailing address fields when checked
+      cust_mailing_address: checked ? "" : prevCustomer.cust_mailing_address,
+      cust_mailing_city: checked ? "" : prevCustomer.cust_mailing_city,
+      cust_mailing_state: checked ? "" : prevCustomer.cust_mailing_state,
+      cust_mailing_country: checked ? "" : prevCustomer.cust_mailing_country,
+      cust_mailing_postal: checked ? "" : prevCustomer.cust_mailing_postal,
+      cust_mailing_unit_no: checked ? "" : prevCustomer.cust_mailing_unit_no,
+    }));
+  };
+
   return (
     <fieldset>
       <legend>Mailing Address</legend>
 
       <div className="form-group">
-        <label htmlFor="mailingAddressSame">
+        <label
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            width: "100%",
+          }}
+          htmlFor="mailingAddressSame"
+        >
+          Same as Primary Address
           <input
             type="checkbox"
-            checked={formCustomer.sameAsPrimary || false}
-            onChange={(e) =>
-              setformCustomer({
-                ...formCustomer,
-                cust_contact_no: e.target.value,
-              })
-            }
+            id="mailingAddressSame"
+            checked={formCustomer.sameAsPrimary}
+            onChange={handleCheckboxChange} // Handle checkbox change
           />
-          Same as Primary Address
         </label>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="mailingAddressStreet">Street</label>
-        <input
-          type="text"
-          ref={addressRef}
-          value={formCustomer.cust_mailing_address}
-          onChange={(e) =>
-            setformCustomer({
-              ...formCustomer,
-              cust_mailing_address: e.target.value,
-            })
-          }
-          placeholder="Enter your address"
-        />
-      </div>
+      {/* Only show the mailing address form if sameAsPrimary is false */}
+      {!formCustomer.sameAsPrimary && (
+        <>
+          <div className="form-group">
+            <label htmlFor="mailingAddressStreet">Street</label>
+            <input
+              type="text"
+              ref={addressRef}
+              value={formCustomer.cust_mailing_address}
+              onChange={(e) =>
+                setformCustomer({
+                  ...formCustomer,
+                  cust_mailing_address: e.target.value,
+                })
+              }
+              placeholder="Enter your address"
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="mailingAddressCity">City</label>
-        <input
-          type="text"
-          value={formCustomer.cust_mailing_city}
-          onChange={(e) =>
-            setformCustomer({
-              ...formCustomer,
-              cust_mailing_city: e.target.value,
-            })
-          }
-        />
-      </div>
+          <div className="form-group">
+            <label htmlFor="mailingAddressCity">City</label>
+            <input
+              type="text"
+              value={formCustomer.cust_mailing_city}
+              onChange={(e) =>
+                setformCustomer({
+                  ...formCustomer,
+                  cust_mailing_city: e.target.value,
+                })
+              }
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="mailingAddressState">State</label>
-        <input
-          type="text"
-          value={formCustomer.cust_mailing_state}
-          onChange={(e) =>
-            setformCustomer({
-              ...formCustomer,
-              cust_mailing_state: e.target.value,
-            })
-          }
-        />
-      </div>
+          <div className="form-group">
+            <label htmlFor="mailingAddressState">State</label>
+            <input
+              type="text"
+              value={formCustomer.cust_mailing_state}
+              onChange={(e) =>
+                setformCustomer({
+                  ...formCustomer,
+                  cust_mailing_state: e.target.value,
+                })
+              }
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="mailingAddressCountry">Country</label>
-        <input
-          type="text"
-          value={formCustomer.cust_mailing_country}
-          onChange={(e) =>
-            setformCustomer({
-              ...formCustomer,
-              cust_mailing_country: e.target.value,
-            })
-          }
-        />
-      </div>
+          <div className="form-group">
+            <label htmlFor="mailingAddressCountry">Country</label>
+            <input
+              type="text"
+              value={formCustomer.cust_mailing_country}
+              onChange={(e) =>
+                setformCustomer({
+                  ...formCustomer,
+                  cust_mailing_country: e.target.value,
+                })
+              }
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="mailingAddressPostalCode">Postal Code</label>
-        <input
-          type="text"
-          value={formCustomer.cust_mailing_postal}
-          onChange={(e) =>
-            setformCustomer({
-              ...formCustomer,
-              cust_mailing_postal: e.target.value,
-            })
-          }
-        />
-      </div>
+          <div className="form-group">
+            <label htmlFor="mailingAddressPostalCode">Postal Code</label>
+            <input
+              type="text"
+              value={formCustomer.cust_mailing_postal}
+              onChange={(e) =>
+                setformCustomer({
+                  ...formCustomer,
+                  cust_mailing_postal: e.target.value,
+                })
+              }
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="mailingAddressUnitNo">Unit No</label>
-        <input
-          type="text"
-          value={formCustomer.cust_mailing_unit_no}
-          onChange={(e) =>
-            setformCustomer({
-              ...formCustomer,
-              cust_mailing_unit_no: e.target.value,
-            })
-          }
-        />
-      </div>
+          <div className="form-group">
+            <label htmlFor="mailingAddressUnitNo">Unit No</label>
+            <input
+              type="text"
+              value={formCustomer.cust_mailing_unit_no}
+              onChange={(e) =>
+                setformCustomer({
+                  ...formCustomer,
+                  cust_mailing_unit_no: e.target.value,
+                })
+              }
+            />
+          </div>
+        </>
+      )}
     </fieldset>
   );
 }
