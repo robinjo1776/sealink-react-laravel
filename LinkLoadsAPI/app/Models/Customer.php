@@ -12,7 +12,6 @@ class Customer extends Model
     protected $table = 'customers';
     protected $primaryKey = 'id';
 
-    // Allow mass assignment for the following fields
     protected $fillable = [
         'cust_name',
         'cust_type',

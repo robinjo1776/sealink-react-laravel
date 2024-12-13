@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Table from "../common/Table";
 import Modal from "../common/Modal";
-import EditUserForm from "./EditUserForm"; // Ensure this component exists
+import EditUserForm from "./EditUserForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddUserForm from "./AddUserForm";
 
@@ -20,32 +20,38 @@ const UserTable = () => {
 
   const perPage = 8;
 
-  useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const token = localStorage.getItem("token"); // Get the token dynamically
+        const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token found");
         }
-
-        setLoading(true); // Set loading to true before fetching
+  
+        setLoading(true);
         const { data } = await axios.get("http://127.0.0.1:8000/api/users", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("Fetched Users:", data); // Debugging the fetched data
+        console.log("Fetched Users:", data);
         setUsers(data);
       } catch (error) {
         console.error("Error loading users:", error);
         handleFetchError(error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
+  
+    useEffect(() => {
+      fetchUsers();
+    }, []); 
 
-    fetchUsers();
-  }, []);
+    const handleAddUser = async (newUser) => {
+      setUsers((prevUsers) => [...prevUsers, newUser]); // Optimistically update the UI
+      await fetchUsers(); // Refetch updated users from the server
+      closeAddModal();
+    };
 
   const handleFetchError = (error) => {
     if (error.response && error.response.status === 401) {
@@ -270,14 +276,10 @@ const UserTable = () => {
       <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add User">
         <AddUserForm
           onClose={closeAddModal}
-          onAddUser={(newUser) => {
-            setUsers((prevUsers) => [...prevUsers, newUser]);
-            closeAddModal();
-          }}
-        />
+          onAddUser={handleAddUser}        />
       </Modal>
     </div>
   );
-};
+}
 
 export default UserTable;

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
-class EmployeeController extends Controller
+class EmployeeFollowupController extends Controller
 {
     public function index()
     {
@@ -31,7 +31,6 @@ class EmployeeController extends Controller
         // Log the SQL query for debugging
         Log::info('SQL Query:', ['query' => $leadFollowups->toSql()]);
     
-        // Fetch results
         $leadFollowups = $leadFollowups->get();
     
         // If no data found, log and return 404

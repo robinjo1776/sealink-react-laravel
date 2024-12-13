@@ -17,14 +17,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', // Add name to the fillable attributes
-        'username',
-        'email',
-        'password',
-        'role', // Add role to the fillable attributes
-        'emp_code', // Add emp_code to the fillable attributes
-        'created_at',
-        'updated_at'
+        'name', 
+        'username',       // Assuming this is needed for your app
+        'email', 
+        'password', 
+        'role',           // If your app uses roles for users
+        'emp_code',       // Employee code, assuming it's a unique identifier for users
+        'created_at',     // These will be auto-managed by Laravel, no need to manually add them
+        'updated_at',     // These will be auto-managed by Laravel, no need to manually add them
     ];
 
     /**

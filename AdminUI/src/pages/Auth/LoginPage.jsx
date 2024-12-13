@@ -17,8 +17,8 @@ const LoginPage = () => {
       );
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.user.id);
-        localStorage.setItem("userRole", response.data.user.role);
+        localStorage.setItem("userId", response.data.user.id); // Now, user will be available
+        localStorage.setItem("userRole", response.data.user.role); // Now, user role will be available
 
         console.log("User ID saved:", response.data.user.id);
         console.log("User Role saved:", response.data.user.role);

@@ -30,14 +30,11 @@ class CustomerController extends Controller
         // Validate the incoming request
         $request->validate([
             'cust_name' => 'required|string|max:255',
-            'cust_type' => 'required|string|max:255',
-            'cust_email' => 'required|email',
-            // Add more validation rules as needed
         ]);
 
-        // Create and store the customer
+
         $customer = $this->customer->create($request->all());
-        return response()->json($customer, 201);  // Return the created customer with status 201
+        return response()->json($customer, 201);  
     }
 
     /**
@@ -62,13 +59,13 @@ class CustomerController extends Controller
         $customer = $this->customer->find($id);
 
         if (!$customer) {
-            return response()->json(['error' => 'Customer not found'], 404);  // Return 404 if customer not found
+            return response()->json(['error' => 'Customer not found'], 404);  
         }
 
         // Update the customer data
         $customer->update($request->all());
 
-        return response()->json($customer);  // Return the updated customer
+        return response()->json($customer);  
     }
 
     /**
@@ -79,10 +76,10 @@ class CustomerController extends Controller
         $customer = $this->customer->find($id);
 
         if (!$customer) {
-            return response()->json(['error' => 'Customer not found'], 404);  // Return 404 if customer not found
+            return response()->json(['error' => 'Customer not found'], 404); 
         }
 
-        $customer->delete();  // Delete the customer
+        $customer->delete();  
 
         return response()->json(['message' => 'Customer deleted successfully']);
     }

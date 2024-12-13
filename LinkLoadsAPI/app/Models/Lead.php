@@ -9,13 +9,10 @@ class Lead extends Model
 {
     use HasFactory;
 
-    // Define the table name (optional if your table name follows convention)
     protected $table = 'leads';
 
-    // Primary key field
-    protected $primaryKey = 'id';  // You can keep 'id' as primary key if you're using a standard auto-increment
+    protected $primaryKey = 'id';  
 
-    // Define the mass-assignable fields
     protected $fillable = [
         'lead_no',
         'lead_date',
@@ -38,7 +35,7 @@ class Lead extends Model
         'contacts',
         'assigned_to'
     ];
-    // Define the relationship to the LeadFollowup model
+    
     public function leadFollowups()
     {
         return $this->hasMany(LeadFollowup::class, 'lead_no'); // Ensure this matches the foreign key

@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/AuthController.php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -22,20 +20,29 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'username' => 'required|string|unique:users,username',  // Ensure the username is unique
+            'email' => 'required|email|unique:users,email',  // You might still want the email to be unique
+            'password' => 'required|string|min:8|confirmed',  // Make sure password_confirmation is included in the request
+            'role' => 'required|string',
+            'emp_code' => 'required|string',
         ]);
 
+        // Create the user
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'username' => $request->username,
+            'email' => $request->email, // Optional, but good for account recovery or notifications
+            'password' => Hash::make($request->password),  // Hash the password before saving
+            'role' => $request->role,
+            'emp_code' => $request->emp_code,
         ]);
 
+        // Generate and return the API token
         return response()->json([
             'token' => $user->createToken('API Token')->plainTextToken,
         ]);
     }
+
 
     /**
      * Log the user in and return the token.
@@ -45,34 +52,23 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // Validate username and password
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-    
-        // Attempt to authenticate using the provided username and password
-        $user = User::where('username', $request->username)->first();
-    
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Authentication successful
-            $token = $user->createToken('API Token')->plainTextToken;
+
+        if (Auth::attempt($request->only('username', 'password'))) {
+            $user = Auth::user();
             return response()->json([
-                'token' => $token,
-                'user' => [
-                    'id' => $user->id,
-                    'username' => $user->username,
-                    'role' => $user->role,
-                ], 
+                'token' => $user->createToken('API Token')->plainTextToken,
+                'user' => $user
             ]);
         }
-    
-        // If authentication fails, throw a validation error
+
         throw ValidationException::withMessages([
-            'username' => ['The provided credentials are incorrect.'],
+            'email' => ['The provided credentials are incorrect.'],
         ]);
     }
-    
 
     /**
      * Logout the user.

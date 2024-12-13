@@ -12,11 +12,10 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
   const handleFileChange = async (e, fieldName) => {
     const file = e.target.files[0];
     if (!file) return;
-  
+
     setUploading(true);
-  
+
     try {
-      // Create FormData and append the file
       const formData = new FormData();
       formData.append("file", file);
       const token = localStorage.getItem("token");
@@ -27,9 +26,9 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
           Authorization: `Bearer ${token}`,
         },
       });
-  
-      const data = await response.json(); // Assuming the server returns the file URL
-  
+
+      const data = await response.json();
+
       // Update the formCustomer state with the file URL
       setformCustomer({
         ...formCustomer,
@@ -41,7 +40,6 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
       setUploading(false);
     }
   };
-  
 
   // Render download link if file URL exists
   const renderDownloadLink = (fileUrl, fileLabel) => {

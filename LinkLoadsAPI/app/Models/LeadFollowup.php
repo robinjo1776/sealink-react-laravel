@@ -9,13 +9,10 @@ class LeadFollowup extends Model
 {
     use HasFactory;
 
-    // Define the table name (optional)
     protected $table = 'lead_follow_up';
 
-    // Primary key (if it's not 'id')
-    protected $primaryKey = 'id';  // Assuming 'id' is your primary key in this table
+    protected $primaryKey = 'id';  
 
-    // Mass-assignable fields
     protected $fillable = [
         'lead_status',
         'next_follow_up_date',
@@ -39,7 +36,6 @@ class LeadFollowup extends Model
         'contacts',
     ];
 
-    // Define the relationship to the Lead model
     public function lead()
     {
         return $this->belongsTo(Lead::class, 'lead_no'); // Ensure the foreign key matches the column in the database

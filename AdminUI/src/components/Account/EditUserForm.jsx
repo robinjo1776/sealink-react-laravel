@@ -16,13 +16,15 @@ const EditUserForm = ({ onClose, onUpdate, selectedUser }) => {
   // Update the form when selectedUser changes
   useEffect(() => {
     if (selectedUser) {
+      console.log('Selected User:', selectedUser); // Log selectedUser to see the value
+
       setFormUser({
         id: selectedUser.id,
         name: selectedUser.name || "",
         username: selectedUser.username || "",
         email: selectedUser.email || "",
-        password: "", // Don't populate password field automatically
-        role: selectedUser.role || "",
+        password: "", // Empty password field
+        role: selectedUser.role || "", // Ensure this is correctly set
         emp_code: selectedUser.emp_code || "",
       });
     }
@@ -57,7 +59,7 @@ const EditUserForm = ({ onClose, onUpdate, selectedUser }) => {
         text: "User data has been updated successfully.",
       });
 
-      onUpdate(response.data); // Pass updated user data to parent
+      onUpdate(response.data);
       onClose();
     } catch (error) {
       Swal.fire({
@@ -71,7 +73,9 @@ const EditUserForm = ({ onClose, onUpdate, selectedUser }) => {
     }
   };
 
-  const roleOptions = ["admin", "employee"];
+  const roleOptions = ["admin", "employee", "carrier"]; // Ensure carrier or other roles are added if necessary
+
+  console.log('Role Options:', roleOptions);  // Debug log
 
   return (
     <div className="form-container">
@@ -144,7 +148,7 @@ const EditUserForm = ({ onClose, onUpdate, selectedUser }) => {
             <label htmlFor="equipmentType">User Role*</label>
             <select
               id="equipmentType"
-              value={formUser.role}
+              value={formUser.role} // This should match the role from formUser
               onChange={(e) =>
                 setFormUser({ ...formUser, role: e.target.value })
               }

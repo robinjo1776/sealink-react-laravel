@@ -12,27 +12,25 @@ class FileUploadController extends Controller
     {
         // Validate the uploaded file
         $request->validate([
-            'file' => 'required|file|mimes:jpg,jpeg,png,pdf,docx|max:10240',
+            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,docx|max:10240',
         ]);
-    
+
         // Check if a file is uploaded
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
-    
+
             // Store the file in the "uploads" directory
-            $filePath = $request->file('file')->store('uploads', 'public'); // Save in public disk
-    
+            $filePath = $request->file('file')->store('uploads', 'public');
+
             // Print the full URL for debugging purposes
             $fullUrl = url(Storage::url($filePath));
-            Log::info('File URL: ' . $fullUrl);  // This will log the URL to your Laravel log
-    
+            Log::info('File URL: ' . $fullUrl);
+
             // Return the full URL
             return response()->json([
-                'fileUrl' => $fullUrl, // Full URL
+                'fileUrl' => $fullUrl,
             ]);
         }
-    
+
         return response()->json(['error' => 'File upload failed'], 400);
     }
-    
-    
 }

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import "../../styles/Form.css";
 import { useState } from "react";
 
-const AddUserForm = ({ onClose, onAddLead }) => {
+const AddUserForm = ({ onClose, onAddUser }) => {
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -13,30 +13,34 @@ const AddUserForm = ({ onClose, onAddLead }) => {
     role: "",
     emp_code: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const roleOptions = ["admin", "employee"];
+  const roleOptions = ["admin", "employee", "carrier"];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (validateUser()) {
       try {
         let response;
         const token = localStorage.getItem("token");
-
+  
         if (!token) {
           Swal.fire("Error", "No token found", "error");
           return;
         }
-
+  
         const headers = {
           Authorization: `Bearer ${token}`,
         };
-
+  
+        // Create the payload for the request
+        const userPayload = { ...user, password_confirmation: confirmPassword };
+  
         if (user.id) {
           response = await axios.put(
             `http://127.0.0.1:8000/api/users/${user.id}`,
-            user,
+            userPayload,
             { headers }
           );
           Swal.fire(
@@ -45,7 +49,7 @@ const AddUserForm = ({ onClose, onAddLead }) => {
             "success"
           );
         } else {
-          response = await axios.post("http://127.0.0.1:8000/api/users", user, {
+          response = await axios.post("http://127.0.0.1:8000/api/register", userPayload, {
             headers,
           });
           Swal.fire(
@@ -54,8 +58,8 @@ const AddUserForm = ({ onClose, onAddLead }) => {
             "success"
           );
         }
-
-        onAddLead(response.data);
+  
+        onAddUser(response.data);
         clearUserForm();
         onClose();
       } catch (error) {
@@ -69,17 +73,29 @@ const AddUserForm = ({ onClose, onAddLead }) => {
           "error"
         );
       }
-    } else {
-      Swal.fire(
-        "Validation Error",
-        "Please fill in all required fields.",
-        "error"
-      );
     }
   };
+  
 
   const validateUser = () => {
-    return user.lead_no && user.lead_date && user.lead_type && user.lead_status;
+    const { name, username, email, password, role, emp_code } = user;
+    if (
+      !name ||
+      !username ||
+      !email ||
+      !password ||
+      !role ||
+      !emp_code ||
+      password !== confirmPassword
+    ) {
+      if (password !== confirmPassword) {
+        Swal.fire("Validation Error", "Passwords do not match.", "error");
+      } else {
+        Swal.fire("Validation Error", "Please fill in all required fields.", "error");
+      }
+      return false;
+    }
+    return true;
   };
 
   const clearUserForm = () => {
@@ -92,6 +108,7 @@ const AddUserForm = ({ onClose, onAddLead }) => {
       role: "",
       emp_code: "",
     });
+    setConfirmPassword("");
   };
 
   return (
@@ -99,7 +116,7 @@ const AddUserForm = ({ onClose, onAddLead }) => {
       <form onSubmit={handleSubmit} className="form-main">
         <fieldset className="form-section">
           <div className="form-group">
-            <label htmlFor="leadNo">Name*</label>
+            <label htmlFor="name">Name*</label>
             <input
               value={user.name}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
@@ -108,7 +125,7 @@ const AddUserForm = ({ onClose, onAddLead }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="leadDate">Username*</label>
+            <label htmlFor="username">Username*</label>
             <input
               value={user.username}
               onChange={(e) => setUser({ ...user, username: e.target.value })}
@@ -136,19 +153,19 @@ const AddUserForm = ({ onClose, onAddLead }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="website">Confirm Password*</label>
+            <label htmlFor="confirmPassword">Confirm Password*</label>
             <input
-              value={user.website}
-              onChange={(e) => setUser({ ...user, website: e.target.value })}
-              id="website"
-              type="text"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              id="confirmPassword"
+              type="password"
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="equipmentType">User Role*</label>
+            <label htmlFor="role">User Role*</label>
             <select
-              id="equipmentType"
+              id="role"
               value={user.role}
               onChange={(e) => setUser({ ...user, role: e.target.value })}
             >
@@ -161,7 +178,7 @@ const AddUserForm = ({ onClose, onAddLead }) => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="website">Employee Code*</label>
+            <label htmlFor="emp_code">Employee Code*</label>
             <input
               value={user.emp_code}
               onChange={(e) => setUser({ ...user, emp_code: e.target.value })}

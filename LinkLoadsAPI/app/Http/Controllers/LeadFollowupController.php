@@ -91,9 +91,7 @@ class LeadFollowupController extends Controller
     
         // Return the updated lead
         return response()->json($lead_follow_up);
-    }
-   
-    
+    }    
 
     /**
      * Remove the specified resource from storage.

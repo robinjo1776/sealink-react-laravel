@@ -63,10 +63,12 @@ class Order extends Model
         'final_price',
         'notes',
     ];
+
     protected $casts = [
         'special_instructions' => 'array',
         'charges' => 'array',
         'discounts' => 'array',
     ];
+    
     use HasFactory;
 }

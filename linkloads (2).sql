@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 08:00 AM
+-- Generation Time: Dec 13, 2024 at 06:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,70 @@ SET time_zone = "+00:00";
 --
 -- Database: `linkloads`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carriers`
+--
+
+CREATE TABLE `carriers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `dba` varchar(255) DEFAULT NULL,
+  `legal_name` varchar(255) DEFAULT NULL,
+  `remit_name` varchar(255) DEFAULT NULL,
+  `acc_no` varchar(255) DEFAULT NULL,
+  `branch` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `fed_id_no` varchar(255) DEFAULT NULL,
+  `pref_curr` varchar(10) DEFAULT NULL,
+  `pay_terms` varchar(255) DEFAULT NULL,
+  `1099` tinyint(1) NOT NULL DEFAULT 0,
+  `advertise` tinyint(1) NOT NULL DEFAULT 0,
+  `advertise_email` varchar(255) DEFAULT NULL,
+  `carr_type` varchar(255) DEFAULT NULL,
+  `rating` varchar(255) DEFAULT NULL,
+  `brok_carr_aggmt` varchar(255) DEFAULT NULL,
+  `docket_no` varchar(255) DEFAULT NULL,
+  `dot_number` varchar(255) DEFAULT NULL,
+  `wcb_no` varchar(255) DEFAULT NULL,
+  `ca_bond_no` varchar(255) DEFAULT NULL,
+  `us_bond_no` varchar(255) DEFAULT NULL,
+  `scac` varchar(255) DEFAULT NULL,
+  `csa_approved` tinyint(1) NOT NULL DEFAULT 0,
+  `hazmat` tinyint(1) NOT NULL DEFAULT 0,
+  `smsc_code` varchar(255) DEFAULT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
+  `li_provider` varchar(255) DEFAULT NULL,
+  `li_policy_no` varchar(255) DEFAULT NULL,
+  `li_coverage` decimal(15,2) DEFAULT NULL,
+  `li_start_date` date DEFAULT NULL,
+  `li_end_date` date DEFAULT NULL,
+  `ci_provider` varchar(255) DEFAULT NULL,
+  `ci_policy_no` varchar(255) DEFAULT NULL,
+  `ci_coverage` decimal(15,2) DEFAULT NULL,
+  `ci_start_date` date DEFAULT NULL,
+  `ci_end_date` date DEFAULT NULL,
+  `coi_cert` varchar(255) DEFAULT NULL,
+  `primary_address` varchar(255) DEFAULT NULL,
+  `primary_city` varchar(255) DEFAULT NULL,
+  `primary_state` varchar(255) DEFAULT NULL,
+  `primary_country` varchar(255) DEFAULT NULL,
+  `primary_postal` varchar(255) DEFAULT NULL,
+  `primary_phone` varchar(255) DEFAULT NULL,
+  `mailing_address` varchar(255) DEFAULT NULL,
+  `mailing_city` varchar(255) DEFAULT NULL,
+  `mailing_state` varchar(255) DEFAULT NULL,
+  `mailing_country` varchar(255) DEFAULT NULL,
+  `mailing_postal` varchar(255) DEFAULT NULL,
+  `mailing_phone` varchar(255) DEFAULT NULL,
+  `int_notes` text DEFAULT NULL,
+  `contact` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`contact`)),
+  `equipment` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`equipment`)),
+  `lane` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`lane`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -85,7 +149,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `cust_name`, `cust_type`, `cust_ref_no`, `cust_website`, `cust_email`, `cust_contact_no`, `cust_contact_no_ext`, `cust_tax_id`, `cust_primary_address`, `cust_primary_city`, `cust_primary_state`, `cust_primary_country`, `cust_primary_postal`, `cust_primary_unit_no`, `cust_mailing_address`, `cust_mailing_city`, `cust_mailing_state`, `cust_mailing_country`, `cust_mailing_postal`, `cust_mailing_unit_no`, `cust_ap_name`, `cust_ap_address`, `cust_ap_city`, `cust_ap_state`, `cust_ap_country`, `cust_ap_postal`, `cust_ap_unit_no`, `cust_ap_email`, `cust_ap_phone`, `cust_ap_phone_ext`, `cust_ap_fax`, `cust_broker_name`, `cust_bkp_notes`, `cust_bkspl_notes`, `cust_credit_status`, `cust_credit_mop`, `cust_credit_appd`, `cust_credit_expd`, `cust_credit_terms`, `cust_credit_limit`, `cust_credit_notes`, `cust_credit_application`, `cust_credit_currency`, `cust_sbk_agreement`, `cust_credit_agreement`, `cust_contact`, `cust_equipment`, `created_at`, `updated_at`) VALUES
-(1, 'Robin Joseph', 'Trader', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Drive', 'Toronto', 'Ontario', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, '[]', '2024-09-23 04:17:43', '2024-12-05 22:30:27'),
+(1, 'Robin Joseph', 'Retailer', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Drive', 'Toronto', 'Ontario', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, '[]', '2024-09-23 04:17:43', '2024-12-06 05:33:20'),
 (7, 'Rajesh', 'Distributor', '46446467', 'www.ffrg.com', 'rajesh@gmail.com', 'on', '209', 'JN 6756', '30 Greenwich Avenue', 'New York', 'New York', 'United States', '10011', NULL, '8', NULL, NULL, NULL, NULL, NULL, NULL, '90 Feet Road', 'Patna', 'Bihar', 'India', NULL, NULL, NULL, NULL, NULL, NULL, 'Broker 2', 'good', 'hgjg', 'Not Approved', 'Wire Transfer', '2024-12-03', '2025-01-03', '39', '7', 'fhjfhj', 1, 'USD', 'http://127.0.0.1:8000/storage/uploads/VKobKSy3BoCpXLdU0z3oELwmLV9vCpObFAzMo2qx.pdf', 'http://127.0.0.1:8000/storage/uploads/Vqr9npXj8Vk1OjFFWEzpQXKMCBRlbvxm73s8TESS.pdf', '[]', '[]', '2024-11-21 22:31:55', '2024-12-06 01:13:38');
 
 -- --------------------------------------------------------
@@ -239,7 +303,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (33, '2024_10_23_054846_add_emp_code_to_users_table', 8),
 (34, '2024_10_23_063306_update_role_column_in_users_table', 9),
 (35, '2024_10_24_112556_add_assigned_to_to_leads_table', 10),
-(36, '2024_12_06_044821_modify_cust_credit_application_column_in_customers_table', 11);
+(36, '2024_12_06_044821_modify_cust_credit_application_column_in_customers_table', 11),
+(37, '2024_12_11_134428_create_carriers_table', 12);
 
 -- --------------------------------------------------------
 
@@ -579,7 +644,25 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (591, 'App\\Models\\User', 1, 'API Token', 'c65547b7cffb0de5cac68adb56a15f8f528834bf4e664533ac5a9866e052bade', '[\"*\"]', '2024-12-04 07:37:50', NULL, '2024-12-04 03:00:43', '2024-12-04 07:37:50'),
 (592, 'App\\Models\\User', 1, 'API Token', 'f013981f35e7561d9810749a9835e4d9184911e1ed7d06592cef819442a1ef87', '[\"*\"]', '2024-12-05 09:07:11', NULL, '2024-12-04 08:35:10', '2024-12-05 09:07:11'),
 (593, 'App\\Models\\User', 1, 'API Token', '2dc9cee9b389124f757709e5058cebbf95c02d0089df9298ce3ba23c95052725', '[\"*\"]', '2024-12-06 01:13:38', NULL, '2024-12-05 19:59:11', '2024-12-06 01:13:38'),
-(594, 'App\\Models\\User', 7, 'API Token', 'db4c5ff7352b921de6a896e11d47351b682240f502e43a3962b58b19ec6a7e48', '[\"*\"]', '2024-12-05 22:37:34', NULL, '2024-12-05 22:25:54', '2024-12-05 22:37:34');
+(594, 'App\\Models\\User', 7, 'API Token', 'db4c5ff7352b921de6a896e11d47351b682240f502e43a3962b58b19ec6a7e48', '[\"*\"]', '2024-12-05 22:37:34', NULL, '2024-12-05 22:25:54', '2024-12-05 22:37:34'),
+(595, 'App\\Models\\User', 1, 'API Token', '6abe6b4716f599e5c178f0f9234f377baa5be364cac2357c044f776138418f73', '[\"*\"]', '2024-12-06 06:17:37', NULL, '2024-12-06 05:32:34', '2024-12-06 06:17:37'),
+(596, 'App\\Models\\User', 1, 'API Token', '9d56b0af7eda7468ae57455c30efc2907c319b6918aae3adfa82b2a894f6d46d', '[\"*\"]', '2024-12-12 08:54:07', NULL, '2024-12-11 05:55:21', '2024-12-12 08:54:07'),
+(597, 'App\\Models\\User', 1, 'API Token', 'c332d7e0c8a81d23daabcb964009dedd810715db98f802468460f9f1f731af94', '[\"*\"]', '2024-12-11 08:40:30', NULL, '2024-12-11 08:39:02', '2024-12-11 08:40:30'),
+(598, 'App\\Models\\User', 1, 'API Token', 'a1966e7ff37b0b85c68c75ffe2f9bf76ad3a72ac41543d99dfbe51131a0c09ab', '[\"*\"]', '2024-12-12 05:26:41', NULL, '2024-12-12 02:13:01', '2024-12-12 05:26:41'),
+(599, 'App\\Models\\User', 1, 'API Token', '0f0517ffaa589f2934e316efe15272c610394c9507bae377723e46011a73cc7d', '[\"*\"]', '2024-12-12 09:14:53', NULL, '2024-12-12 09:11:46', '2024-12-12 09:14:53'),
+(600, 'App\\Models\\User', 1, 'API Token', '2e7d04d83d2f0ec78732920accfd76f7db35e549c7c9c5836e77457a7ea65fd3', '[\"*\"]', '2024-12-12 09:20:19', NULL, '2024-12-12 09:16:23', '2024-12-12 09:20:19'),
+(601, 'App\\Models\\User', 1, 'API Token', 'e1716f000710ebfdcd7f8315906285e7a0b555771c0fd9158a54daf3810d794f', '[\"*\"]', NULL, NULL, '2024-12-12 09:26:46', '2024-12-12 09:26:46'),
+(602, 'App\\Models\\User', 1, 'API Token', '7baf6459cbd9e39eca63dab6872a5de731d8653b1c9c22996cd606ca48c1c986', '[\"*\"]', NULL, NULL, '2024-12-12 21:02:09', '2024-12-12 21:02:09'),
+(603, 'App\\Models\\User', 1, 'API Token', '0311441f17234a14e8b2afa2b303349e33edb7352057264e01b6a40c23e88211', '[\"*\"]', NULL, NULL, '2024-12-12 22:18:58', '2024-12-12 22:18:58'),
+(604, 'App\\Models\\User', 8, 'API Token', 'f96a2757712c2528678915587151c2f311ffa8ed04570b3d9df17abfaa92e709', '[\"*\"]', NULL, NULL, '2024-12-12 22:34:20', '2024-12-12 22:34:20'),
+(605, 'App\\Models\\User', 1, 'API Token', '450ea032d00bae2197b835a1380820d774dfdca4b09fd7b7d5148cffe2664728', '[\"*\"]', NULL, NULL, '2024-12-12 22:37:48', '2024-12-12 22:37:48'),
+(606, 'App\\Models\\User', 1, 'API Token', 'aa651de7529bae2f88a5fdbef07309cc5d2acabc77a70d4e71764cf3b878fedc', '[\"*\"]', NULL, NULL, '2024-12-12 22:44:04', '2024-12-12 22:44:04'),
+(607, 'App\\Models\\User', 1, 'API Token', 'e72db5b5300b37cd73b18c0043a1e18a84446e9d81584beb287d17c8033c1325', '[\"*\"]', NULL, NULL, '2024-12-12 22:44:13', '2024-12-12 22:44:13'),
+(608, 'App\\Models\\User', 1, 'API Token', '5d748c1562b73aa304c4bb9a64e4c5cb61521783c8b50b7ee4fbff2f4cde020b', '[\"*\"]', '2024-12-12 23:04:21', NULL, '2024-12-12 22:47:26', '2024-12-12 23:04:21'),
+(609, 'App\\Models\\User', 9, 'API Token', '55e04f9503b5cb736bfe8de871ef8e0cc8dce4fa9424b0cc4185915711fcdebb', '[\"*\"]', NULL, NULL, '2024-12-12 22:53:56', '2024-12-12 22:53:56'),
+(610, 'App\\Models\\User', 10, 'API Token', '42077e7a1f635c43049034c9933e48c00c876c6aa8df9ce93d6e0a33acff7280', '[\"*\"]', NULL, NULL, '2024-12-12 22:56:34', '2024-12-12 22:56:34'),
+(611, 'App\\Models\\User', 11, 'API Token', 'd42c20d1a2812ce1e05552b7a54561e8c70a13e384ab05ca7bfee4653660f68e', '[\"*\"]', NULL, NULL, '2024-12-12 23:02:33', '2024-12-12 23:02:33'),
+(612, 'App\\Models\\User', 12, 'API Token', '2c142bbba17350a82b8aa6e235e51f48d93743b96712cfb785dcd19738ca5526', '[\"*\"]', NULL, NULL, '2024-12-12 23:04:20', '2024-12-12 23:04:20');
 
 -- --------------------------------------------------------
 
@@ -595,7 +678,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
-  `role` enum('user','admin','employee') NOT NULL DEFAULT 'user',
+  `role` enum('user','admin','employee','carrier') NOT NULL,
   `emp_code` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -608,11 +691,22 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `emp_code`, `created_at`, `updated_at`) VALUES
 (1, 'Robin', 'robinjo', 'robinjo@gmail.com', NULL, '$2y$10$6PFoTY.knAQoyM/9.hXP6uw9bMRQYf7RN0zKWg6MuOA9lXw6qJ9j6', NULL, 'admin', NULL, '2024-08-01 22:36:35', '2024-10-23 10:52:22'),
 (6, 'Kuber', 'kuberja', 'kuberja@gmail.com', NULL, '$2y$10$BNJ26zTyH7/AKzfpib4s4.CfaEH7RrRNoWgfxGJOb7ZJvs9wNihYC', NULL, 'employee', NULL, '2024-10-23 00:27:22', '2024-10-23 10:51:54'),
-(7, 'Daniel', 'danielja', 'danielja@gmail.com', NULL, '$2y$10$XHEo/tP7WZiu/tPCn9uTQ.FrpflkwgJ5bPeEhJB76FXrvMSeQ3Wva', NULL, 'employee', '403', '2024-10-23 01:05:53', '2024-10-23 01:05:53');
+(7, 'Daniel', 'danielja', 'danielja@gmail.com', NULL, '$2y$10$XHEo/tP7WZiu/tPCn9uTQ.FrpflkwgJ5bPeEhJB76FXrvMSeQ3Wva', NULL, 'employee', '403', '2024-10-23 01:05:53', '2024-10-23 01:05:53'),
+(8, 'John Doe', 'john_doe', 'john@example.com', NULL, '$2y$10$TqBzfQyLnN9rXZZiOHhYFO388ncXKcHsKMkHNrqjjK6cPtMxEP5Sy', NULL, 'user', 'EMP001', '2024-12-12 22:34:20', '2024-12-12 22:34:20'),
+(9, 'Zain', 'zain', 'zainandhera@gmail.com', NULL, '$2y$10$vJC9qCeridT9njiSOQgYtuTEZLR/05VjZkMeRdPAZRn4f2LVhZtya', NULL, 'carrier', 'CA301', '2024-12-12 22:53:56', '2024-12-12 22:53:56'),
+(10, 'Carlton', 'carlton123', 'carlton123@gmail.com', NULL, '$2y$10$io6aDkYVIlyAAmBrfHRn0.NwTibntsDQfbcT.HJmXByyn2a.Hn19W', NULL, 'carrier', 'CA303', '2024-12-12 22:56:34', '2024-12-12 22:56:34'),
+(11, 'Trudeau', 'trudeau123', 'trudeau123@gmail.com', NULL, '$2y$10$9oGhYdsIpzRrONZMc1La.OEArF/wc5cbTwzFtSA3an6T40bXBz2CK', NULL, 'carrier', 'CA101', '2024-12-12 23:02:33', '2024-12-12 23:02:33'),
+(12, 'Paul', 'paul', 'paulsterling@gmail.com', NULL, '$2y$10$Ksg4AW6HvafqDcV8SmQTzutthLv6kGNM9uWFQsBe7wEGfYs7W94wW', NULL, 'carrier', 'CA798', '2024-12-12 23:04:20', '2024-12-12 23:04:20');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `carriers`
+--
+ALTER TABLE `carriers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customers`
@@ -679,6 +773,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `carriers`
+--
+ALTER TABLE `carriers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
@@ -706,7 +806,7 @@ ALTER TABLE `lead_follow_up`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -718,13 +818,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=613;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

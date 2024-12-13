@@ -23,7 +23,7 @@ class LeadController extends Controller
 
         return response()->json(['value' => $value]);
     }
-    
+
     protected $lead;
 
     public function __construct()
@@ -49,7 +49,7 @@ class LeadController extends Controller
         if (isset($leadData['contacts']) && is_array($leadData['contacts'])) {
             $leadData['contacts'] = json_encode($leadData['contacts']);
         }
-    
+
         return $this->lead->create($leadData);
     }
 
@@ -68,27 +68,27 @@ class LeadController extends Controller
     {
         // Attempt to find the lead by its ID
         $lead = $this->lead->find($id);
-    
+
         // If the lead is not found, return a 404 response with an error message
         if (!$lead) {
             return response()->json(['error' => 'Lead not found'], 404);
         }
-    
+
         // Get the data to update from the request
         $leadData = $request->all();
-    
+
         // Handle `contacts` field update if necessary
         if (isset($leadData['contacts']) && is_array($leadData['contacts'])) {
             $leadData['contacts'] = json_encode($leadData['contacts']);
         }
-    
+
         // Perform the update
         $lead->update($leadData);
-    
+
         // Return the updated lead
         return response()->json($lead);
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */
