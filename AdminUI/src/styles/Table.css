@@ -187,6 +187,20 @@
   background-color: #2f54eb; /* Blue */
 }
 
+.badge-true {
+  background-color: green; /* Green color for 'true' */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+/* badge-product (for false) */
+.badge-false {
+  background-color: yellow; /* Yellow color for 'false' */
+  color: black;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
 /* Default badge style */
 .badge-default {
   background-color: #d9d9d9; /* Gray */

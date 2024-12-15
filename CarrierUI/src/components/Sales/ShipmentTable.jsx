@@ -3,27 +3,25 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Table from "../common/Table";
 import Modal from "../common/Modal";
-import EditLeadForm from "./EditLead/EditLeadForm";
-import AddLeadForm from "./AddLead/AddLeadForm";
+import EditLeadQuotesForm from "./EditLeadQuotesForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { UserContext } from "../../UserProvider"; 
+import { UserContext } from "../../UserProvider";
 
-const LeadTable = () => {
+const ShipmentTable = () => {
   const users = useContext(UserContext);
   const [leads, setLeads] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lead_date");
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedLead, setSelectedLead] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
   const perPage = 8;
 
   const getUserNameById = (id) => {
     const user = users.find((user) => user.id === id);
-    return user ? user.name : "Unknown"; 
+    return user ? user.name : "Unknown"; // Fallback if user not found
   };
 
   useEffect(() => {
@@ -40,8 +38,11 @@ const LeadTable = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("Fetched Leads:", data); // Debugging the fetched data
-        setLeads(data);
+        // Filter only leads with 'Quotations' status
+        const filteredData = data.filter(
+          (lead) => lead.lead_status === "Quotations"
+        );
+        setLeads(filteredData);
       } catch (error) {
         console.error("Error loading leads:", error);
         handleFetchError(error);
@@ -72,58 +73,47 @@ const LeadTable = () => {
   };
 
   const deleteLead = async (id) => {
-    const confirmed = await Swal.fire({
-      title: "Are you sure?",
-      text: "This action cannot be undone.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-    });
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
 
-    if (confirmed.isConfirmed) {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("No token found");
+      const response = await axios.delete(
+        `http://127.0.0.1:8000/api/lead/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
+      console.log("Delete Response:", response);
+      setLeads((prevLeads) => prevLeads.filter((lead) => lead.id !== id));
+      Swal.fire("Deleted!", "The lead has been deleted.", "success");
+    } catch (error) {
+      console.error("Error deleting lead:", error);
 
-        const response = await axios.delete(
-          `http://127.0.0.1:8000/api/lead/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        console.log("Delete Response:", response);
-        setLeads((prevLeads) => prevLeads.filter((lead) => lead.id !== id));
-        Swal.fire("Deleted!", "The lead has been deleted.", "success");
-      } catch (error) {
-        console.error("Error deleting lead:", error);
-
-        if (error.response) {
-          if (error.response.status === 401) {
-            Swal.fire({
-              icon: "error",
-              title: "Unauthorized",
-              text: "Your session has expired. Please log in again.",
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Error!",
-              text: "Failed to delete the lead.",
-            });
-          }
+      if (error.response) {
+        if (error.response.status === 401) {
+          // Token is invalid or expired
+          Swal.fire({
+            icon: "error",
+            title: "Unauthorized",
+            text: "Your session has expired. Please log in again.",
+          });
         } else {
           Swal.fire({
             icon: "error",
             title: "Error!",
-            text: "An unexpected error occurred.",
+            text: "Failed to delete the lead.",
           });
         }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "An unexpected error occurred.",
+        });
       }
     }
   };
@@ -147,12 +137,67 @@ const LeadTable = () => {
     setSelectedLead(null);
   };
 
-  const openAddModal = () => {
-    setAddModalOpen(true);
-  };
+  const convertToCustomer = async (lead) => {
+    // Ask for confirmation before converting
+    const confirmed = await Swal.fire({
+      title: "Are you sure?",
+      text: "This lead will be converted to a customer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, convert it!",
+      cancelButtonText: "No, cancel!",
+    });
 
-  const closeAddModal = () => {
-    setAddModalOpen(false);
+    if (confirmed.isConfirmed) {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token found");
+        }
+
+        // Prepare the lead data by ensuring it has all required fields
+        const customerData = {
+          cust_name: lead.customer_name,
+          cust_email: lead.email,
+          cust_primary_state: lead.state,
+          // Add any other fields required for the customers table here
+        };
+
+        // Log the data to check what we're sending to the backend
+        console.log("Customer data to be inserted:", customerData);
+
+        // Make a POST request to add this lead to the customers table
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/customer",
+          customerData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Converted to customer:", response.data);
+
+        // If the conversion is successful, remove the lead from the leads table
+        // Delete the lead from the API and remove it from the table view
+        await deleteLead(lead.id); // Call the delete function after conversion
+
+        Swal.fire(
+          "Converted!",
+          "The lead has been converted to a customer.",
+          "success"
+        );
+      } catch (error) {
+        console.error("Error converting lead to customer:", error);
+
+        // Handle any error in the conversion process
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to convert the lead to a customer.",
+        });
+      }
+    }
   };
 
   const normalizedSearchQuery = searchQuery.toLowerCase();
@@ -205,22 +250,7 @@ const LeadTable = () => {
     { key: "equipment_type", label: "Equipment Type" },
     { key: "state", label: "Province/State" },
     { key: "lead_type", label: "Type" },
-    {
-      key: "assigned_to",
-      label: "Assigned To",
-      render: (item) => (
-        <span>{item.assigned_to ? item.assigned_to : "Unassigned"}</span>
-      ),
-    },
-    {
-      key: "lead_status",
-      label: "Status",
-      render: (item) => (
-        <span className={`badge ${getStatusClass(item.lead_status)}`}>
-          {item.lead_status}
-        </span>
-      ),
-    },
+    { key: "assigned_to", label: "Assigned To" },
     {
       key: "actions",
       label: "Actions",
@@ -232,61 +262,40 @@ const LeadTable = () => {
           <button onClick={() => deleteLead(item.id)} className="btn-delete">
             <DeleteOutlined />
           </button>
+          {item.lead_status === "Quotations" && (
+            <button
+              onClick={() => convertToCustomer(item)}
+              className="btn-convert"
+            >
+              Convert to Customer
+            </button>
+          )}
         </>
       ),
     },
   ];
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "Prospect customer":
-        return "badge-prospect";
-      case "Lanes discussed":
-        return "badge-lanes";
-      case "Product/Equipment discussed":
-        return "badge-product";
-      case "E-mail sent to concerned person":
-        return "badge-email";
-      case "Carrier portal registration":
-        return "badge-carrier";
-      case "Quotations":
-        return "badge-quotation";
-      case "Fob/Have broker":
-        return "badge-broker";
-      case "Voicemail/No answer":
-        return "badge-voicemail";
-      case "Different Department":
-        return "badge-different";
-      case "No answer/Callback/Voicemail":
-        return "badge-callback";
-      case "Not interested reason provided in notes":
-        return "badge-not-interested";
-      case "Asset based only":
-        return "badge-asset";
-      default:
-        return "badge-default";
-    }
-  };
-
   return (
     <div>
+      {/* Header with Add Lead button and search input */}
       <div className="header-container">
-        <button onClick={openAddModal} className="add-button">
-          Add Lead
-        </button>
         <div className="search-container">
           <input
             className="search-bar"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search leads..."
+            placeholder="Search..."
           />
         </div>
       </div>
 
+      {/* Loading state: Show a loading indicator */}
       {loading ? (
-        <div>Loading...</div>
+        <div className="loading-indicator">
+          <span>Loading leads...</span>
+        </div>
       ) : (
+        // Table will show only once data is fetched
         <Table
           data={paginatedData}
           headers={headers.map((header) => ({
@@ -323,26 +332,15 @@ const LeadTable = () => {
         title="Edit Lead"
       >
         {selectedLead && (
-          <EditLeadForm
+          <EditLeadQuotesForm
             lead={selectedLead}
             onClose={closeEditModal}
             onUpdate={updateLead}
           />
         )}
       </Modal>
-
-      {/* Add Lead Modal */}
-      <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Lead">
-        <AddLeadForm
-          onClose={closeAddModal}
-          onAddLead={(newLead) => {
-            setLeads((prevLeads) => [...prevLeads, newLead]);
-            closeAddModal();
-          }}
-        />
-      </Modal>
     </div>
   );
 };
 
-export default LeadTable;
+export default ShipmentTable;

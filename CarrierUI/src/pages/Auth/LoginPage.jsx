@@ -23,9 +23,8 @@ const LoginPage = () => {
         console.log("User ID saved:", response.data.user.id);
         console.log("User Role saved:", response.data.user.role);
 
-        // Navigate based on user role
-        if (response.data.user.role === "admin") {
-          navigate("/lead"); // Adjust to your admin route
+        if (response.data.user.role === "carrier") {
+          navigate("/shipment"); 
         } else {
           message.error("Access denied: Invalid role.");
         }
@@ -41,7 +40,7 @@ const LoginPage = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2 className="auth-title">Admin Login</h2>
+        <h2 className="auth-title">Carrier Login</h2>
         <Form onFinish={onFinish}>
           <Form.Item
             name="username"

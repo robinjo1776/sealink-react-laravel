@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Carrier extends Model
 {
     use HasFactory;
+
     protected $table = 'carriers';
     protected $primaryKey = 'id';
 
+    // List of attributes that are mass assignable
     protected $fillable = [
         'dba',
         'legal_name',
@@ -21,7 +23,7 @@ class Carrier extends Model
         'fed_id_no',
         'pref_curr',
         'pay_terms',
-        '1099',
+        'form_1099',
         'advertise',
         'advertise_email',
         'carr_type',
@@ -66,9 +68,10 @@ class Carrier extends Model
         'lane',
     ];
 
+    // Casting fields as arrays or other types
     protected $casts = [
         'contact' => 'array',
-        'equipment' => 'array', 
-        'lane' => 'array', 
+        'equipment' => 'array',
+        'lane' => 'array',
     ];
 }

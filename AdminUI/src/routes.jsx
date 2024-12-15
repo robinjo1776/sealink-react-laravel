@@ -3,8 +3,8 @@ import RegisterPage from "./pages/Auth/RegisterPage";
 import LoginPage from "./pages/Auth/LoginPage";
 
 import LeadsPage from "./pages/CRM/LeadsPage";
-import AddLeadForm from "./components/CRM/AddLeadForm";
-import EditLeadForm from "./components/CRM/EditLeadForm";
+import AddLeadForm from "./components/CRM/AddLead/AddLeadForm";
+import EditLeadForm from "./components/CRM/EditLead/EditLeadForm";
 import LeadFollowupPage from "./pages/CRM/LeadFollowupPage";
 
 import LeadQuotesPage from "./pages/Sales/LeadQuotesPage";
@@ -16,12 +16,15 @@ import OrderPage from "./pages/Orders/OrderPage";
 import AddOrderForm from "./components/Orders/AddOrderForm";
 import EditOrderForm from "./components/Orders/EditOrderForm";
 
+import CarrierPage from "./pages/Carriers&Co/CarrierPage";
+import AddCarrierForm from "./components/Carriers&Co/AddCarrier/AddCarrierForm";
+import EditCarrierForm from "./components/Carriers&Co/EditCarrier/EditCarrierForm";
+
 import UserPage from "./pages/Account/UserPage";
 import EditUserForm from "./components/Account/EditUserForm";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 import UserProvider from "./UserProvider";
-
 
 const AppRoutes = () => (
   <UserProvider>
@@ -63,7 +66,7 @@ const AppRoutes = () => (
         }
       />
 
-<Route
+      <Route
         path="/follow-up"
         element={
           <PrivateRoute>
@@ -136,6 +139,31 @@ const AppRoutes = () => (
         element={
           <PrivateRoute>
             <EditUserForm />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/carrier"
+        element={
+          <PrivateRoute>
+            <CarrierPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/carrier/add-carrier"
+        element={
+          <PrivateRoute>
+            <AddCarrierForm />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/carrier/:id"
+        element={
+          <PrivateRoute>
+            <EditCarrierForm />
           </PrivateRoute>
         }
       />

@@ -175,7 +175,7 @@ const MenuList = ({ darkTheme, userRole }) => {
       icon: <FolderOpenOutlined />,
       label: "Carriers & Co.",
       children: [
-        { key: "carriers", label: <Link to="/carriers">Carriers</Link> },
+        { key: "carrier", label: <Link to="/carrier">Carriers</Link> },
         { key: "vendors", label: <Link to="/vendors">Vendors</Link> },
         { key: "brokers", label: <Link to="/brokers">Brokers</Link> },
       ],

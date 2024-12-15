@@ -6,7 +6,7 @@ import MenuList from "./components/common/sidebar/MenuList";
 import ToggleThemeButton from "./components/common/sidebar/ToggleThemeButton";
 import { Header } from "antd/es/layout/layout";
 import AppRoutes from "./routes.jsx";
-import logo from "./assets/images/logo.jpg";
+import logo from "/assets/images/logo.jpg";
 import "antd/dist/reset.css";
 
 const { Sider } = Layout;

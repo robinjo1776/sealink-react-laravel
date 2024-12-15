@@ -50,20 +50,7 @@ const MenuList = ({ darkTheme, userRole }) => {
       icon: <HomeOutlined />,
       label: <Link to="/">Home</Link>,
     },
-    {
-      key: "orders-menu",
-      icon: <BarsOutlined />,
-      label: "Orders",
-      children: [
-        { key: "orders", label: <Link to="/order">Orders</Link> },
-        { key: "dispatch", label: <Link to="/dispatch-list">Dispatch</Link> },
-        { key: "tracing", label: <Link to="/tracing">Tracing</Link> },
-        {
-          key: "rate-history",
-          label: <Link to="/rate-history">Rate Hist.</Link>,
-        },
-      ],
-    },
+
     {
       key: "sales-quotes-menu",
       icon: <DollarCircleOutlined />,
@@ -74,126 +61,9 @@ const MenuList = ({ darkTheme, userRole }) => {
           key: "ads-ship",
           label: <Link to="/advertise-shipments">Ads Ship.</Link>,
         },
-        {
-          key: "quotes-lead",
-          label: <Link to="/quotes-lead">Leads with Quotes</Link>,
-        },
       ],
     },
-    {
-      key: "crm-menu",
-      icon: <UsergroupAddOutlined />,
-      label: "CRM",
-      children: [
-        { key: "lead", label: <Link to="/lead">Leads</Link> },
-        { key: "follow-up", label: <Link to="/follow-up">Lead F/U</Link> },
-      ],
-    },
-    {
-      key: "customers-menu",
-      icon: <FileTextOutlined />,
-      label: "Customers",
-      children: [
-        { key: "customer", label: <Link to="/customer">Customers</Link> },
-      ],
-    },
-    {
-      key: "reports-menu",
-      icon: <FileDoneOutlined />,
-      label: "Reports",
-      children: [
-        {
-          key: "employee-login",
-          label: <Link to="/employee-login">Emp. Login</Link>,
-        },
-        {
-          key: "export-invoice-data",
-          label: <Link to="/export-invoice-data">Export Inv.</Link>,
-        },
-        { key: "gst-hst", label: <Link to="/gst-hst">GST/HST</Link> },
-        {
-          key: "accounts-payable",
-          label: <Link to="/accounts-payable">A/P</Link>,
-        },
-        {
-          key: "receiving-deposit",
-          label: <Link to="/receiving-deposit">Receiving Dep.</Link>,
-        },
-        {
-          key: "profitability",
-          label: <Link to="/profitability">Profitability</Link>,
-        },
-      ],
-    },
-    {
-      key: "accounts-receivable-menu",
-      icon: <DollarCircleOutlined />,
-      label: "A/R",
-      children: [
-        {
-          key: "invoices-not-sent",
-          label: <Link to="/invoices-not-sent">Inv. Not Sent</Link>,
-        },
-        {
-          key: "receivable-age",
-          label: <Link to="/receivable-age">Receivable Age</Link>,
-        },
-        {
-          key: "receive-payments",
-          label: <Link to="/receive-payments">Receive Payments</Link>,
-        },
-        {
-          key: "payments-received",
-          label: <Link to="/payments-received">Payments Rec.</Link>,
-        },
-        { key: "ar-summary", label: <Link to="/summary">Summary</Link> },
-      ],
-    },
-    {
-      key: "accounts-payable-menu",
-      icon: <PayCircleOutlined />,
-      label: "A/P",
-      children: [
-        {
-          key: "invoices-not-received",
-          label: <Link to="/invoices-not-received">Inv. Not Rec.</Link>,
-        },
-        {
-          key: "payable-day-count",
-          label: <Link to="/payable-day-count">Payable Day Count</Link>,
-        },
-        {
-          key: "pay-to-carrier-vendor",
-          label: <Link to="/pay-to-carrier-vendor">Pay to Vendor</Link>,
-        },
-        { key: "paid-list", label: <Link to="/paid-list">Paid List</Link> },
-        { key: "ap-summary", label: <Link to="/summary">Summary</Link> },
-      ],
-    },
-    {
-      key: "carriers-vendors-brokers",
-      icon: <FolderOpenOutlined />,
-      label: "Carriers & Co.",
-      children: [
-        { key: "carriers", label: <Link to="/carriers">Carriers</Link> },
-        { key: "vendors", label: <Link to="/vendors">Vendors</Link> },
-        { key: "brokers", label: <Link to="/brokers">Brokers</Link> },
-      ],
-    },
-    {
-      key: "account-menu",
-      icon: <UserOutlined />,
-      label: "Account",
-      children: [
-        { key: "user", label: <Link to="/user">Users</Link> },
 
-        { key: "settings", label: <Link to="/settings">Settings</Link> },
-        {
-          key: "change-password",
-          label: <Link to="/change-password">Change Password</Link>,
-        },
-      ],
-    },
     {
       key: "logout",
       icon: <LogoutOutlined />,

@@ -26,62 +26,60 @@ class CarrierController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation (You can adjust as needed)
         $validated = $request->validate([
-            'dba' => 'string|nullable',
-            'legal_name' => 'string|nullable',
-            'remit_name' => 'string|nullable',
-            'acc_no' => 'string|nullable',
-            'branch' => 'string|nullable',
-            'website' => 'string|nullable',
-            'fed_id_no' => 'string|nullable',
-            'pref_curr' => 'string|nullable|max:10',
-            'pay_terms' => 'string|nullable',
-            '1099' => 'boolean|nullable',
-            'advertise' => 'boolean|nullable',
-            'advertise_email' => 'email|nullable',
-            'carr_type' => 'string|nullable',
-            'rating' => 'string|nullable',
-            'brok_carr_aggmt' => 'file|mimes:pdf,jpg,png|max:2048|nullable',
-            'docket_no' => 'string|nullable',
-            'dot_number' => 'string|nullable',
-            'wcb_no' => 'string|nullable',
-            'ca_bond_no' => 'string|nullable',
-            'us_bond_no' => 'string|nullable',
-            'scac' => 'string|nullable',
-            'csa_approved' => 'boolean|nullable',
-            'hazmat' => 'boolean|nullable',
-            'smsc_code' => 'string|nullable',
-            'approved' => 'boolean|nullable',
-            'li_provider' => 'string|nullable',
-            'li_policy_no' => 'string|nullable',
-            'li_coverage' => 'numeric|nullable',
-            'li_start_date' => 'date|nullable',
-            'li_end_date' => 'date|nullable',
-            'ci_provider' => 'string|nullable',
-            'ci_policy_no' => 'string|nullable',
-            'ci_coverage' => 'numeric|nullable',
-            'ci_start_date' => 'date|nullable',
-            'ci_end_date' => 'date|nullable',
-            'coi_cert' => 'file|mimes:pdf,jpg,png|max:2048|nullable',
-            'primary_address' => 'string|nullable',
-            'primary_city' => 'string|nullable',
-            'primary_state' => 'string|nullable',
-            'primary_country' => 'string|nullable',
-            'primary_postal' => 'string|nullable',
-            'primary_phone' => 'string|nullable',
-            'mailing_address' => 'string|nullable',
-            'mailing_city' => 'string|nullable',
-            'mailing_state' => 'string|nullable',
-            'mailing_country' => 'string|nullable',
-            'mailing_postal' => 'string|nullable',
-            'mailing_phone' => 'string|nullable',
-            'int_notes' => 'string|nullable',
-            'contact' => 'array|nullable',
-            'equipment' => 'array|nullable',
-            'lane' => 'array|nullable',
+            'dba' => 'required|string',
+            'legal_name' => 'nullable|string',
+            'remit_name' => 'nullable|string',
+            'acc_no' => 'nullable|string',
+            'branch' => 'nullable|string',
+            'website' => 'nullable|url',
+            'fed_id_no' => 'nullable|string',
+            'pref_curr' => 'nullable|string',
+            'pay_terms' => 'nullable|string',
+            'form_1099' => 'nullable|boolean',
+            'advertise' => 'nullable|boolean',
+            'advertise_email' => 'nullable|email',
+            'carr_type' => 'nullable|string',
+            'rating' => 'nullable|string',
+            'brok_carr_aggmt' => 'nullable|url',
+            'dot_number' => 'nullable|string',
+            'wcb_no' => 'nullable|string',
+            'ca_bond_no' => 'nullable|string',
+            'us_bond_no' => 'nullable|string',
+            'scac' => 'nullable|string',
+            'csa_approved' => 'nullable|boolean',
+            'hazmat' => 'nullable|boolean',
+            'smsc_code' => 'nullable|string',
+            'approved' => 'nullable|boolean',
+            'li_provider' => 'nullable|string',
+            'li_policy_no' => 'nullable|string',
+            'li_coverage' => 'nullable|string',
+            'li_start_date' => 'nullable|date',
+            'li_end_date' => 'nullable|date',
+            'ci_provider' => 'nullable|string',
+            'ci_policy_no' => 'nullable|string',
+            'ci_coverage' => 'nullable|string',
+            'ci_start_date' => 'nullable|date',
+            'ci_end_date' => 'nullable|date',
+            'coi_cert' => 'nullable|url',
+            'primary_address' => 'nullable|string',
+            'primary_city' => 'nullable|string',
+            'primary_state' => 'nullable|string',
+            'primary_country' => 'nullable|string',
+            'primary_postal' => 'nullable|string',
+            'primary_phone' => 'nullable|string',
+            'mailing_address' => 'nullable|string',
+            'mailing_city' => 'nullable|string',
+            'mailing_state' => 'nullable|string',
+            'mailing_country' => 'nullable|string',
+            'mailing_postal' => 'nullable|string',
+            'mailing_phone' => 'nullable|string',
         ]);
 
-        // Handle file uploads
+
+
+        // Handle file upload if URLs aren't provided (you may skip this if using URLs directly)
         if ($request->hasFile('coi_cert')) {
             $validated['coi_cert'] = $request->file('coi_cert')->store('documents/coi_cert');
         }
@@ -90,10 +88,12 @@ class CarrierController extends Controller
             $validated['brok_carr_aggmt'] = $request->file('brok_carr_aggmt')->store('documents/brok_carr_aggmt');
         }
 
+        // Create the carrier with the validated data
         $carrier = Carrier::create($validated);
 
-        return response()->json($carrier, 201);
+        return response()->json(['message' => 'Carrier created successfully!', 'carrier' => $carrier], 201);
     }
+
 
     /**
      * Display the specified carrier.
@@ -115,13 +115,17 @@ class CarrierController extends Controller
      */
     public function update(Request $request, Carrier $carrier)
     {
+        // Validate incoming data (you can add more validations as needed)
         $validated = $request->validate([
             'dba' => 'string|nullable',
             'legal_name' => 'string|nullable',
-            // Repeat the same validation as in the store method...
+            'contact' => 'nullable|json', // Ensure the 'contact' field is a valid JSON string
+            'equipment' => 'nullable|json', // Same for 'equipment'
+            'lane' => 'nullable|json', // Same for 'lane'
+            // Add other fields as necessary
         ]);
 
-        // Handle file uploads
+        // Handle file uploads if they exist
         if ($request->hasFile('coi_cert')) {
             $validated['coi_cert'] = $request->file('coi_cert')->store('documents/coi_cert');
         }
@@ -130,6 +134,7 @@ class CarrierController extends Controller
             $validated['brok_carr_aggmt'] = $request->file('brok_carr_aggmt')->store('documents/brok_carr_aggmt');
         }
 
+        // Update the carrier with the validated and processed data
         $carrier->update($validated);
 
         return response()->json($carrier);
