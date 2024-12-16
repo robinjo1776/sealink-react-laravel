@@ -31,7 +31,7 @@ const AddCarrierForm = ({ onClose, onAddCarrier }) => {
     advertise_email: "",
     carr_type: "",
     rating: "",
-    brok_carr_aggmt: null,
+    brok_carr_aggmt: "",
     docket_no: "",
     dot_number: "",
     wcb_no: "",
@@ -52,7 +52,7 @@ const AddCarrierForm = ({ onClose, onAddCarrier }) => {
     ci_coverage: "",
     ci_start_date: "",
     ci_end_date: "",
-    coi_cert: null,
+    coi_cert: "",
     primary_address: "",
     primary_city: "",
     primary_state: "",
@@ -105,9 +105,7 @@ const AddCarrierForm = ({ onClose, onAddCarrier }) => {
     setCarrier({ ...carrier, lane: updatedLanes });
   };
 
-
-  
-const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validateCarrier()) {
@@ -136,9 +134,13 @@ const handleSubmit = async (event) => {
             "success"
           );
         } else {
-          response = await axios.post("http://127.0.0.1:8000/api/carrier", carrier, {
-            headers,
-          });
+          response = await axios.post(
+            "http://127.0.0.1:8000/api/carrier",
+            carrier,
+            {
+              headers,
+            }
+          );
           Swal.fire(
             "Saved!",
             "Carrier data has been saved successfully.",
@@ -170,7 +172,7 @@ const handleSubmit = async (event) => {
   };
 
   const validateCarrier = () => {
-    return carrier.dba 
+    return carrier.dba;
   };
 
   const clearCarrierForm = () => {
@@ -285,7 +287,8 @@ const handleSubmit = async (event) => {
                       designation: "",
                     },
                   ],
-                }))}
+                }))
+              }
               className="add"
             >
               Add Contact
@@ -314,7 +317,8 @@ const handleSubmit = async (event) => {
                     ...prevCarrier.equipment,
                     { equipment_type: "", quantity: "", details: "" },
                   ],
-                }))}
+                }))
+              }
               className="add"
             >
               Add Equipment
@@ -343,7 +347,8 @@ const handleSubmit = async (event) => {
                     ...prevCarrier.lane,
                     { origin: "", destination: "", lane_type: "" },
                   ],
-                }))}
+                }))
+              }
               className="add"
             >
               Add Lane
@@ -351,12 +356,9 @@ const handleSubmit = async (event) => {
           </div>
         </fieldset>
 
-        <div className="form-buttons">
-          <button type="submit" className="submit-button" disabled={!validateCarrier()}>
+        <div className="submit-button-container">
+          <button type="submit" className="btn-submit">
             Submit Carrier
-          </button>
-          <button type="button" onClick={clearCarrierForm} className="cancel-button">
-            Clear Form
           </button>
         </div>
       </form>

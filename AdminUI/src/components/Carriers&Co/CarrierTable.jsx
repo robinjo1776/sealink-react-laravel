@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Table from "../common/Table";
 import Modal from "../common/Modal";
-import AddCarrierForm from "./AddCarrier/AddCarrierForm";
 import EditCarrierForm from "./EditCarrier/EditCarrierForm";
+import AddCarrierForm from "./AddCarrier/AddCarrierForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { UserContext } from "../../UserProvider";
 
 const CarrierTable = () => {
+  const users = useContext(UserContext);
   const [carriers, setCarriers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,23 +17,16 @@ const CarrierTable = () => {
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCarrier, setSelectedCarrier] = useState(null);
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
   const perPage = 8;
 
-  // Fetch customer data on component mount
   useEffect(() => {
     const fetchCarriers = async () => {
       try {
         const token = localStorage.getItem("token");
-
         if (!token) {
-          Swal.fire({
-            icon: "error",
-            title: "Unauthorized",
-            text: "You are not logged in.",
-          });
-          return;
+          throw new Error("No token found");
         }
 
         setLoading(true);
@@ -40,7 +35,7 @@ const CarrierTable = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log("Fetched Carriers:", data);
         setCarriers(data);
       } catch (error) {
         console.error("Error loading carriers:", error);
@@ -60,7 +55,6 @@ const CarrierTable = () => {
         title: "Unauthorized",
         text: "You need to log in to access this resource.",
       });
-      window.location.href = "/login";
     }
   };
 
@@ -87,26 +81,24 @@ const CarrierTable = () => {
     if (confirmed.isConfirmed) {
       try {
         const token = localStorage.getItem("token");
-
         if (!token) {
-          Swal.fire({
-            icon: "error",
-            title: "Unauthorized",
-            text: "You are not logged in.",
-          });
-          return;
+          throw new Error("No token found");
         }
 
-        await axios.delete(`http://127.0.0.1:8000/api/carrier/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.delete(
+          `http://127.0.0.1:8000/api/carrier/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
+        console.log("Delete Response:", response);
         setCarriers((prevCarriers) =>
           prevCarriers.filter((carrier) => carrier.id !== id)
         );
-        Swal.fire("Deleted!", "The customer has been deleted.", "success");
+        Swal.fire("Deleted!", "The carrier has been deleted.", "success");
       } catch (error) {
         console.error("Error deleting carrier:", error);
         Swal.fire("Error!", "Failed to delete the carrier.", "error");
@@ -114,7 +106,6 @@ const CarrierTable = () => {
     }
   };
 
-  // Sorting logic
   const handleSort = (column) => {
     if (sortBy === column) {
       setSortDesc(!sortDesc);
@@ -124,7 +115,24 @@ const CarrierTable = () => {
     }
   };
 
-  // Search filtering
+  const openEditModal = (carrier) => {
+    setSelectedCarrier(carrier);
+    setEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+    setSelectedCarrier(null);
+  };
+
+  const openAddModal = () => {
+    setAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setAddModalOpen(false);
+  };
+
   const normalizedSearchQuery = searchQuery.toLowerCase();
   const filteredCarriers = carriers.filter((carrier) =>
     Object.values(carrier).some(
@@ -139,45 +147,64 @@ const CarrierTable = () => {
     let valA = a[sortBy];
     let valB = b[sortBy];
 
-    // Handle case where value is null or undefined
-    if (valA == null) valA = ""; // Replace null/undefined with an empty string for comparison
-    if (valB == null) valB = ""; // Replace null/undefined with an empty string for comparison
+    if (valA == null) valA = "";
+    if (valB == null) valB = "";
 
     if (typeof valA === "string") {
-      // Sort strings alphabetically
       return sortDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
     }
 
-    // Default number sorting
     return sortDesc ? valB - valA : valA - valB;
   });
-  // Pagination logic
+
+
   const paginatedData = sortedCarriers.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
+
   const totalPages = Math.ceil(filteredCarriers.length / perPage);
 
-  // Table headers
   const headers = [
     { key: "dba", label: "DBA" },
-    { key: "legal_name", label: "Name" },
-    { key: "primary_phone", label: "Phone" },
-    { key: "advertise_email", label: "Email" },
-    { key: "equipment", label: "Equipment" },
+    { key: "legal_name", label: "Legal Name" },
+    { key: "acc_no", label: "Account No." },
+    { key: "carr_type", label: "Carrier Type" },
+    { key: "rating", label: "Rating" },
+    { key: "dot_number", label: "DOT Number" },
     {
-      key: "advertise",
-      label: "Advertise",
+      key: "approved",
+      label: "Approved",
       render: (item) => (
-        <span className={`badge ${getStatusClass(item.advertise)}`}>
-          {item.advertise ? "Advertised" : "Not Advertised"}
+        <span
+          style={{
+            color: item.approved ? "green" : "red",
+            fontWeight: "bold",
+          }}
+        >
+          {item.approved ? "Approved" : "Not Approved"}
         </span>
       ),
     },
-
-    { key: "primary_address", label: "Address" },
+    {
+      key: "advertise",
+      label: "Advertised",
+      render: (item) => (
+        <span
+          style={{
+            color: item.advertise ? "green" : "red",
+            fontWeight: "bold",
+          }}
+        >
+          {item.advertise ? "Yes" : "No"}
+        </span>
+      ),
+    },
     { key: "primary_city", label: "City" },
     { key: "primary_state", label: "State" },
+    { key: "primary_country", label: "Country" },
+    { key: "primary_phone", label: "Phone" },
+    { key: "li_coverage", label: "Liability Coverage" },
     {
       key: "actions",
       label: "Actions",
@@ -193,36 +220,9 @@ const CarrierTable = () => {
       ),
     },
   ];
-  const getStatusClass = (status) => {
-    if (status === true) {
-      return "badge-true"; // Green or whatever color you want for "true"
-    } else if (status === false) {
-      return "badge-false"; // Yellow or whatever color you want for "false"
-    }
-    return "badge-default"; // Default grey if status is undefined or null
-  };
-
-  const openAddModal = () => {
-    setAddModalOpen(true);
-  };
-
-  const closeAddModal = () => {
-    setAddModalOpen(false);
-  };
-
-  const openEditModal = (carrier) => {
-    setSelectedCarrier(carrier);
-    setEditModalOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setEditModalOpen(false);
-    setSelectedCarrier(null);
-  };
 
   return (
     <div>
-      {/* Header with Add Customer button and search input */}
       <div className="header-container">
         <button onClick={openAddModal} className="add-button">
           Add Carrier
@@ -231,17 +231,14 @@ const CarrierTable = () => {
           <input
             className="search-bar"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update search query
-            placeholder="Search..."
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search carriers..."
           />
         </div>
       </div>
 
-      {/* Loading state */}
       {loading ? (
-        <div className="loading-indicator">
-          <span>Loading carriers...</span>
-        </div>
+        <div>Loading...</div>
       ) : (
         <Table
           data={paginatedData}
@@ -255,8 +252,7 @@ const CarrierTable = () => {
                 {header.label}
                 {sortBy === header.key && (
                   <span className="sort-icon">
-                    {sortDesc ? "▲" : "▼"}{" "}
-                    {/* Render Asc/Desc icon based on the sort order */}
+                    {sortDesc ? "▲" : "▼"}
                   </span>
                 )}
               </div>
@@ -271,7 +267,22 @@ const CarrierTable = () => {
         />
       )}
 
-      {/* Add Lead Modal */}
+      {/* Edit Carrier Modal */}
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={closeEditModal}
+        title="Edit Carrier"
+      >
+        {selectedCarrier && (
+          <EditCarrierForm
+            carrier={selectedCarrier}
+            onClose={closeEditModal}
+            onUpdate={updateCarrier}
+          />
+        )}
+      </Modal>
+
+      {/* Add Carrier Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={closeAddModal}
@@ -284,21 +295,6 @@ const CarrierTable = () => {
             closeAddModal();
           }}
         />
-      </Modal>
-
-      {/* Edit Carrier Modal */}
-      <Modal
-        isOpen={isEditModalOpen}
-        onClose={closeEditModal}
-        title="Edit Carrier"
-      >
-        {selectedCarrier && (
-          <EditCarrierForm
-            customer={selectedCarrier}
-            onClose={closeEditModal}
-            onUpdate={updateCarrier}
-          />
-        )}
       </Modal>
     </div>
   );

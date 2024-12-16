@@ -13,7 +13,7 @@ const LeadTable = () => {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("lead_date");
+  const [sortBy, setSortBy] = useState("created_at");
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedLead, setSelectedLead] = useState(null);
@@ -173,12 +173,6 @@ const LeadTable = () => {
     // Handle case where value is null or undefined
     if (valA == null) valA = "";
     if (valB == null) valB = "";
-
-    if (sortBy === "lead_date" || sortBy === "follow_up_date") {
-      // Handle date sorting by comparing timestamps
-      valA = new Date(valA).getTime();
-      valB = new Date(valB).getTime();
-    }
 
     if (typeof valA === "string") {
       // Sort strings alphabetically
