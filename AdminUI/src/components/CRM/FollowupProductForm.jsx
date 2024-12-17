@@ -5,8 +5,8 @@ function FollowupProductForm({ formFollowup, setformFollowup }) {
       products: [
         ...prev.products,
         {
-          name: "",
-          quantity: "",
+          name: '',
+          quantity: '',
         },
       ],
     }));
@@ -21,9 +21,7 @@ function FollowupProductForm({ formFollowup, setformFollowup }) {
 
   const handleProductChange = (index, e) => {
     const { name, value } = e.target;
-    const updatedProducts = formFollowup.products.map((product, i) =>
-      i === index ? { ...product, [name]: value } : product
-    );
+    const updatedProducts = formFollowup.products.map((product, i) => (i === index ? { ...product, [name]: value } : product));
     setformFollowup((prev) => ({ ...prev, products: updatedProducts }));
   };
 
@@ -50,11 +48,7 @@ function FollowupProductForm({ formFollowup, setformFollowup }) {
             />
           </div>
 
-          <button
-            type="button"
-            onClick={() => handleRemoveProduct(index)}
-            className="remove"
-          >
+          <button type="button" onClick={() => handleRemoveProduct(index)} className="remove">
             Remove
           </button>
         </div>

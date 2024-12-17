@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
   const addressRef = useRef(null);
@@ -8,9 +8,8 @@ function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
         initializeAutocomplete();
         return;
       }
-      const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places";
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places';
       script.async = true;
       script.defer = true;
       script.onload = () => {
@@ -25,16 +24,13 @@ function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
   }, []);
 
   const initializeAutocomplete = () => {
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      addressRef.current,
-      {
-        types: ["address"],
-      }
-    );
-    autocomplete.addListener("place_changed", () => {
+    const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
+      types: ['address'],
+    });
+    autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       if (!place || !place.address_components) {
-        console.error("No valid address selected");
+        console.error('No valid address selected');
         return;
       }
       updateAddressFields(place);
@@ -45,22 +41,18 @@ function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
     const addressComponents = place.address_components;
 
     // Extract the main address (street_number + route)
-    const streetNumber = getComponent("street_number", "", addressComponents);
-    const route = getComponent("route", "", addressComponents);
+    const streetNumber = getComponent('street_number', '', addressComponents);
+    const route = getComponent('route', '', addressComponents);
     const mainAddress = `${streetNumber} ${route}`.trim(); // Combine street number and route
 
     // Update the form customer state with the relevant values
     setformCustomer((prevCustomer) => ({
       ...prevCustomer,
       cust_mailing_address: mainAddress, // Only store the main address in the state
-      cust_mailing_city: getComponent("locality", "", addressComponents),
-      cust_mailing_state: getComponent(
-        "administrative_area_level_1",
-        "",
-        addressComponents
-      ),
-      cust_mailing_country: getComponent("country", "", addressComponents),
-      cust_mailing_postal: getComponent("postal_code", "", addressComponents),
+      cust_mailing_city: getComponent('locality', '', addressComponents),
+      cust_mailing_state: getComponent('administrative_area_level_1', '', addressComponents),
+      cust_mailing_country: getComponent('country', '', addressComponents),
+      cust_mailing_postal: getComponent('postal_code', '', addressComponents),
     }));
   };
 
@@ -76,12 +68,12 @@ function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
       ...prevCustomer,
       sameAsPrimary: checked, // Update the sameAsPrimary state
       // Optionally clear mailing address fields when checked
-      cust_mailing_address: checked ? "" : prevCustomer.cust_mailing_address,
-      cust_mailing_city: checked ? "" : prevCustomer.cust_mailing_city,
-      cust_mailing_state: checked ? "" : prevCustomer.cust_mailing_state,
-      cust_mailing_country: checked ? "" : prevCustomer.cust_mailing_country,
-      cust_mailing_postal: checked ? "" : prevCustomer.cust_mailing_postal,
-      cust_mailing_unit_no: checked ? "" : prevCustomer.cust_mailing_unit_no,
+      cust_mailing_address: checked ? '' : prevCustomer.cust_mailing_address,
+      cust_mailing_city: checked ? '' : prevCustomer.cust_mailing_city,
+      cust_mailing_state: checked ? '' : prevCustomer.cust_mailing_state,
+      cust_mailing_country: checked ? '' : prevCustomer.cust_mailing_country,
+      cust_mailing_postal: checked ? '' : prevCustomer.cust_mailing_postal,
+      cust_mailing_unit_no: checked ? '' : prevCustomer.cust_mailing_unit_no,
     }));
   };
 
@@ -92,9 +84,9 @@ function CustomerMailingAddressForm({ formCustomer, setformCustomer }) {
       <div className="form-group">
         <label
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            width: "100%",
+            display: 'inline-flex',
+            alignItems: 'center',
+            width: '100%',
           }}
           htmlFor="mailingAddressSame"
         >

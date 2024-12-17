@@ -74,4 +74,11 @@ class Carrier extends Model
         'equipment' => 'array',
         'lane' => 'array',
     ];
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'carrier_id');
+    }
+    
+
 }

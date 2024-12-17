@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2024 at 12:55 PM
+-- Generation Time: Dec 17, 2024 at 09:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -90,10 +90,35 @@ CREATE TABLE `carriers` (
 --
 
 INSERT INTO `carriers` (`id`, `dba`, `legal_name`, `remit_name`, `acc_no`, `branch`, `website`, `fed_id_no`, `pref_curr`, `pay_terms`, `form_1099`, `advertise`, `advertise_email`, `carr_type`, `rating`, `brok_carr_aggmt`, `docket_no`, `dot_number`, `wcb_no`, `ca_bond_no`, `us_bond_no`, `scac`, `csa_approved`, `hazmat`, `smsc_code`, `approved`, `li_provider`, `li_policy_no`, `li_coverage`, `li_start_date`, `li_end_date`, `ci_provider`, `ci_policy_no`, `ci_coverage`, `ci_start_date`, `ci_end_date`, `coi_cert`, `primary_address`, `primary_city`, `primary_state`, `primary_country`, `primary_postal`, `primary_phone`, `mailing_address`, `mailing_city`, `mailing_state`, `mailing_country`, `mailing_postal`, `mailing_phone`, `int_notes`, `contact`, `equipment`, `lane`, `created_at`, `updated_at`) VALUES
-(5, 'Acme Trucking LLC', 'Acme Trucking Limited Liability Company', 'Acme Trucking Remit', '123456789', 'New York', 'https://acmetrucking.com', '12-3456789', 'USD', '30 Days', 1, 0, 'contact@acmetrucking.com', 'Freight', 'A+', NULL, 'D123456', '123456789', 'NY123456789', 'CA987654321', 'US987654321', 'ACTR', 1, 0, 'XYZ123', 1, 'Insurance Co', 'LI123456789', 1000000.00, '2024-01-01', '2025-01-01', 'Provider Inc.', 'CI987654321', 500000.00, '2024-02-01', '2025-02-01', NULL, '123 Acme St.', 'New York', 'NY', 'USA', '10001', '+1 212-555-1234', '123 Acme St.', 'New York', 'NY', 'USA', '10001', '+1 212-555-5678', 'No internal notes', '[]', '[]', '[]', '2024-12-14 23:31:24', '2024-12-14 23:31:24'),
 (6, 'Robin Joseph', 'Robin Joseph', 'Robin Joseph', '7657567568584848', 'Kalarcode', 'http://www.robinjoseph.com', '7868678678', NULL, 'good', 0, 0, 'robinjo67@gmail.com', 'Air Freight', 'Preferred', NULL, '6786786786786', '664565646456', '87686876867', '87686787686', '87686786', '86786786', 0, 0, '8676768', 1, 'HDFC Bank', '756765756756', 49995.00, '2024-12-09', '2025-01-02', 'Benson&Hedges', '7567657567', 79890.00, NULL, NULL, NULL, '6th Road', 'Rawalpindi', 'Punjab', 'Pakistan', NULL, '654645645644', '6th Road', 'Rawalpindi', 'Punjab', 'Pakistan', NULL, '6456646546', NULL, NULL, NULL, NULL, '2024-12-14 23:37:27', '2024-12-14 23:37:27'),
 (7, 'Acme Trucking LLC', 'Acme Trucking Limited Liability Company', 'Acme Trucking Remit', '123456789', 'New York', 'https://acmetrucking.com', '12-3456789', 'USD', '30 Days', 1, 0, 'contact@acmetrucking.com', 'Freight', 'A+', NULL, NULL, '123456789', 'NY123456789', 'CA987654321', 'US987654321', 'ACTR', 1, 0, 'XYZ123', 1, 'Insurance Co', 'LI123456789', 1000000.00, '2024-01-01', '2025-01-01', 'Provider Inc.', 'CI987654321', 500000.00, '2024-02-01', '2025-02-01', NULL, '123 Acme St.', 'New York', 'NY', 'USA', '10001', '+1 212-555-1234', '123 Acme St.', 'New York', 'NY', 'USA', '10001', '+1 212-555-5678', NULL, NULL, NULL, NULL, '2024-12-15 06:07:51', '2024-12-15 06:07:51'),
-(9, 'Ronak Kapadia', 'Ronak Kapadia', 'Ronal Kapadia', '5787875758', 'Kottayam', 'http://www.kronakkapadia.com', '7868678678', 'CAD', 'good', 0, 1, 'ronak@gmail.com', 'Air Freight', 'Excellent', NULL, NULL, '664565646456', '64645646', '87686787686', '87686786', '8465464', 0, 0, '565464', 1, 'Kotak Mahindra Bank', '8678764564645600', 789000.00, '2024-12-02', '2024-12-25', 'Vinayak Insurance', '9000595486863', 19998.00, '2024-12-18', '2025-01-04', NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 06:17:43', '2024-12-15 06:17:43');
+(9, 'Ronak Kapadia', 'Ronak Kapadia', 'Ronal Kapadia', '5787875758', 'Kottayam', 'http://www.kronakkapadia.com', '7868678678', 'CAD', 'good', 0, 1, 'ronak@gmail.com', 'Air Freight', 'Excellent', NULL, NULL, '664565646456', '64645646', '87686787686', '87686786', '8465464', 0, 0, '565464', 1, 'Kotak Mahindra Bank', '8678764564645600', 789000.00, '2024-12-02', '2024-12-25', 'Vinayak Insurance', '9000595486863', 19998.00, '2024-12-18', '2025-01-04', NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 06:17:43', '2024-12-15 06:17:43'),
+(10, 'Brock Lesnar', 'Brock Lesnar', 'Brock Lesnar', '5654645000', 'Kalavoor', 'http://www.kalavoor.com', '349980006', 'CAD', 'okay', 0, 1, 'broklesnar@gmail.com', 'Common', 'Poor', 'http://127.0.0.1:8000/storage/uploads/5HKk7XxCriUt3aQ1Kb5s3p3Fc9tWqHUrZVz3eU3L.pdf', NULL, '64463420076575', '644430888', '87686787686', '87686786', '8465464', 0, 0, '447843', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, 'http://127.0.0.1:8000/storage/uploads/BUW2n5zUXhLgIvbg1P4PlhmU0A1TYT2jeWwxBNob.pdf', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 21:56:56', '2024-12-15 21:56:56'),
+(11, 'Javed Miandad2', 'Javed Miandad', 'Javed Miandad', '9086865444', 'Kottayam', 'http://www.kottayam.com', '78900044545', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Do not use', 'http://127.0.0.1:8000/storage/uploads/Lj5bvyEUB0wcHONxQSr4sbcniTgzBZXtjZoq1Ptm.pdf', NULL, '3409898979', '30008678678', '369089797', '349880808', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, 'http://127.0.0.1:8000/storage/uploads/7wkLHYJujqAqThtf72UxWi3BhOCv054bTZahY3kw.pdf', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:10:23', '2024-12-16 03:28:58'),
+(12, 'Desmond Haynes', 'Desmond Haynes', 'Desmond Haynes', '670007567657', 'Kottayam', 'http://www.kottayam.com', '78900044545', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Intermodal', 'Preferred', 'http://127.0.0.1:8000/storage/uploads/uzOlTTFCpXwidQbT0yN5deDcI0XK7zLZONQDmMy0.pdf', NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, 'http://127.0.0.1:8000/storage/uploads/Kl0PpKq5gBF0FwoSI0Mt1FMTdjvHBue4eeNswgk5.pdf', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:12:43', '2024-12-15 22:12:43'),
+(13, 'Shaun Michaels', 'Shaun Michaels', 'Shaun Michaels', '908886688686', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Excellent', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:17:20', '2024-12-15 22:17:20'),
+(14, 'Shaun Michaels', 'Shaun Michaels', 'Shaun Michaels', '908886688686', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Not Recommended', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 0, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:22:50', '2024-12-15 22:22:50'),
+(15, 'Ronak Kapadia', 'Shaun Michaels', 'Shaun Michaels', '908886688686', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Common', 'Preferred', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 0, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:27:42', '2024-12-15 22:27:42'),
+(16, 'Bill Clinton', 'Bill Clinton', 'Bill Clinton', '765757556765', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'USD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Excellent', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 0, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:29:36', '2024-12-15 22:29:36'),
+(18, 'Imran Khan', 'Imran Khan', 'Imran Khan', '765757556765', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'USD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Excellent', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 23:15:41', '2024-12-15 23:15:41'),
+(19, 'Steve Irwin7', 'Steve Irwin', 'Steve Irwin', '878686786867', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'USD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Air Freight', 'Poor', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, '\"[{\\\"name\\\":\\\"Ivana\\\",\\\"phone\\\":\\\"309847421\\\",\\\"email\\\":\\\"ivana@gmail.com\\\",\\\"fax\\\":\\\"4098\\\",\\\"designation\\\":\\\"Civil Engineer\\\"}]\"', '\"[]\"', '\"[]\"', '2024-12-16 00:11:36', '2024-12-16 03:33:57'),
+(23, 'Steve Irwin42', 'Steve Irwin4', 'Steve Irwin4', '878686786867', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Air Freight', 'Excellent', 'http://127.0.0.1:8000/storage/uploads/Lk48OwGG1ZTyQRB7sdPTfd8Nd0NdCFvNDiMt3oCM.pdf', '7576576576', '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, '2024-12-09', '2025-01-02', 'Vinayak Insurance', '9000595486863', 19998.00, '2024-12-02', '2025-01-08', 'http://127.0.0.1:8000/storage/uploads/BSrRs8pJGWiHkk7OhwaQr4sYu7QBqeOuof2gURBm.pdf', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', 'job', '\"[{\\\"name\\\":\\\"Wonderalnd\\\",\\\"phone\\\":\\\"409876724\\\",\\\"email\\\":\\\"wonderland@gmail.com\\\",\\\"fax\\\":\\\"0983452\\\",\\\"designation\\\":\\\"Chartered Accountant\\\"}]\"', '\"[{\\\"equipment_type\\\":null,\\\"quantity\\\":null,\\\"details\\\":null,\\\"\\\":\\\"Reefer 53\'\\\"}]\"', '\"[]\"', '2024-12-16 03:38:38', '2024-12-16 03:39:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `carrier_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `customer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `shipment_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -225,7 +250,10 @@ INSERT INTO `leads` (`id`, `lead_no`, `lead_date`, `follow_up_date`, `customer_n
 (31, 6762, '2024-11-22', '2024-12-05', 'Benjamin', 9087554747, 'benjamin@gmail.com', 'www.benjamin.com', 'Maxi', '38 Oxley Rd, Singapore 238629', 'Singapore', 'Singapore', 'Singapore', '238629', 38, 'DPD MAGMA', 'Russell', 'Quotations', 'vdvd', '[{\"name\":\"Jill\",\"phone\":\"7667747467\",\"email\":\"jill43@gmail.com\"}]', '2024-11-21 20:30:09', '2024-12-02 21:56:59', 'Daniel'),
 (32, 32678, '2024-12-02', '2024-12-18', 'Panket', 9085686866, 'pankit@gmail.com', 'www.pankit.com', 'Reefer', 'Birlik, 365 AVM, 06610 Çankaya/Ankara, Türkiye', 'Ankara', 'Ankara', 'Türkiye', '06610', 35, 'ON', 'Biplov', 'Quotations', 'vvsf', '[]', '2024-12-01 20:37:31', '2024-12-05 22:31:06', 'Daniel'),
 (33, 507, '2024-12-04', '2024-12-25', 'Oswald', 9045674356, 'oswaldgracious@gmail.com', 'www.oswald.com', 'Reefer', '300 Landsberger Allee', 'Berlin', 'Berlin', 'Germany', '13055', NULL, 'ON', 'Home', 'Product/Equipment discussed', 'nhgng', '[{\"name\":\"Howley\",\"phone\":\"8789384942\",\"email\":\"howley@gmail.com\"}]', '2024-12-03 20:38:44', '2024-12-03 20:39:00', 'Daniel'),
-(34, 3290, '2024-12-06', '2024-12-19', 'Erin', 4950868635, 'erinjade@gmail.com', 'www.erinjade.com', 'Maxi', '671 Lincoln Avenue', 'Winnetka', 'Illinois', 'United States', '60093', NULL, 'MB', 'Ivan', 'E-mail sent to concerned person', 'hhrthrt', '[{\"name\":\"Rubel Hossain\",\"phone\":\"79695353\",\"email\":\"ruelhossain@gmail.com\"}]', '2024-12-05 22:28:25', '2024-12-05 22:28:47', 'Daniel');
+(34, 3290, '2024-12-06', '2024-12-19', 'Erin', 4950868635, 'erinjade@gmail.com', 'www.erinjade.com', 'Maxi', '671 Lincoln Avenue', 'Winnetka', 'Illinois', 'United States', '60093', NULL, 'MB', 'Ivan', 'E-mail sent to concerned person', 'hhrthrt', '[{\"name\":\"Rubel Hossain\",\"phone\":\"79695353\",\"email\":\"ruelhossain@gmail.com\"}]', '2024-12-05 22:28:25', '2024-12-05 22:28:47', 'Daniel'),
+(35, 4560, '2024-12-16', '2025-01-09', 'Ronak Kapadia', 5607567565, 'ronak@gmail.com', NULL, 'Flatbed', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'BDS', NULL, 'Asset based only', NULL, '[]', '2024-12-15 22:49:18', '2024-12-15 22:49:18', 'Kuber'),
+(36, 9087, '2024-12-16', '2025-01-02', 'Sealink', 886864433, 'shanemcmohan@gmail.com', 'www.fred.com', 'Triaxle', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'CA', NULL, 'Not interested reason provided in notes', NULL, '[]', '2024-12-16 00:09:45', '2024-12-16 00:09:45', 'Daniel'),
+(37, 2390, '2024-12-16', '2025-01-08', 'Robin Joseph', 4379713752, 'robinjo1776@gmail.com', NULL, 'Triaxle', '66', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', 66, 'CA', 'Zain', 'E-mail sent to concerned person', 'hfhf', '[]', '2024-12-16 00:10:49', '2024-12-16 00:10:49', 'Daniel');
 
 -- --------------------------------------------------------
 
@@ -680,7 +708,10 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (616, 'App\\Models\\User', 1, 'API Token', '24ee4173394b7b2bd3426ba9c053a8cac997d07a5e9dcdf0e03e76840bff0fe4', '[\"*\"]', '2024-12-14 08:59:33', NULL, '2024-12-13 03:49:25', '2024-12-14 08:59:33'),
 (617, 'App\\Models\\User', 1, 'API Token', '7480bff8d4b8648180840ef4280eb9e6206da43aee4a4f1166f611abc65076fe', '[\"*\"]', '2024-12-15 03:19:58', NULL, '2024-12-14 09:09:13', '2024-12-15 03:19:58'),
 (618, 'App\\Models\\User', 1, 'API Token', '0de5a9cb360176eab1449ddc9e41a94fd4b39805f3c05b3b5c1660d1656405f4', '[\"*\"]', '2024-12-15 06:07:50', NULL, '2024-12-14 23:12:50', '2024-12-15 06:07:50'),
-(619, 'App\\Models\\User', 1, 'API Token', 'cf982ec58989455f313cf4674310a6375f2c9e3debc23248cd5eb2db3b06a728', '[\"*\"]', '2024-12-15 06:17:59', NULL, '2024-12-15 05:43:22', '2024-12-15 06:17:59');
+(619, 'App\\Models\\User', 1, 'API Token', 'cf982ec58989455f313cf4674310a6375f2c9e3debc23248cd5eb2db3b06a728', '[\"*\"]', '2024-12-16 23:44:47', NULL, '2024-12-15 05:43:22', '2024-12-16 23:44:47'),
+(620, 'App\\Models\\User', 11, 'API Token', '4d0bdb86a7843310d75daced062ca5a00151b2ca5d6fc60d072b7e2e70775b11', '[\"*\"]', '2024-12-16 09:01:17', NULL, '2024-12-16 09:00:57', '2024-12-16 09:01:17'),
+(621, 'App\\Models\\User', 1, 'API Token', '97a2f391a98ebf7e51877695d000598167c198d1028e17bb9ae6eb8dade652b0', '[\"*\"]', '2024-12-16 20:57:10', NULL, '2024-12-16 20:03:58', '2024-12-16 20:57:10'),
+(622, 'App\\Models\\User', 1, 'API Token', '085992a9eb109de0944649c3e92c3bb76b55971d7c8d73a0abf0693f9ce536b1', '[\"*\"]', '2024-12-17 02:54:40', NULL, '2024-12-16 23:59:10', '2024-12-17 02:54:40');
 
 -- --------------------------------------------------------
 
@@ -725,6 +756,14 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `pa
 --
 ALTER TABLE `carriers`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contacts`
+--
+ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `contacts_carrier_id_foreign` (`carrier_id`),
+  ADD KEY `contacts_customer_id_foreign` (`customer_id`);
 
 --
 -- Indexes for table `customers`
@@ -794,7 +833,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carriers`
 --
 ALTER TABLE `carriers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -812,7 +857,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `lead_follow_up`
@@ -836,13 +881,24 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=620;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=623;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `contacts`
+--
+ALTER TABLE `contacts`
+  ADD CONSTRAINT `contacts_carrier_id_foreign` FOREIGN KEY (`carrier_id`) REFERENCES `carriers` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `contacts_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

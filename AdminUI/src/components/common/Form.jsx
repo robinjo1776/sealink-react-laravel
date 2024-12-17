@@ -1,5 +1,5 @@
 import '../../styles/Form.css';
-import AutocompleteAddressInput from "./AutocompleteAddressInput"; 
+import AutocompleteAddressInput from './AutocompleteAddressInput';
 
 const Form = ({ formData, onChange, options }) => {
   const handleChange = (key, value) => {
@@ -74,10 +74,12 @@ const Form = ({ formData, onChange, options }) => {
     <div className="form-container">
       <div className="form-element">
         {Object.keys(formData)
-          .filter(key => key !== 'id') // Exclude 'id' from the rendered fields
+          .filter((key) => key !== 'id') // Exclude 'id' from the rendered fields
           .map((key) => (
             <div className="form-group" key={key}>
-              <label className="label" htmlFor={key}>{formatLabel(key)}</label>
+              <label className="label" htmlFor={key}>
+                {formatLabel(key)}
+              </label>
               {['lead_type', 'lead_status', 'equipment_type'].includes(key) ? (
                 <select
                   id={key}
@@ -86,8 +88,10 @@ const Form = ({ formData, onChange, options }) => {
                   onChange={(e) => handleSelectChange(key, e.target.value)}
                   required={isRequired(key)}
                 >
-                  {options[key].map(option => (
-                    <option key={option} value={option}>{option}</option>
+                  {options[key].map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
                   ))}
                 </select>
               ) : key === 'address' ? (

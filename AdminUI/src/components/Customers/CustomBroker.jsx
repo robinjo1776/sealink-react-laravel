@@ -1,5 +1,5 @@
 function CustomBroker({ formCustomer, setformCustomer }) {
-  const brokerOptions = ["Broker 1", "Broker 2", "Broker 3"];
+  const brokerOptions = ['Broker 1', 'Broker 2', 'Broker 3'];
 
   return (
     <fieldset>

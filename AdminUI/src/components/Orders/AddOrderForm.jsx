@@ -1,13 +1,13 @@
-import { Form, Button, Divider, message } from "antd";
-import axios from "axios";
-import CustomerDetailsForm from "./CustomerDetailsForm";
-import CommodityDetailsForm from "./CommodityDetailsForm";
-import OriginLocationForm from "./OriginLocationForm";
-import DestinationLocationForm from "./DestinationLocationForm";
-import RevenueForm from "./RevenueForm";
-import ChargesForm from "./ChargesForm";
-import DiscountsForm from "./DiscountsForm";
-import FinalCalculationsForm from "./FinalCalculationsForm";
+import { Form, Button, Divider, message } from 'antd';
+import axios from 'axios';
+import CustomerDetailsForm from './CustomerDetailsForm';
+import CommodityDetailsForm from './CommodityDetailsForm';
+import OriginLocationForm from './OriginLocationForm';
+import DestinationLocationForm from './DestinationLocationForm';
+import RevenueForm from './RevenueForm';
+import ChargesForm from './ChargesForm';
+import DiscountsForm from './DiscountsForm';
+import FinalCalculationsForm from './FinalCalculationsForm';
 
 const AddOrderForm = () => {
   const [form] = Form.useForm();
@@ -15,12 +15,12 @@ const AddOrderForm = () => {
   const formatDate = (dateString) => {
     if (!dateString) return null; // Return null if the date is not provided
     const date = new Date(dateString);
-    return date.toISOString().slice(0, 19).replace("T", " "); // Format to 'YYYY-MM-DD HH:MM:SS'
+    return date.toISOString().slice(0, 19).replace('T', ' '); // Format to 'YYYY-MM-DD HH:MM:SS'
   };
 
   const handleSubmit = async (values) => {
     try {
-      console.log("Form Values:", values);
+      console.log('Form Values:', values);
 
       const payload = {
         customer: values.customer,
@@ -70,22 +70,16 @@ const AddOrderForm = () => {
         notes: values.notes,
       };
 
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/order",
-        payload
-      );
+      const response = await axios.post('http://127.0.0.1:8000/api/order', payload);
       if (response.status === 201) {
-        message.success("Order submitted successfully!");
+        message.success('Order submitted successfully!');
         form.resetFields();
       } else {
-        message.error("Submission failed. Please try again.");
+        message.error('Submission failed. Please try again.');
       }
     } catch (error) {
-      console.error(
-        "Error submitting order:",
-        error.response ? error.response.data : error.message
-      );
-      message.error("Submission failed. Please try again.");
+      console.error('Error submitting order:', error.response ? error.response.data : error.message);
+      message.error('Submission failed. Please try again.');
     }
   };
 
@@ -103,7 +97,7 @@ const AddOrderForm = () => {
       <DiscountsForm />
       <FinalCalculationsForm />
 
-      <Form.Item style={{ textAlign: "right" }}>
+      <Form.Item style={{ textAlign: 'right' }}>
         <Button type="primary" htmlType="submit">
           Submit Order
         </Button>

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CarrierController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\EmployeeLeadController;
 use App\Http\Controllers\LeadFollowupController;
@@ -22,6 +23,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Upload route
     Route::post('/upload', [FileUploadController::class, 'uploadFile']);
+
+    //Email route
+    Route::post('/email', [EmailController::class, 'sendEmails']);
 
     /*Admin routes */
 

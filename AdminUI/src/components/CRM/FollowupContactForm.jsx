@@ -5,9 +5,9 @@ function FollowupContactForm({ formFollowup, setformFollowup }) {
       contacts: [
         ...prev.contacts,
         {
-          name: "",
-          phone: "",
-          email: "",
+          name: '',
+          phone: '',
+          email: '',
         },
       ],
     }));
@@ -22,9 +22,7 @@ function FollowupContactForm({ formFollowup, setformFollowup }) {
 
   const handleContactChange = (index, e) => {
     const { name, value } = e.target;
-    const updatedContacts = formFollowup.contacts.map((contact, i) =>
-      i === index ? { ...contact, [name]: value } : contact
-    );
+    const updatedContacts = formFollowup.contacts.map((contact, i) => (i === index ? { ...contact, [name]: value } : contact));
     setformFollowup((prev) => ({ ...prev, contacts: updatedContacts }));
   };
 
@@ -60,11 +58,7 @@ function FollowupContactForm({ formFollowup, setformFollowup }) {
             />
           </div>
 
-          <button
-            type="button"
-            onClick={() => handleRemoveContact(index)}
-            className="remove"
-          >
+          <button type="button" onClick={() => handleRemoveContact(index)} className="remove">
             Remove
           </button>
         </div>

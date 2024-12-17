@@ -1,37 +1,18 @@
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import PropTypes from "prop-types";
-import "../../styles/Table.css";
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
+import '../../styles/Table.css';
 
-const Table = ({
-  data,
-  headers,
-  handleSort,
-  sortBy,
-  sortDesc,
-  currentPage,
-  totalPages,
-  setCurrentPage,
-}) => {
+const Table = ({ data, headers, handleSort, sortBy, sortDesc, currentPage, totalPages, setCurrentPage }) => {
   return (
     <div className="container">
       <table className="table table-striped">
         <thead>
           <tr className="header-row">
             {headers.map((header) => (
-              <th
-                key={header.key}
-                onClick={() => handleSort(header.key)}
-                className="col"
-              >
+              <th key={header.key} onClick={() => handleSort(header.key)} className="col">
                 <div className="header-content">
                   {header.label}
-                  <i
-                    className={`fa ${
-                      sortBy === header.key && !sortDesc
-                        ? "fa-sort-up"
-                        : "fa-sort"
-                    }`}
-                  ></i>
+                  <i className={`fa ${sortBy === header.key && !sortDesc ? 'fa-sort-up' : 'fa-sort'}`}></i>
                 </div>
               </th>
             ))}
@@ -51,23 +32,13 @@ const Table = ({
       </table>
       <div className="pagination">
         <div className="pagination-controls">
-          <button
-            className="previous"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
+          <button className="previous" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
             <LeftOutlined />
           </button>
           <span>
             &nbsp;{currentPage} of {totalPages}&nbsp;
           </span>
-          <button
-            className="next"
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
+          <button className="next" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
             <RightOutlined />
           </button>
         </div>

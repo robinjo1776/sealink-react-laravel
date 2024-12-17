@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import "../../styles/Modal.css";
+import { useEffect } from 'react';
+import '../../styles/Modal.css';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add("modal-open");
+      document.body.classList.add('modal-open');
     } else {
-      document.body.classList.remove("modal-open");
+      document.body.classList.remove('modal-open');
     }
 
     return () => {
-      document.body.classList.remove("modal-open"); // Clean up on unmount
+      document.body.classList.remove('modal-open'); // Clean up on unmount
     };
   }, [isOpen]);
 

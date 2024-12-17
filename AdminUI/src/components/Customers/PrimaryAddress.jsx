@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 function PrimaryAddress({ formCustomer, setformCustomer }) {
   const addressRef = useRef(null);
@@ -9,9 +9,8 @@ function PrimaryAddress({ formCustomer, setformCustomer }) {
         initializeAutocomplete();
         return;
       }
-      const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places";
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places';
       script.async = true;
       script.defer = true;
       script.onload = () => {
@@ -26,17 +25,14 @@ function PrimaryAddress({ formCustomer, setformCustomer }) {
   }, []);
 
   const initializeAutocomplete = () => {
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      addressRef.current,
-      {
-        types: ["address"],
-      }
-    );
+    const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
+      types: ['address'],
+    });
 
-    autocomplete.addListener("place_changed", () => {
+    autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       if (!place || !place.address_components) {
-        console.error("No valid address selected");
+        console.error('No valid address selected');
         return;
       }
       updateAddressFields(place);
@@ -47,22 +43,18 @@ function PrimaryAddress({ formCustomer, setformCustomer }) {
     const addressComponents = place.address_components;
 
     // Extract the main address (street_number + route)
-    const streetNumber = getComponent("street_number", "", addressComponents);
-    const route = getComponent("route", "", addressComponents);
+    const streetNumber = getComponent('street_number', '', addressComponents);
+    const route = getComponent('route', '', addressComponents);
     const mainAddress = `${streetNumber} ${route}`.trim(); // Combine street number and route
 
     // Update the form customer state with the relevant values
     setformCustomer((prevCustomer) => ({
       ...prevCustomer,
       cust_primary_address: mainAddress, // Only store the main address in the state
-      cust_primary_city: getComponent("locality", "", addressComponents),
-      cust_primary_state: getComponent(
-        "administrative_area_level_1",
-        "",
-        addressComponents
-      ),
-      cust_primary_country: getComponent("country", "", addressComponents),
-      cust_primary_postal: getComponent("postal_code", "", addressComponents),
+      cust_primary_city: getComponent('locality', '', addressComponents),
+      cust_primary_state: getComponent('administrative_area_level_1', '', addressComponents),
+      cust_primary_country: getComponent('country', '', addressComponents),
+      cust_primary_postal: getComponent('postal_code', '', addressComponents),
     }));
   };
 

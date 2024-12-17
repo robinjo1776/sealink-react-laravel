@@ -1,32 +1,32 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import FollowupProductForm from "./FollowupProductForm";
-import FollowupContactForm from "./FollowupContactForm";
+import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import FollowupProductForm from './FollowupProductForm';
+import FollowupContactForm from './FollowupContactForm';
 
 const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   const [followupEdit, setfolloupEdit] = useState({
-    id: "",
-    lead_no: "",
-    lead_date: "",
-    customer_name: "",
-    phone: "",
-    email: "",
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-    postal_code: "",
-    unit_no: "",
-    lead_type: "",
-    contact_person: "",
-    notes: "",
-    next_follow_up_date: "",
-    followup_type: "",
+    id: '',
+    lead_no: '',
+    lead_date: '',
+    customer_name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    country: '',
+    postal_code: '',
+    unit_no: '',
+    lead_type: '',
+    contact_person: '',
+    notes: '',
+    next_follow_up_date: '',
+    followup_type: '',
     products: [],
-    lead_status: "",
-    remarks: "",
-    equipment: "",
+    lead_status: '',
+    remarks: '',
+    equipment: '',
     contacts: [],
   });
 
@@ -34,12 +34,8 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
 
   useEffect(() => {
     if (followUp) {
-      const parsedContacts = Array.isArray(followUp.contacts)
-        ? followUp.contacts
-        : JSON.parse(followUp.contacts || "[]");
-      const parsedProducts = Array.isArray(followUp.products)
-        ? followUp.products
-        : JSON.parse(followUp.products || "[]");
+      const parsedContacts = Array.isArray(followUp.contacts) ? followUp.contacts : JSON.parse(followUp.contacts || '[]');
+      const parsedProducts = Array.isArray(followUp.products) ? followUp.products : JSON.parse(followUp.products || '[]');
       setfolloupEdit({
         ...followUp,
         contacts: parsedContacts.length > 0 ? parsedContacts : [],
@@ -50,46 +46,39 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
 
   const updateFollowup = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       if (!token) {
         Swal.fire({
-          icon: "error",
-          title: "Unauthorized",
-          text: "You are not logged in. Please log in again.",
+          icon: 'error',
+          title: 'Unauthorized',
+          text: 'You are not logged in. Please log in again.',
         });
         return;
       }
 
       // Log the followupEdit payload to check if it's in the correct format
-      console.log("Payload to be sent:", followupEdit);
+      console.log('Payload to be sent:', followupEdit);
 
-      const response = await axios.put(
-        `http://127.0.0.1:8000/api/lead-followup/${followupEdit.id}`,
-        followupEdit,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.put(`http://127.0.0.1:8000/api/lead-followup/${followupEdit.id}`, followupEdit, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       Swal.fire({
-        icon: "success",
-        title: "Updated!",
-        text: "Follow-up data has been updated successfully.",
+        icon: 'success',
+        title: 'Updated!',
+        text: 'Follow-up data has been updated successfully.',
       });
 
       onUpdate(response.data);
       onClose();
     } catch (error) {
-      console.error("Error updating follow-up:", error);
+      console.error('Error updating follow-up:', error);
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text:
-          error.response && error.response.status === 401
-            ? "Unauthorized. Please log in again."
-            : "Failed to update follow-up.",
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update follow-up.',
       });
     }
   };
@@ -97,7 +86,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   const handleAddContact = () => {
     setfolloupEdit((prevFollowup) => ({
       ...prevFollowup,
-      contacts: [...prevFollowup.contacts, { name: "", phone: "", email: "" }],
+      contacts: [...prevFollowup.contacts, { name: '', phone: '', email: '' }],
     }));
   };
 
@@ -109,9 +98,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   };
 
   const handleContactChange = (index, updatedContact) => {
-    const updatedContacts = followupEdit.contacts.map((contact, i) =>
-      i === index ? updatedContact : contact
-    );
+    const updatedContacts = followupEdit.contacts.map((contact, i) => (i === index ? updatedContact : contact));
     setfolloupEdit({
       ...followupEdit,
       contacts: updatedContacts,
@@ -121,7 +108,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   const handleAddProduct = () => {
     setfolloupEdit((prevFollowup) => ({
       ...prevFollowup,
-      products: [...prevFollowup.products, { name: "", quantity: "" }],
+      products: [...prevFollowup.products, { name: '', quantity: '' }],
     }));
   };
 
@@ -133,32 +120,16 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   };
 
   const handleProductChange = (index, updatedProduct) => {
-    const updatedProducts = followupEdit.products.map((product, i) =>
-      i === index ? updatedProduct : product
-    );
+    const updatedProducts = followupEdit.products.map((product, i) => (i === index ? updatedProduct : product));
     setfolloupEdit({
       ...followupEdit,
       products: updatedProducts,
     });
   };
 
-  const leadStatusOptions = [
-    "New",
-    "In Progress",
-    "Completed",
-    "On Hold",
-    "Lost",
-  ];
+  const leadStatusOptions = ['New', 'In Progress', 'Completed', 'On Hold', 'Lost'];
 
-  const equipmentTypeOptions = [
-    "Van",
-    "Reefer",
-    "Flatbed",
-    "Triaxle",
-    "Maxi",
-    "Btrain",
-    "Roll tite",
-  ];
+  const equipmentTypeOptions = ['Van', 'Reefer', 'Flatbed', 'Triaxle', 'Maxi', 'Btrain', 'Roll tite'];
 
   const addressRef = useRef(null);
 
@@ -168,9 +139,8 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
         initializeAutocomplete();
         return;
       }
-      const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places";
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places';
       script.async = true;
       script.defer = true;
       script.onload = () => {
@@ -185,14 +155,11 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   }, []);
 
   const initializeAutocomplete = () => {
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      addressRef.current,
-      {
-        types: ["address"],
-      }
-    );
+    const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
+      types: ['address'],
+    });
 
-    autocomplete.addListener("place_changed", () => {
+    autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       updateAddressFields(place);
     });
@@ -200,15 +167,15 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
 
   const updateAddressFields = (place) => {
     const addressComponents = place.address_components;
-    const formattedAddress = place.formatted_address || "";
+    const formattedAddress = place.formatted_address || '';
 
     setfolloupEdit((prevLead) => ({
       ...prevLead,
       address: formattedAddress,
-      city: getComponent("locality", "", addressComponents),
-      state: getComponent("administrative_area_level_1", "", addressComponents),
-      country: getComponent("country", "", addressComponents),
-      postal_code: getComponent("postal_code", "", addressComponents),
+      city: getComponent('locality', '', addressComponents),
+      state: getComponent('administrative_area_level_1', '', addressComponents),
+      country: getComponent('country', '', addressComponents),
+      postal_code: getComponent('postal_code', '', addressComponents),
     }));
   };
 
@@ -231,15 +198,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="leadNo">Lead No*</label>
-              <input
-                type="text"
-                value={followupEdit.lead_no}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, lead_no: e.target.value })
-                }
-                id="leadNo"
-                required
-              />
+              <input type="text" value={followupEdit.lead_no} onChange={(e) => setfolloupEdit({ ...followupEdit, lead_no: e.target.value })} id="leadNo" required />
             </div>
             <div className="form-group">
               <label htmlFor="leadDate">Lead Date</label>
@@ -273,25 +232,11 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="phone">Phone</label>
-              <input
-                type="tel"
-                value={followupEdit.phone}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, phone: e.target.value })
-                }
-                id="phone"
-              />
+              <input type="tel" value={followupEdit.phone} onChange={(e) => setfolloupEdit({ ...followupEdit, phone: e.target.value })} id="phone" />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                value={followupEdit.email}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, email: e.target.value })
-                }
-                id="email"
-              />
+              <input type="email" value={followupEdit.email} onChange={(e) => setfolloupEdit({ ...followupEdit, email: e.target.value })} id="email" />
             </div>
           </div>
         </fieldset>
@@ -303,45 +248,22 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
               <input
                 type="text"
                 value={followupEdit.address}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, address: e.target.value })
-                }
+                onChange={(e) => setfolloupEdit({ ...followupEdit, address: e.target.value })}
                 id="address"
                 ref={addressRef}
               />
             </div>
             <div className="form-group">
               <label htmlFor="city">City</label>
-              <input
-                type="text"
-                value={followupEdit.city}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, city: e.target.value })
-                }
-                id="city"
-              />
+              <input type="text" value={followupEdit.city} onChange={(e) => setfolloupEdit({ ...followupEdit, city: e.target.value })} id="city" />
             </div>
             <div className="form-group">
               <label htmlFor="state">State</label>
-              <input
-                type="text"
-                value={followupEdit.state}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, state: e.target.value })
-                }
-                id="state"
-              />
+              <input type="text" value={followupEdit.state} onChange={(e) => setfolloupEdit({ ...followupEdit, state: e.target.value })} id="state" />
             </div>
             <div className="form-group">
               <label htmlFor="country">Country</label>
-              <input
-                type="text"
-                value={followupEdit.country}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, country: e.target.value })
-                }
-                id="country"
-              />
+              <input type="text" value={followupEdit.country} onChange={(e) => setfolloupEdit({ ...followupEdit, country: e.target.value })} id="country" />
             </div>
             <div className="form-group">
               <label htmlFor="postalCode">Postal Code</label>
@@ -359,14 +281,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="unitNo">Unit No</label>
-              <input
-                type="text"
-                value={followupEdit.unit_no}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, unit_no: e.target.value })
-                }
-                id="unitNo"
-              />
+              <input type="text" value={followupEdit.unit_no} onChange={(e) => setfolloupEdit({ ...followupEdit, unit_no: e.target.value })} id="unitNo" />
             </div>
           </div>
         </fieldset>
@@ -484,13 +399,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="remarks">Remarks</label>
-              <textarea
-                value={followupEdit.remarks}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, remarks: e.target.value })
-                }
-                id="remarks"
-              />
+              <textarea value={followupEdit.remarks} onChange={(e) => setfolloupEdit({ ...followupEdit, remarks: e.target.value })} id="remarks" />
             </div>
             <div className="form-group">
               <label htmlFor="equipment">Equipment</label>
@@ -514,13 +423,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="notes">Notes</label>
-              <textarea
-                value={followupEdit.notes}
-                onChange={(e) =>
-                  setfolloupEdit({ ...followupEdit, notes: e.target.value })
-                }
-                id="notes"
-              />
+              <textarea value={followupEdit.notes} onChange={(e) => setfolloupEdit({ ...followupEdit, notes: e.target.value })} id="notes" />
             </div>
           </div>
         </fieldset>

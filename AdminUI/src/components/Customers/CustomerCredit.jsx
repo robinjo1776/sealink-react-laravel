@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function CustomerCredit({ formCustomer, setformCustomer }) {
-  const creditStatusOptions = ["Approved", "Not Approved"];
-  const modeOfPaymentOptions = ["Direct Deposit", "Wire Transfer", "Visa"];
-  const currencyOptions = ["USD", "CAD"];
+  const creditStatusOptions = ['Approved', 'Not Approved'];
+  const modeOfPaymentOptions = ['Direct Deposit', 'Wire Transfer', 'Visa'];
+  const currencyOptions = ['USD', 'CAD'];
 
   // State to store uploading status
   const [uploading, setUploading] = useState(false);
@@ -17,10 +17,10 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
 
     try {
       const formData = new FormData();
-      formData.append("file", file);
-      const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/api/upload", {
-        method: "POST",
+      formData.append('file', file);
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://127.0.0.1:8000/api/upload', {
+        method: 'POST',
         body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
         [fieldName]: data.fileUrl, // Update the field with the URL of the uploaded file
       });
     } catch (error) {
-      console.error("File upload failed", error);
+      console.error('File upload failed', error);
     } finally {
       setUploading(false);
     }
@@ -209,9 +209,9 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
       <div className="form-group">
         <label
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            width: "100%",
+            display: 'inline-flex',
+            alignItems: 'center',
+            width: '100%',
           }}
         >
           Credit Application
@@ -232,31 +232,17 @@ function CustomerCredit({ formCustomer, setformCustomer }) {
       {/* File Uploads */}
       <div className="form-group">
         <label htmlFor="creditAgreement">Credit Agreement</label>
-        <input
-          type="file"
-          name="creditAgreement"
-          onChange={(e) => handleFileChange(e, "cust_credit_agreement")}
-        />
+        <input type="file" name="creditAgreement" onChange={(e) => handleFileChange(e, 'cust_credit_agreement')} />
         {/* Show existing file download link if a file exists */}
-        {renderDownloadLink(
-          formCustomer.cust_credit_agreement,
-          "Credit Agreement"
-        )}
+        {renderDownloadLink(formCustomer.cust_credit_agreement, 'Credit Agreement')}
         {uploading && <p>Uploading...</p>}
       </div>
 
       <div className="form-group">
         <label htmlFor="shipperBrokerAgreement">Shipper Broker Agreement</label>
-        <input
-          type="file"
-          name="shipperBrokerAgreement"
-          onChange={(e) => handleFileChange(e, "cust_sbk_agreement")}
-        />
+        <input type="file" name="shipperBrokerAgreement" onChange={(e) => handleFileChange(e, 'cust_sbk_agreement')} />
         {/* Show existing file download link if a file exists */}
-        {renderDownloadLink(
-          formCustomer.cust_sbk_agreement,
-          "Shipper Broker Agreement"
-        )}
+        {renderDownloadLink(formCustomer.cust_sbk_agreement, 'Shipper Broker Agreement')}
         {uploading && <p>Uploading...</p>}
       </div>
     </fieldset>

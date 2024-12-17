@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { Menu } from "antd";
-import PropTypes from "prop-types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMemo } from 'react';
+import { Menu } from 'antd';
+import PropTypes from 'prop-types';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   HomeOutlined,
   BarsOutlined,
@@ -13,8 +13,8 @@ import {
   PayCircleOutlined,
   LogoutOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import "../../../styles/global.css"; 
+} from '@ant-design/icons';
+import '../../../styles/global.css';
 
 const MenuList = ({ darkTheme, userRole }) => {
   const location = useLocation();
@@ -22,210 +22,201 @@ const MenuList = ({ darkTheme, userRole }) => {
   const currentPath = location.pathname;
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   const employeeItems = [
     {
-      key: "crm-menu",
+      key: 'crm-menu',
       icon: <UsergroupAddOutlined />,
-      label: "CRM",
+      label: 'CRM',
       children: [
-        { key: "lead", label: <Link to="/lead">Leads</Link> },
-        { key: "follow-up", label: <Link to="/follow-up">Lead F/U</Link> },
+        { key: 'lead', label: <Link to="/lead">Leads</Link> },
+        { key: 'follow-up', label: <Link to="/follow-up">Lead F/U</Link> },
       ],
     },
     {
-      key: "logout",
+      key: 'logout',
       icon: <LogoutOutlined />,
-      label: "Logout",
+      label: 'Logout',
       onClick: handleLogout,
     },
   ];
 
   const adminItems = [
     {
-      key: "home",
+      key: 'home',
       icon: <HomeOutlined />,
       label: <Link to="/">Home</Link>,
     },
     {
-      key: "orders-menu",
+      key: 'orders-menu',
       icon: <BarsOutlined />,
-      label: "Orders",
+      label: 'Orders',
       children: [
-        { key: "orders", label: <Link to="/order">Orders</Link> },
-        { key: "dispatch", label: <Link to="/dispatch-list">Dispatch</Link> },
-        { key: "tracing", label: <Link to="/tracing">Tracing</Link> },
+        { key: 'orders', label: <Link to="/order">Orders</Link> },
+        { key: 'dispatch', label: <Link to="/dispatch-list">Dispatch</Link> },
+        { key: 'tracing', label: <Link to="/tracing">Tracing</Link> },
         {
-          key: "rate-history",
+          key: 'rate-history',
           label: <Link to="/rate-history">Rate Hist.</Link>,
         },
       ],
     },
     {
-      key: "sales-quotes-menu",
+      key: 'sales-quotes-menu',
       icon: <DollarCircleOutlined />,
-      label: "Sales & Quotes",
+      label: 'Sales & Quotes',
       children: [
-        { key: "sales-quotes", label: <Link to="/sales-quotes">Quotes</Link> },
+        { key: 'sales-quotes', label: <Link to="/sales-quotes">Quotes</Link> },
         {
-          key: "ads-ship",
+          key: 'ads-ship',
           label: <Link to="/advertise-shipments">Ads Ship.</Link>,
         },
         {
-          key: "quotes-lead",
+          key: 'quotes-lead',
           label: <Link to="/quotes-lead">Leads with Quotes</Link>,
         },
       ],
     },
     {
-      key: "crm-menu",
+      key: 'crm-menu',
       icon: <UsergroupAddOutlined />,
-      label: "CRM",
+      label: 'CRM',
       children: [
-        { key: "lead", label: <Link to="/lead">Leads</Link> },
-        { key: "follow-up", label: <Link to="/follow-up">Lead F/U</Link> },
+        { key: 'lead', label: <Link to="/lead">Leads</Link> },
+        { key: 'follow-up', label: <Link to="/follow-up">Lead F/U</Link> },
       ],
     },
     {
-      key: "customers-menu",
+      key: 'customers-menu',
       icon: <FileTextOutlined />,
-      label: "Customers",
-      children: [
-        { key: "customer", label: <Link to="/customer">Customers</Link> },
-      ],
+      label: 'Customers',
+      children: [{ key: 'customer', label: <Link to="/customer">Customers</Link> }],
     },
     {
-      key: "reports-menu",
+      key: 'reports-menu',
       icon: <FileDoneOutlined />,
-      label: "Reports",
+      label: 'Reports',
       children: [
         {
-          key: "employee-login",
+          key: 'employee-login',
           label: <Link to="/employee-login">Emp. Login</Link>,
         },
         {
-          key: "export-invoice-data",
+          key: 'export-invoice-data',
           label: <Link to="/export-invoice-data">Export Inv.</Link>,
         },
-        { key: "gst-hst", label: <Link to="/gst-hst">GST/HST</Link> },
+        { key: 'gst-hst', label: <Link to="/gst-hst">GST/HST</Link> },
         {
-          key: "accounts-payable",
+          key: 'accounts-payable',
           label: <Link to="/accounts-payable">A/P</Link>,
         },
         {
-          key: "receiving-deposit",
+          key: 'receiving-deposit',
           label: <Link to="/receiving-deposit">Receiving Dep.</Link>,
         },
         {
-          key: "profitability",
+          key: 'profitability',
           label: <Link to="/profitability">Profitability</Link>,
         },
       ],
     },
     {
-      key: "accounts-receivable-menu",
+      key: 'accounts-receivable-menu',
       icon: <DollarCircleOutlined />,
-      label: "A/R",
+      label: 'A/R',
       children: [
         {
-          key: "invoices-not-sent",
+          key: 'invoices-not-sent',
           label: <Link to="/invoices-not-sent">Inv. Not Sent</Link>,
         },
         {
-          key: "receivable-age",
+          key: 'receivable-age',
           label: <Link to="/receivable-age">Receivable Age</Link>,
         },
         {
-          key: "receive-payments",
+          key: 'receive-payments',
           label: <Link to="/receive-payments">Receive Payments</Link>,
         },
         {
-          key: "payments-received",
+          key: 'payments-received',
           label: <Link to="/payments-received">Payments Rec.</Link>,
         },
-        { key: "ar-summary", label: <Link to="/summary">Summary</Link> },
+        { key: 'ar-summary', label: <Link to="/summary">Summary</Link> },
       ],
     },
     {
-      key: "accounts-payable-menu",
+      key: 'accounts-payable-menu',
       icon: <PayCircleOutlined />,
-      label: "A/P",
+      label: 'A/P',
       children: [
         {
-          key: "invoices-not-received",
+          key: 'invoices-not-received',
           label: <Link to="/invoices-not-received">Inv. Not Rec.</Link>,
         },
         {
-          key: "payable-day-count",
+          key: 'payable-day-count',
           label: <Link to="/payable-day-count">Payable Day Count</Link>,
         },
         {
-          key: "pay-to-carrier-vendor",
+          key: 'pay-to-carrier-vendor',
           label: <Link to="/pay-to-carrier-vendor">Pay to Vendor</Link>,
         },
-        { key: "paid-list", label: <Link to="/paid-list">Paid List</Link> },
-        { key: "ap-summary", label: <Link to="/summary">Summary</Link> },
+        { key: 'paid-list', label: <Link to="/paid-list">Paid List</Link> },
+        { key: 'ap-summary', label: <Link to="/summary">Summary</Link> },
       ],
     },
     {
-      key: "carriers-vendors-brokers",
+      key: 'carriers-vendors-brokers',
       icon: <FolderOpenOutlined />,
-      label: "Carriers & Co.",
+      label: 'Carriers & Co.',
       children: [
-        { key: "carrier", label: <Link to="/carrier">Carriers</Link> },
-        { key: "vendors", label: <Link to="/vendors">Vendors</Link> },
-        { key: "brokers", label: <Link to="/brokers">Brokers</Link> },
+        { key: 'carrier', label: <Link to="/carrier">Carriers</Link> },
+        { key: 'vendors', label: <Link to="/vendors">Vendors</Link> },
+        { key: 'brokers', label: <Link to="/brokers">Brokers</Link> },
       ],
     },
     {
-      key: "account-menu",
+      key: 'account-menu',
       icon: <UserOutlined />,
-      label: "Account",
+      label: 'Account',
       children: [
-        { key: "user", label: <Link to="/user">Users</Link> },
+        { key: 'user', label: <Link to="/user">Users</Link> },
 
-        { key: "settings", label: <Link to="/settings">Settings</Link> },
+        { key: 'settings', label: <Link to="/settings">Settings</Link> },
         {
-          key: "change-password",
+          key: 'change-password',
           label: <Link to="/change-password">Change Password</Link>,
         },
       ],
     },
     {
-      key: "logout",
+      key: 'logout',
       icon: <LogoutOutlined />,
-      label: "Logout",
+      label: 'Logout',
       onClick: handleLogout,
     },
   ];
 
   const items = useMemo(() => {
-    console.log("Current user role in MenuList:", userRole);
-    return userRole === "employee" ? employeeItems : adminItems;
+    console.log('Current user role in MenuList:', userRole);
+    return userRole === 'employee' ? employeeItems : adminItems;
   }, [userRole, employeeItems, adminItems]);
 
-  console.log("Current user role in MenuList:", userRole);
+  console.log('Current user role in MenuList:', userRole);
 
   const getSelectedKeys = () => {
     return items.reduce((acc, item) => {
-      if (
-        item.label &&
-        item.label.props &&
-        item.label.props.to === currentPath
-      ) {
+      if (item.label && item.label.props && item.label.props.to === currentPath) {
         acc.push(item.key);
       }
       if (item.children) {
         item.children.forEach((child) => {
           if (child.label && child.label.props && child.label.props.to) {
             const childPath = child.label.props.to;
-            if (
-              currentPath === childPath ||
-              currentPath.startsWith(childPath)
-            ) {
+            if (currentPath === childPath || currentPath.startsWith(childPath)) {
               acc.push(item.key, child.key);
             }
           }
@@ -237,7 +228,7 @@ const MenuList = ({ darkTheme, userRole }) => {
 
   return (
     <Menu
-      theme={darkTheme ? "dark" : "light"}
+      theme={darkTheme ? 'dark' : 'light'}
       mode="inline"
       className="menu-bar"
       selectedKeys={getSelectedKeys()}
