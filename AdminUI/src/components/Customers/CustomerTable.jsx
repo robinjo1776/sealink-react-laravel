@@ -15,6 +15,7 @@ const CustomerTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [selectedCustomers, setSelectedCustomers] = useState([]);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [emailData, setEmailData] = useState({ subject: '', content: '' });
   const perPage = 8;
@@ -65,7 +66,9 @@ const CustomerTable = () => {
   };
 
   const updateCustomer = (updatedCustomer) => {
-    setCustomers((prevCustomers) => prevCustomers.map((customer) => (customer.id === updatedCustomer.id ? { ...customer, ...updatedCustomer } : customer)));
+    setCustomers((prevCustomers) =>
+      prevCustomers.map((customer) => (customer.id === updatedCustomer.id ? { ...customer, ...updatedCustomer } : customer))
+    );
   };
 
   const deleteCustomer = async (id) => {
@@ -144,6 +147,11 @@ const CustomerTable = () => {
 
   // Table headers
   const headers = [
+    {
+      key: 'select',
+      label: 'Select',
+      render: (item) => <input type="checkbox" checked={selectedCustomers.includes(item.id)} onChange={() => toggleCustomerSelection(item.id)} />,
+    },
     { key: 'cust_name', label: 'Name' },
     { key: 'cust_type', label: 'Type' },
     { key: 'cust_email', label: 'Email' },
@@ -193,6 +201,12 @@ const CustomerTable = () => {
     setSelectedCustomer(null);
   };
 
+  const toggleCustomerSelection = (id) => {
+    setSelectedCustomers((prevSelected) =>
+      prevSelected.includes(id) ? prevSelected.filter((customerId) => customerId !== id) : [...prevSelected, id]
+    );
+  };
+
   const sendEmails = async (subject, content) => {
     try {
       const token = localStorage.getItem('token');
@@ -201,10 +215,10 @@ const CustomerTable = () => {
       }
 
       const emailData = {
-        ids: [1],
+        ids: [2],
         subject,
         content,
-        module: 'carriers',
+        module: 'customers',
       };
 
       const response = await axios.post('http://127.0.0.1:8000/api/email', emailData, {
@@ -217,7 +231,7 @@ const CustomerTable = () => {
       console.log('Email Response:', response);
       Swal.fire('Success!', 'Emails have been sent.', 'success');
       setEmailModalOpen(false);
-      setSelectedCarriers([]);
+      setSelectedCustomers([]);
     } catch (error) {
       console.error('Error sending emails:', error.response ? error.response.data : error.message);
       Swal.fire('Error!', 'Failed to send emails.', 'error');
@@ -226,8 +240,11 @@ const CustomerTable = () => {
 
   return (
     <div>
-      {/* Header with Add Customer button and search input */}
+      {/* Header with Send Email button and search input */}
       <div className="header-container">
+        <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedCustomers.length === 0}>
+          Send Email
+        </button>
         <div className="search-container">
           <input
             className="search-bar"
@@ -273,14 +290,21 @@ const CustomerTable = () => {
         {selectedCustomer && <EditCustomerForm customer={selectedCustomer} onClose={closeEditModal} onUpdate={updateCustomer} />}
       </Modal>
 
-      <Modal isOpen={isEmailModalOpen} onClose={() => setEmailModalOpen(false)}>
+      {/* Email Modal */}
+
+      <Modal isOpen={isEmailModalOpen} onClose={() => setEmailModalOpen(false)} title="Send Email">
         <div className="email-modal">
-          <h3>Send Email</h3>
-          <div className="email-form">
+          <div>
+            <label htmlFor="subject">Subject:</label>
             <input type="text" placeholder="Subject" onChange={(e) => setEmailData({ ...emailData, subject: e.target.value })} />
-            <textarea placeholder="Content" onChange={(e) => setEmailData({ ...emailData, content: e.target.value })} />
-            <button onClick={() => sendEmails(emailData.subject, emailData.content)}>Send</button>
           </div>
+          <div>
+            <label htmlFor="content">Content:</label>
+            <textarea placeholder="Content" onChange={(e) => setEmailData({ ...emailData, content: e.target.value })} />
+          </div>
+          <button type="submit" onClick={() => sendEmails(emailData.subject, emailData.content)}>
+            Send
+          </button>
         </div>
       </Modal>
     </div>

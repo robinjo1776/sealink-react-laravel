@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { Menu } from "antd";
-import PropTypes from "prop-types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMemo } from 'react';
+import { Menu } from 'antd';
+import PropTypes from 'prop-types';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   HomeOutlined,
   BarsOutlined,
@@ -13,8 +13,8 @@ import {
   PayCircleOutlined,
   LogoutOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import "../../../styles/global.css"; 
+} from '@ant-design/icons';
+import '../../../styles/global.css';
 
 const MenuList = ({ darkTheme, userRole }) => {
   const location = useLocation();
@@ -22,80 +22,73 @@ const MenuList = ({ darkTheme, userRole }) => {
   const currentPath = location.pathname;
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   const employeeItems = [
     {
-      key: "crm-menu",
+      key: 'crm-menu',
       icon: <UsergroupAddOutlined />,
-      label: "CRM",
+      label: 'CRM',
       children: [
-        { key: "lead", label: <Link to="/lead">Leads</Link> },
-        { key: "follow-up", label: <Link to="/follow-up">Lead F/U</Link> },
+        { key: 'lead', label: <Link to="/lead">Leads</Link> },
+        { key: 'follow-up', label: <Link to="/follow-up">Lead F/U</Link> },
       ],
     },
     {
-      key: "logout",
+      key: 'logout',
       icon: <LogoutOutlined />,
-      label: "Logout",
+      label: 'Logout',
       onClick: handleLogout,
     },
   ];
 
   const adminItems = [
     {
-      key: "home",
+      key: 'home',
       icon: <HomeOutlined />,
       label: <Link to="/">Home</Link>,
     },
 
     {
-      key: "sales-quotes-menu",
+      key: 'sales-quotes-menu',
       icon: <DollarCircleOutlined />,
-      label: "Sales & Quotes",
+      label: 'Sales & Quotes',
       children: [
-        { key: "sales-quotes", label: <Link to="/sales-quotes">Quotes</Link> },
+        { key: 'sales-quotes', label: <Link to="/sales-quotes">Quotes</Link> },
         {
-          key: "ads-ship",
-          label: <Link to="/advertise-shipments">Ads Ship.</Link>,
+          key: 'ads-ship',
+          label: <Link to="/shipment">Ads Ship.</Link>,
         },
       ],
     },
 
     {
-      key: "logout",
+      key: 'logout',
       icon: <LogoutOutlined />,
-      label: "Logout",
+      label: 'Logout',
       onClick: handleLogout,
     },
   ];
 
   const items = useMemo(() => {
-    console.log("Current user role in MenuList:", userRole);
-    return userRole === "employee" ? employeeItems : adminItems;
+    console.log('Current user role in MenuList:', userRole);
+    return userRole === 'employee' ? employeeItems : adminItems;
   }, [userRole, employeeItems, adminItems]);
 
-  console.log("Current user role in MenuList:", userRole);
+  console.log('Current user role in MenuList:', userRole);
 
   const getSelectedKeys = () => {
     return items.reduce((acc, item) => {
-      if (
-        item.label &&
-        item.label.props &&
-        item.label.props.to === currentPath
-      ) {
+      if (item.label && item.label.props && item.label.props.to === currentPath) {
         acc.push(item.key);
       }
       if (item.children) {
         item.children.forEach((child) => {
           if (child.label && child.label.props && child.label.props.to) {
             const childPath = child.label.props.to;
-            if (
-              currentPath === childPath ||
-              currentPath.startsWith(childPath)
-            ) {
+            if (currentPath === childPath || currentPath.startsWith(childPath)) {
               acc.push(item.key, child.key);
             }
           }
@@ -107,7 +100,7 @@ const MenuList = ({ darkTheme, userRole }) => {
 
   return (
     <Menu
-      theme={darkTheme ? "dark" : "light"}
+      theme={darkTheme ? 'dark' : 'light'}
       mode="inline"
       className="menu-bar"
       selectedKeys={getSelectedKeys()}

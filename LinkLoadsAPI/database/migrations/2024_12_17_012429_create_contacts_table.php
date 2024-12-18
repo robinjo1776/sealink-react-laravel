@@ -14,7 +14,6 @@ return new class extends Migration {
             // Foreign key for customer
             $table->foreignId('customer_id')->nullable()->constrained('customers')->onDelete('cascade');
             // Foreign key for shipment (this can be added when you create the shipments table)
-            $table->foreignId('shipment_id')->nullable()->constrained('shipments')->onDelete('cascade');
             // Email field
             $table->string('email');
             $table->timestamps();

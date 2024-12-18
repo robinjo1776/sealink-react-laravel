@@ -1,13 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/Auth/LoginPage";
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/Auth/LoginPage';
 
-import ShipmentPage from "./pages/Sales/ShipmentPage";
-import AddShipmentForm from "./components/Sales/AddShipmentForm";
-import EditShipmentForm from "./components/Sales/EditShipmentForm";
+import ShipmentPage from './pages/Sales/ShipmentPage';
+import AddShipmentForm from './components/Sales/AddShipment/AddShipmentForm';
+import EditShipmentForm from './components/Sales/EditShipment/EditShipmentForm';
 
-import PrivateRoute from "./components/common/PrivateRoute";
-import UserProvider from "./UserProvider";
-
+import PrivateRoute from './components/common/PrivateRoute';
+import UserProvider from './UserProvider';
 
 const AppRoutes = () => (
   <UserProvider>
@@ -46,7 +45,7 @@ const AppRoutes = () => (
             <EditShipmentForm />
           </PrivateRoute>
         }
-      /> 
+      />
     </Routes>
   </UserProvider>
 );

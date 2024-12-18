@@ -3,20 +3,20 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
-import EditShipmentForm from './EditShipment/EditShipmentForm';
-import AddShipmentForm from './AddShipment/AddShipmentForm';
+import EditLeadForm from './EditLead/EditLeadForm';
+import AddLeadForm from './AddLead/AddLeadForm';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { UserContext } from '../../UserProvider';
 
-const ShipmentTable = () => {
+const LeadTable = () => {
   const users = useContext(UserContext);
-  const [shipments, setShipments] = useState([]);
+  const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('created_at');
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedShipment, setselectedShipment] = useState(null);
+  const [selectedLead, setSelectedLead] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const perPage = 8;
@@ -27,7 +27,7 @@ const ShipmentTable = () => {
   };
 
   useEffect(() => {
-    const fetchShipments = async () => {
+    const fetchLeads = async () => {
       try {
         const token = localStorage.getItem('token'); // Get the token dynamically
         if (!token) {
@@ -40,17 +40,17 @@ const ShipmentTable = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('Fetched Shipments:', data); // Debugging the fetched data
-        setShipments(data);
+        console.log('Fetched Leads:', data); // Debugging the fetched data
+        setLeads(data);
       } catch (error) {
-        console.error('Error loading shipments:', error);
+        console.error('Error loading leads:', error);
         handleFetchError(error);
       } finally {
         setLoading(false); // Set loading to false once data is fetched
       }
     };
 
-    fetchShipments();
+    fetchLeads();
   }, []);
 
   const handleFetchError = (error) => {
@@ -63,13 +63,11 @@ const ShipmentTable = () => {
     }
   };
 
-  const updateShipment = (updatedShipment) => {
-    setShipments((prevShipments) =>
-      prevShipments.map((shipment) => (shipment.id === updatedShipment.id ? { ...shipment, ...updatedShipment } : shipment))
-    );
+  const updateLead = (updatedLead) => {
+    setLeads((prevLeads) => prevLeads.map((lead) => (lead.id === updatedLead.id ? { ...lead, ...updatedLead } : lead)));
   };
 
-  const deleteShipment = async (id) => {
+  const deleteLead = async (id) => {
     const confirmed = await Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone.',
@@ -93,10 +91,10 @@ const ShipmentTable = () => {
         });
 
         console.log('Delete Response:', response);
-        setShipments((prevShipments) => prevShipments.filter((shipment) => shipment.id !== id));
-        Swal.fire('Deleted!', 'The shipment has been deleted.', 'success');
+        setLeads((prevLeads) => prevLeads.filter((lead) => lead.id !== id));
+        Swal.fire('Deleted!', 'The lead has been deleted.', 'success');
       } catch (error) {
-        console.error('Error deleting shipment:', error);
+        console.error('Error deleting lead:', error);
 
         if (error.response) {
           if (error.response.status === 401) {
@@ -109,7 +107,7 @@ const ShipmentTable = () => {
             Swal.fire({
               icon: 'error',
               title: 'Error!',
-              text: 'Failed to delete the shipment.',
+              text: 'Failed to delete the lead.',
             });
           }
         } else {
@@ -133,13 +131,13 @@ const ShipmentTable = () => {
   };
 
   const openEditModal = (lead) => {
-    setselectedShipment(lead);
+    setSelectedLead(lead);
     setEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setEditModalOpen(false);
-    setselectedShipment(null);
+    setSelectedLead(null);
   };
 
   const openAddModal = () => {
@@ -151,11 +149,11 @@ const ShipmentTable = () => {
   };
 
   const normalizedSearchQuery = searchQuery.toLowerCase();
-  const filteredShipments = shipments.filter((shipment) =>
-    Object.values(shipment).some((val) => val !== null && val !== undefined && val.toString().toLowerCase().includes(normalizedSearchQuery))
+  const filteredLeads = leads.filter((lead) =>
+    Object.values(lead).some((val) => val !== null && val !== undefined && val.toString().toLowerCase().includes(normalizedSearchQuery))
   );
 
-  const sortedShipments = filteredShipments.sort((a, b) => {
+  const sortedLeads = filteredLeads.sort((a, b) => {
     // Handle sorting for different data types
     let valA = a[sortBy];
     let valB = b[sortBy];
@@ -173,25 +171,21 @@ const ShipmentTable = () => {
     return sortDesc ? valB - valA : valA - valB;
   });
 
-  const paginatedData = sortedShipments.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const paginatedData = sortedLeads.slice((currentPage - 1) * perPage, currentPage * perPage);
 
-  const totalPages = Math.ceil(filteredShipments.length / perPage);
+  const totalPages = Math.ceil(filteredLeads.length / perPage);
 
   const headers = [
-    { key: 'ship_load_date', label: 'Load Date' },
-    { key: 'ship_pickup_location', label: 'Pickup Location' },
-    { key: 'ship_delivery_location', label: 'Delivery Location' },
-    { key: 'ship_driver', label: 'Driver' },
-    { key: 'ship_weight', label: 'Weight' },
-    { key: 'ship_ftl_ltl', label: 'FTL/LTL' },
-    {
-      key: 'ship_tarp',
-      label: 'TARP',
-      render: (item) => <span className={item.ship_tarp ? 'tarp-yes' : 'tarp-no'}>{item.ship_tarp ? 'Yes' : 'No'}</span>,
-    },
-    { key: 'ship_equipment', label: 'Equipment' },
-    { key: 'ship_price', label: 'Price' },
-    { key: 'ship_notes', label: 'Notes' },
+    { key: "ship_load_date", label: "Load Date" },
+    { key: "ship_pickup_location", label: "Pickup Location" },
+    { key: "ship_delivery_location", label: "Delivery Location" },
+    { key: "ship_driver", label: "Driver" },
+    { key: "ship_weight", label: "Weight" },
+    { key: "ship_ftl_ltl", label: "EFTL/LTL" },
+    { key: "ship_tarp", label: "TARP" },
+    { key: "ship_equipment", label: "Equipment" },
+    { key: "ship_price", label: "price" },
+    { key: "ship_notes", label: "Notes" },
     {
       key: 'actions',
       label: 'Actions',
@@ -200,7 +194,7 @@ const ShipmentTable = () => {
           <button onClick={() => openEditModal(item)} className="btn-edit">
             <EditOutlined />
           </button>
-          <button onClick={() => deleteShipment(item.id)} className="btn-delete">
+          <button onClick={() => deleteLead(item.id)} className="btn-delete">
             <DeleteOutlined />
           </button>
         </>
@@ -208,14 +202,45 @@ const ShipmentTable = () => {
     },
   ];
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'Prospect customer':
+        return 'badge-prospect';
+      case 'Lanes discussed':
+        return 'badge-lanes';
+      case 'Product/Equipment discussed':
+        return 'badge-product';
+      case 'E-mail sent to concerned person':
+        return 'badge-email';
+      case 'Carrier portal registration':
+        return 'badge-carrier';
+      case 'Quotations':
+        return 'badge-quotation';
+      case 'Fob/Have broker':
+        return 'badge-broker';
+      case 'Voicemail/No answer':
+        return 'badge-voicemail';
+      case 'Different Department':
+        return 'badge-different';
+      case 'No answer/Callback/Voicemail':
+        return 'badge-callback';
+      case 'Not interested reason provided in notes':
+        return 'badge-not-interested';
+      case 'Asset based only':
+        return 'badge-asset';
+      default:
+        return 'badge-default';
+    }
+  };
+
   return (
     <div>
       <div className="header-container">
         <button onClick={openAddModal} className="add-button">
-          Add Shipment
+          Add Lead
         </button>
         <div className="search-container">
-          <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search shipments..." />
+          <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search leads..." />
         </div>
       </div>
 
@@ -248,16 +273,16 @@ const ShipmentTable = () => {
       )}
 
       {/* Edit Lead Modal */}
-      <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Shipment">
-        {selectedShipment && <EditShipmentForm shipment={selectedShipment} onClose={closeEditModal} onUpdate={updateShipment} />}
+      <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Lead">
+        {selectedLead && <EditLeadForm lead={selectedLead} onClose={closeEditModal} onUpdate={updateLead} />}
       </Modal>
 
       {/* Add Lead Modal */}
-      <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Shipment">
-        <AddShipmentForm
+      <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Lead">
+        <AddLeadForm
           onClose={closeAddModal}
-          onAddShipment={(newShipment) => {
-            setShipments((prevShipments) => [...prevShipments, newShipment]);
+          onAddLead={(newLead) => {
+            setLeads((prevLeads) => [...prevLeads, newLead]);
             closeAddModal();
           }}
         />
@@ -266,4 +291,4 @@ const ShipmentTable = () => {
   );
 };
 
-export default ShipmentTable;
+export default LeadTable;

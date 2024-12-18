@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CarrierEmailNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,44 +15,32 @@ class EmailController extends Controller
     /**
      * Send emails to recipients dynamically based on module and IDs.
      */
+
+
+    // Define the sendEmails method
     public function sendEmails(Request $request)
     {
-        // Validate the incoming request
-        $validatedData = Validator::make($request->all(), [
-            'module' => 'required|string|in:carriers,customers',
+        $validated = $request->validate([
             'ids' => 'required|array',
-            'ids.*' => 'integer',
-            'subject' => 'required|string|max:255',
+            'subject' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        if ($validatedData->fails()) {
-            return response()->json(['errors' => $validatedData->errors()], 422);
+        try {
+            $carriers = Carrier::whereIn('id', $validated['ids'])->get();
+
+            foreach ($carriers as $carrier) {
+                if ($carrier->advertise_email) {
+                    Mail::to($carrier->advertise_email)
+                        ->send(new CarrierEmailNotification($carrier, $validated['subject'], $validated['content']));
+                }
+            }
+
+            return response()->json(['message' => 'Emails sent successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error sending emails.', 'error' => $e->getMessage()], 500);
         }
-
-        // Extract validated data
-        $module = $request->module;
-        $ids = $request->ids;
-
-        // Dynamically determine the model and relationship
-        $model = $this->getModelClass($module);
-        $contacts = $this->getEmails($model, $ids);
-
-        if ($contacts->isEmpty()) {
-            return response()->json(['message' => "No emails found for selected {$module}"], 404);
-        }
-
-        // Send emails
-        foreach ($contacts as $contact) {
-            Mail::raw($request->content, function ($message) use ($contact, $request) {
-                $message->to($contact->email)
-                    ->subject($request->subject);
-            });
-        }
-
-        return response()->json(['message' => "Emails sent successfully to {$module}"]);
     }
-
     /**
      * Get the model class based on the module name.
      */
@@ -66,18 +57,20 @@ class EmailController extends Controller
     /**
      * Fetch email contacts dynamically based on the model.
      */
+    // Your original getEmails method
     protected function getEmails($modelClass, $ids)
     {
         if (!$modelClass) {
             return collect(); // Return an empty collection if the model is invalid
         }
 
-        // Assuming each model has a 'contacts' relationship
-        return $modelClass::whereIn('id', $ids)
-            ->with('contacts') // Ensure 'contacts' is a relationship in the model
+        // Fetch the carriers or customers with their associated contacts
+        return $modelClass::whereIn('id', $ids) // Ensure the carriers are selected by their IDs
+            ->with('contacts') // Ensure 'contacts' is eager loaded
             ->get()
-            ->pluck('contacts') // Flatten contacts
-            ->flatten()
-            ->whereNotNull('email'); // Filter out any null emails
+            ->flatMap(function ($model) {
+                // Flatten all contacts of all carriers and filter out null emails
+                return $model->contacts->whereNotNull('email');
+            });
     }
 }

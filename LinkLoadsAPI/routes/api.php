@@ -12,6 +12,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\EmployeeLeadController;
 use App\Http\Controllers\LeadFollowupController;
 use App\Http\Controllers\EmployeeFollowupController;
+use App\Http\Controllers\ShipmentController;
 
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -65,4 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
     /*Carrier routes */
 
     Route::apiResource('/carrier', CarrierController::class);
+
+    /* Shipment routes */
+    Route::apiResource('/shipment', ShipmentController::class);
 });

@@ -77,8 +77,9 @@ class Carrier extends Model
 
     public function contacts()
     {
-        return $this->hasMany(Contact::class, 'carrier_id');
+        return $this->hasMany(Contact::class);
     }
+    
     
 
 }

@@ -107,59 +107,6 @@ const CarrierTable = () => {
     }
   };
 
-  const toggleCarrierSelection = (id) => {
-    setSelectedCarriers((prevSelected) => (prevSelected.includes(id) ? prevSelected.filter((carrierId) => carrierId !== id) : [...prevSelected, id]));
-  };
-
-  const sendEmails = async (subject, content) => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found');
-      }
-
-      const emailData = {
-        ids: [1],
-        subject,
-        content,
-        module: 'carriers',
-      };
-
-      const response = await axios.post('http://127.0.0.1:8000/api/email', emailData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('Email Response:', response);
-      Swal.fire('Success!', 'Emails have been sent.', 'success');
-      setEmailModalOpen(false);
-      setSelectedCarriers([]);
-    } catch (error) {
-      console.error('Error sending emails:', error.response ? error.response.data : error.message);
-      Swal.fire('Error!', 'Failed to send emails.', 'error');
-    }
-  };
-
-  const openEditModal = (carrier) => {
-    setSelectedCarrier(carrier);
-    setEditModalOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setEditModalOpen(false);
-    setSelectedCarrier(null);
-  };
-
-  const openAddModal = () => {
-    setAddModalOpen(true);
-  };
-
-  const closeAddModal = () => {
-    setAddModalOpen(false);
-  };
-
   const normalizedSearchQuery = searchQuery.toLowerCase();
   const filteredCarriers = carriers.filter((carrier) =>
     Object.values(carrier).some((val) => val !== null && val !== undefined && val.toString().toLowerCase().includes(normalizedSearchQuery))
@@ -198,7 +145,9 @@ const CarrierTable = () => {
     {
       key: 'approved',
       label: 'Approved',
-      render: (item) => <span style={{ color: item.approved ? 'green' : 'red', fontWeight: 'bold' }}>{item.approved ? 'Approved' : 'Not Approved'}</span>,
+      render: (item) => (
+        <span style={{ color: item.approved ? 'green' : 'red', fontWeight: 'bold' }}>{item.approved ? 'Approved' : 'Not Approved'}</span>
+      ),
     },
     {
       key: 'advertise',
@@ -225,6 +174,74 @@ const CarrierTable = () => {
       ),
     },
   ];
+
+  const openEditModal = (carrier) => {
+    setSelectedCarrier(carrier);
+    setEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+    setSelectedCarrier(null);
+  };
+
+  const openAddModal = () => {
+    setAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setAddModalOpen(false);
+  };
+
+  const toggleCarrierSelection = (id) => {
+    setSelectedCarriers((prevSelected) => (prevSelected.includes(id) ? prevSelected.filter((carrierId) => carrierId !== id) : [...prevSelected, id]));
+  };
+
+  const sendEmails = async (subject, content) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token found');
+      }
+  
+      if (selectedCarriers.length === 0) {
+        Swal.fire('Error!', 'Please select at least one carrier to send the email.', 'error');
+        return;
+      }
+  
+      const emailData = {
+        ids: selectedCarriers,  // The carrier IDs for email sending
+        subject,
+        content,
+      };
+  
+      const response = await axios.post('http://127.0.0.1:8000/api/email', emailData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      console.log('Email Response:', response);
+      Swal.fire('Success!', 'Emails have been sent.', 'success');
+      setEmailModalOpen(false);
+      setSelectedCarriers([]);  // Clear the selected carriers after sending the email
+    } catch (error) {
+      console.error('Error sending emails:', error.response ? error.response.data : error.message);
+      Swal.fire('Error!', 'Failed to send emails.', 'error');
+    }
+  };
+  
+  const handleEmailSubmit = () => {
+    if (!emailData.subject || !emailData.content) {
+      Swal.fire('Error!', 'Please provide both subject and content for the email.', 'error');
+      return;
+    }
+  
+    sendEmails(emailData.subject, emailData.content);
+  };
+  
+  
 
   return (
     <div>
@@ -280,7 +297,6 @@ const CarrierTable = () => {
       </Modal>
 
       {/* Email Modal */}
-
       <Modal isOpen={isEmailModalOpen} onClose={() => setEmailModalOpen(false)} title="Send Email">
         <div className="email-modal">
           <div>

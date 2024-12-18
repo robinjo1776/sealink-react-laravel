@@ -226,6 +226,22 @@
   background-color: #d9d9d9;
   color: #000;
 }
+/* TARP status indicators */
+.tarp-yes {
+  color: green;
+  font-weight: bold;
+  background-color: #d4edda;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.tarp-no {
+  color: red;
+  font-weight: bold;
+  background-color: #f8d7da;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
 
 .pagination {
   margin-top: 20px;

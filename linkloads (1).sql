@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2024 at 09:41 AM
+-- Generation Time: Dec 18, 2024 at 08:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,7 +102,9 @@ INSERT INTO `carriers` (`id`, `dba`, `legal_name`, `remit_name`, `acc_no`, `bran
 (16, 'Bill Clinton', 'Bill Clinton', 'Bill Clinton', '765757556765', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'USD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Excellent', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 0, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 22:29:36', '2024-12-15 22:29:36'),
 (18, 'Imran Khan', 'Imran Khan', 'Imran Khan', '765757556765', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'USD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Canadian', 'Excellent', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, NULL, NULL, NULL, '2024-12-15 23:15:41', '2024-12-15 23:15:41'),
 (19, 'Steve Irwin7', 'Steve Irwin', 'Steve Irwin', '878686786867', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'USD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Air Freight', 'Poor', NULL, NULL, '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, NULL, NULL, 'Vinayak Insurance', '9000595486863', 19998.00, NULL, NULL, NULL, '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', NULL, '\"[{\\\"name\\\":\\\"Ivana\\\",\\\"phone\\\":\\\"309847421\\\",\\\"email\\\":\\\"ivana@gmail.com\\\",\\\"fax\\\":\\\"4098\\\",\\\"designation\\\":\\\"Civil Engineer\\\"}]\"', '\"[]\"', '\"[]\"', '2024-12-16 00:11:36', '2024-12-16 03:33:57'),
-(23, 'Steve Irwin42', 'Steve Irwin4', 'Steve Irwin4', '878686786867', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Air Freight', 'Excellent', 'http://127.0.0.1:8000/storage/uploads/Lk48OwGG1ZTyQRB7sdPTfd8Nd0NdCFvNDiMt3oCM.pdf', '7576576576', '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, '2024-12-09', '2025-01-02', 'Vinayak Insurance', '9000595486863', 19998.00, '2024-12-02', '2025-01-08', 'http://127.0.0.1:8000/storage/uploads/BSrRs8pJGWiHkk7OhwaQr4sYu7QBqeOuof2gURBm.pdf', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', 'job', '\"[{\\\"name\\\":\\\"Wonderalnd\\\",\\\"phone\\\":\\\"409876724\\\",\\\"email\\\":\\\"wonderland@gmail.com\\\",\\\"fax\\\":\\\"0983452\\\",\\\"designation\\\":\\\"Chartered Accountant\\\"}]\"', '\"[{\\\"equipment_type\\\":null,\\\"quantity\\\":null,\\\"details\\\":null,\\\"\\\":\\\"Reefer 53\'\\\"}]\"', '\"[]\"', '2024-12-16 03:38:38', '2024-12-16 03:39:14');
+(23, 'Steve Irwin42', 'Steve Irwin4', 'Steve Irwin4', '878686786867', 'HDFC', 'http://www.hdfcbank.com', '90888676557', 'CAD', 'good', 0, 1, 'shanemcmohan@gmail.com', 'Air Freight', 'Excellent', 'http://127.0.0.1:8000/storage/uploads/Lk48OwGG1ZTyQRB7sdPTfd8Nd0NdCFvNDiMt3oCM.pdf', '7576576576', '3409898979', '30008678678', '5767568578', '85785875', '8779897897897', 0, 0, '467768', 1, 'HDFC Bank', '756765756756', 577755.00, '2024-12-09', '2025-01-02', 'Vinayak Insurance', '9000595486863', 19998.00, '2024-12-02', '2025-01-08', 'http://127.0.0.1:8000/storage/uploads/BSrRs8pJGWiHkk7OhwaQr4sYu7QBqeOuof2gURBm.pdf', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', '654645645644', '212 İstanbul Power Outlet AVM', 'Rawalpindi', 'İstanbul', 'Türkiye', '34100', '6456646546', 'job', '\"[{\\\"name\\\":\\\"Wonderalnd\\\",\\\"phone\\\":\\\"409876724\\\",\\\"email\\\":\\\"wonderland@gmail.com\\\",\\\"fax\\\":\\\"0983452\\\",\\\"designation\\\":\\\"Chartered Accountant\\\"}]\"', '\"[{\\\"equipment_type\\\":null,\\\"quantity\\\":null,\\\"details\\\":null,\\\"\\\":\\\"Reefer 53\'\\\"}]\"', '\"[]\"', '2024-12-16 03:38:38', '2024-12-16 03:39:14'),
+(26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-12-17 20:57:46', '2024-12-17 20:57:46'),
+(27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-12-17 21:00:07', '2024-12-17 21:00:07');
 
 -- --------------------------------------------------------
 
@@ -112,10 +114,9 @@ INSERT INTO `carriers` (`id`, `dba`, `legal_name`, `remit_name`, `acc_no`, `bran
 
 CREATE TABLE `contacts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `email` varchar(255) NOT NULL,
   `carrier_id` bigint(20) UNSIGNED DEFAULT NULL,
   `customer_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `shipment_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -253,7 +254,8 @@ INSERT INTO `leads` (`id`, `lead_no`, `lead_date`, `follow_up_date`, `customer_n
 (34, 3290, '2024-12-06', '2024-12-19', 'Erin', 4950868635, 'erinjade@gmail.com', 'www.erinjade.com', 'Maxi', '671 Lincoln Avenue', 'Winnetka', 'Illinois', 'United States', '60093', NULL, 'MB', 'Ivan', 'E-mail sent to concerned person', 'hhrthrt', '[{\"name\":\"Rubel Hossain\",\"phone\":\"79695353\",\"email\":\"ruelhossain@gmail.com\"}]', '2024-12-05 22:28:25', '2024-12-05 22:28:47', 'Daniel'),
 (35, 4560, '2024-12-16', '2025-01-09', 'Ronak Kapadia', 5607567565, 'ronak@gmail.com', NULL, 'Flatbed', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'BDS', NULL, 'Asset based only', NULL, '[]', '2024-12-15 22:49:18', '2024-12-15 22:49:18', 'Kuber'),
 (36, 9087, '2024-12-16', '2025-01-02', 'Sealink', 886864433, 'shanemcmohan@gmail.com', 'www.fred.com', 'Triaxle', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'CA', NULL, 'Not interested reason provided in notes', NULL, '[]', '2024-12-16 00:09:45', '2024-12-16 00:09:45', 'Daniel'),
-(37, 2390, '2024-12-16', '2025-01-08', 'Robin Joseph', 4379713752, 'robinjo1776@gmail.com', NULL, 'Triaxle', '66', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', 66, 'CA', 'Zain', 'E-mail sent to concerned person', 'hfhf', '[]', '2024-12-16 00:10:49', '2024-12-16 00:10:49', 'Daniel');
+(37, 2390, '2024-12-16', '2025-01-08', 'Robin Joseph', 4379713752, 'robinjo1776@gmail.com', NULL, 'Triaxle', '66', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', 66, 'CA', 'Zain', 'E-mail sent to concerned person', 'hfhf', '[]', '2024-12-16 00:10:49', '2024-12-16 00:10:49', 'Daniel'),
+(38, 2345, '2024-12-20', '2024-12-25', 'John Doe Enterprises', 1234567890, 'contact@johndoe.com', 'https://www.johndoe.com', 'Forklift', '123 Business St.', 'New York', 'NY', 'USA', '10001', 101, 'New Business', 'Jane Smith', 'Open', 'Interested in renting forklifts for 6 months.', NULL, '2024-12-17 22:57:01', '2024-12-17 22:57:01', 'Sales Team');
 
 -- --------------------------------------------------------
 
@@ -343,7 +345,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2024_10_24_112556_add_assigned_to_to_leads_table', 10),
 (36, '2024_12_06_044821_modify_cust_credit_application_column_in_customers_table', 11),
 (37, '2024_12_11_134428_create_carriers_table', 12),
-(38, '2024_12_13_102054_rename_1099_column_in_carriers_table', 13);
+(38, '2024_12_13_102054_rename_1099_column_in_carriers_table', 13),
+(40, '2024_12_17_012429_create_contacts_table', 14),
+(41, '2024_12_18_021931_create_shipments_table', 15);
 
 -- --------------------------------------------------------
 
@@ -710,8 +714,44 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (618, 'App\\Models\\User', 1, 'API Token', '0de5a9cb360176eab1449ddc9e41a94fd4b39805f3c05b3b5c1660d1656405f4', '[\"*\"]', '2024-12-15 06:07:50', NULL, '2024-12-14 23:12:50', '2024-12-15 06:07:50'),
 (619, 'App\\Models\\User', 1, 'API Token', 'cf982ec58989455f313cf4674310a6375f2c9e3debc23248cd5eb2db3b06a728', '[\"*\"]', '2024-12-16 23:44:47', NULL, '2024-12-15 05:43:22', '2024-12-16 23:44:47'),
 (620, 'App\\Models\\User', 11, 'API Token', '4d0bdb86a7843310d75daced062ca5a00151b2ca5d6fc60d072b7e2e70775b11', '[\"*\"]', '2024-12-16 09:01:17', NULL, '2024-12-16 09:00:57', '2024-12-16 09:01:17'),
-(621, 'App\\Models\\User', 1, 'API Token', '97a2f391a98ebf7e51877695d000598167c198d1028e17bb9ae6eb8dade652b0', '[\"*\"]', '2024-12-16 20:57:10', NULL, '2024-12-16 20:03:58', '2024-12-16 20:57:10'),
-(622, 'App\\Models\\User', 1, 'API Token', '085992a9eb109de0944649c3e92c3bb76b55971d7c8d73a0abf0693f9ce536b1', '[\"*\"]', '2024-12-17 02:54:40', NULL, '2024-12-16 23:59:10', '2024-12-17 02:54:40');
+(621, 'App\\Models\\User', 1, 'API Token', '97a2f391a98ebf7e51877695d000598167c198d1028e17bb9ae6eb8dade652b0', '[\"*\"]', '2024-12-17 05:34:47', NULL, '2024-12-16 20:03:58', '2024-12-17 05:34:47'),
+(622, 'App\\Models\\User', 1, 'API Token', '085992a9eb109de0944649c3e92c3bb76b55971d7c8d73a0abf0693f9ce536b1', '[\"*\"]', '2024-12-17 02:54:40', NULL, '2024-12-16 23:59:10', '2024-12-17 02:54:40'),
+(623, 'App\\Models\\User', 1, 'API Token', '3c4a2d60da5f008286c6cb5fc93ee20d0a1f99d17940e061a6b405414e3623b6', '[\"*\"]', '2024-12-18 01:08:25', NULL, '2024-12-17 03:27:57', '2024-12-18 01:08:25'),
+(624, 'App\\Models\\User', 11, 'API Token', '750f27b532121184fff96abdae5eeb24a2ae5219e761749c64c24434cfe52adb', '[\"*\"]', '2024-12-18 01:41:48', NULL, '2024-12-17 20:32:28', '2024-12-18 01:41:48'),
+(625, 'App\\Models\\User', 1, 'API Token', 'd78b0a656fd833f2dedadb6a4845b9c22e19f7aff9e1ba4a9ebe22615a0d46aa', '[\"*\"]', '2024-12-17 21:00:07', NULL, '2024-12-17 20:57:29', '2024-12-17 21:00:07'),
+(626, 'App\\Models\\User', 1, 'API Token', '29382b2d24de195555995d3804f7a801162d0b257057262e24c3236899aadf30', '[\"*\"]', '2024-12-17 23:15:42', NULL, '2024-12-17 22:51:38', '2024-12-17 23:15:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shipments`
+--
+
+CREATE TABLE `shipments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `ship_load_date` date NOT NULL,
+  `ship_pickup_location` varchar(255) NOT NULL,
+  `ship_delivery_location` varchar(255) NOT NULL,
+  `ship_driver` varchar(255) NOT NULL,
+  `ship_weight` decimal(10,2) NOT NULL,
+  `ship_ftl_ltl` enum('FTL','LTL') NOT NULL,
+  `ship_tarp` tinyint(1) NOT NULL DEFAULT 0,
+  `ship_equipment` varchar(255) DEFAULT NULL,
+  `ship_price` decimal(10,2) NOT NULL,
+  `ship_notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shipments`
+--
+
+INSERT INTO `shipments` (`id`, `ship_load_date`, `ship_pickup_location`, `ship_delivery_location`, `ship_driver`, `ship_weight`, `ship_ftl_ltl`, `ship_tarp`, `ship_equipment`, `ship_price`, `ship_notes`, `created_at`, `updated_at`) VALUES
+(2, '2024-12-20', 'New York, NY', 'Los Angeles, CA', 'John Doe', 15000.50, 'LTL', 1, 'Flatbed Truck', 2500.00, 'Fragile items, handle with care.', '2024-12-17 23:14:49', '2024-12-17 23:14:49'),
+(3, '2024-12-20', 'New York, NY', 'Los Angeles, CA', 'Pigeon Doe', 15000.50, 'LTL', 1, 'Reffer Truck', 2500.00, 'Fragile items, handle with care.', '2024-12-17 23:15:22', '2024-12-17 23:15:22'),
+(4, '2024-12-20', 'New York, NY', 'Los Angeles, CA', 'Pigeon Does', 15000.50, 'LTL', 0, 'Reffer Truck', 2500.00, 'Fragile items, handle with care.', '2024-12-17 23:15:42', '2024-12-18 01:29:43'),
+(5, '2024-12-18', 'Georgia', 'Alabama', 'Manthan', 33999.09, 'FTL', 1, 'Grease', 45000.00, 'Handle with care', '2024-12-17 23:51:15', '2024-12-17 23:51:15');
 
 -- --------------------------------------------------------
 
@@ -818,6 +858,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `shipments`
+--
+ALTER TABLE `shipments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -833,13 +879,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carriers`
 --
 ALTER TABLE `carriers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -857,7 +903,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `lead_follow_up`
@@ -869,7 +915,7 @@ ALTER TABLE `lead_follow_up`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -881,7 +927,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=623;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=627;
+
+--
+-- AUTO_INCREMENT for table `shipments`
+--
+ALTER TABLE `shipments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

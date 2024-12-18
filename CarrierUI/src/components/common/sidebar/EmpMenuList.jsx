@@ -1,9 +1,9 @@
-import { Menu } from "antd";
-import PropTypes from "prop-types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UsergroupAddOutlined, LogoutOutlined } from "@ant-design/icons";
-import axios from "axios";
-import "../../../styles/global.css";
+import { Menu } from 'antd';
+import PropTypes from 'prop-types';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { UsergroupAddOutlined, LogoutOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import '../../../styles/global.css';
 
 const EmpMenuList = ({ darkTheme, collapsed }) => {
   const location = useLocation();
@@ -13,38 +13,38 @@ const EmpMenuList = ({ darkTheme, collapsed }) => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://127.0.0.1:8000/api/logout",
+        'http://127.0.0.1:8000/api/logout',
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }
       );
 
-      localStorage.removeItem("token");
-      localStorage.removeItem("userRole");
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
       setUserRole(null);
-      navigate("/emp_login");
+      navigate('/emp_login');
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error('Logout failed:', error);
     }
   };
 
   const employeeItems = [
     {
-      key: "crm-menu",
+      key: 'crm-menu',
       icon: <UsergroupAddOutlined />,
-      label: "CRM",
+      label: 'CRM',
       children: [
-        { key: "lead", label: <Link to="/emp_lead">Leads</Link> },
-        { key: "follow-up", label: <Link to="/follow-up">Lead F/U</Link> },
+        { key: 'lead', label: <Link to="/emp_lead">Leads</Link> },
+        { key: 'follow-up', label: <Link to="/follow-up">Lead F/U</Link> },
       ],
     },
     {
-      key: "logout",
+      key: 'logout',
       icon: <LogoutOutlined />,
-      label: "Logout",
+      label: 'Logout',
       onClick: handleLogout,
     },
   ];
@@ -56,11 +56,7 @@ const EmpMenuList = ({ darkTheme, collapsed }) => {
       }
       if (item.children) {
         item.children.forEach((child) => {
-          if (
-            child.label?.props?.to &&
-            (currentPath === child.label.props.to ||
-              currentPath.startsWith(child.label.props.to))
-          ) {
+          if (child.label?.props?.to && (currentPath === child.label.props.to || currentPath.startsWith(child.label.props.to))) {
             acc.push(item.key, child.key);
           }
         });
@@ -71,7 +67,7 @@ const EmpMenuList = ({ darkTheme, collapsed }) => {
 
   return (
     <Menu
-      theme={darkTheme ? "dark" : "light"}
+      theme={darkTheme ? 'dark' : 'light'}
       mode="inline"
       className="menu-bar"
       selectedKeys={getSelectedKeys()}
