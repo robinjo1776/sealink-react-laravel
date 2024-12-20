@@ -12,6 +12,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\EmployeeLeadController;
 use App\Http\Controllers\LeadFollowupController;
 use App\Http\Controllers\EmployeeFollowupController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ShipmentController;
 
 // Public routes (no authentication required)
@@ -63,10 +64,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // Fetch Lead Followups for logged-in employee
     Route::get('/employee-followup', [EmployeeFollowupController::class, 'index']);
 
-    /*Carrier routes */
+    /*Carrier route */
 
     Route::apiResource('/carrier', CarrierController::class);
 
-    /* Shipment routes */
+    /* Shipment route */
     Route::apiResource('/shipment', ShipmentController::class);
+
+    /* Quote route */
+    Route::apiResource('/quote', QuoteController::class);
 });

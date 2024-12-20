@@ -1,64 +1,53 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../../../UserProvider";
-import axios from "axios";
-import Swal from "sweetalert2";
-import LeadContactForm from "../LeadContactForm";
-import "../../../styles/Form.css";
-import LeadDetails from "./LeadDetails";
-import AddressDetails from "./AddressDetails";
-import AdditionalInfo from "./AdditionalInfo";
+import { useContext, useState } from 'react';
+import { UserContext } from '../../../UserProvider';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import LeadContactForm from '../LeadContactForm';
+import '../../../styles/Form.css';
+import LeadDetails from './LeadDetails';
+import AddressDetails from './AddressDetails';
+import AdditionalInfo from './AdditionalInfo';
 
 const AddLeadForm = ({ onClose, onAddLead }) => {
   const { currentUser } = useContext(UserContext);
   const [lead, setLead] = useState({
-    id: "",
-    lead_no: "",
-    lead_date: "",
-    customer_name: "",
-    phone: "",
-    email: "",
-    website: "",
-    address: "",
-    unit_no: "",
-    city: "",
-    state: "",
-    country: "",
-    postal_code: "",
-    lead_type: "",
-    contact_person: "",
-    notes: "",
-    lead_status: "",
-    follow_up_date: "",
-    equipment_type: "",
+    id: '',
+    lead_no: '',
+    lead_date: '',
+    customer_name: '',
+    phone: '',
+    email: '',
+    website: '',
+    address: '',
+    unit_no: '',
+    city: '',
+    state: '',
+    country: '',
+    postal_code: '',
+    lead_type: '',
+    contact_person: '',
+    notes: '',
+    lead_status: '',
+    follow_up_date: '',
+    equipment_type: '',
     contacts: [],
   });
 
-  const leadTypeOptions = [
-    "AB",
-    "BC",
-    "BDS",
-    "CA",
-    "DPD MAGMA",
-    "MB",
-    "ON",
-    "Super Leads",
-    "TBAB",
-    "USA",
-  ];
+  const leadTypeOptions = ['AB', 'BC', 'BDS', 'CA', 'DPD MAGMA', 'MB', 'ON', 'Super Leads', 'TBAB', 'USA'];
 
   const leadStatusOptions = [
-    "Prospect customer",
-    "Lanes discussed",
-    "Product/Equipment discussed",
-    "E-mail sent to concerned person",
-    "Carrier portal registration",
-    "Quotations",
-    "Fob/Have broker",
-    "Voicemail/No answer",
-    "Different Department",
-    "No answer/Callback/Voicemail",
-    "Not interested reason provided in notes",
-    "Asset based only",
+    'Prospect customer',
+    'Lanes discussed',
+    'Product/Equipment discussed',
+    'E-mail sent to concerned person',
+    'Carrier portal registration',
+    'Quotations',
+    'Fob/Have broker',
+    'Voicemail/No answer',
+    'Different Department',
+    'No answer/Callback/Voicemail',
+    'Not interested reason provided in notes',
+    'Asset based only',
   ];
 
   const handleContactChange = (index, updatedContact) => {
@@ -79,10 +68,10 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
     if (validateLead()) {
       try {
         let response;
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
 
         if (!token) {
-          Swal.fire("Error", "No token found", "error");
+          Swal.fire('Error', 'No token found', 'error');
           return;
         }
 
@@ -91,47 +80,24 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
         };
 
         if (lead.id) {
-          response = await axios.put(
-            `http://127.0.0.1:8000/api/lead/${lead.id}`,
-            lead,
-            { headers }
-          );
-          Swal.fire(
-            "Updated!",
-            "Lead data has been updated successfully.",
-            "success"
-          );
+          response = await axios.put(`http://127.0.0.1:8000/api/lead/${lead.id}`, lead, { headers });
+          Swal.fire('Updated!', 'Lead data has been updated successfully.', 'success');
         } else {
-          response = await axios.post("http://127.0.0.1:8000/api/lead", lead, {
+          response = await axios.post('http://127.0.0.1:8000/api/lead', lead, {
             headers,
           });
-          Swal.fire(
-            "Saved!",
-            "Lead data has been saved successfully.",
-            "success"
-          );
+          Swal.fire('Saved!', 'Lead data has been saved successfully.', 'success');
         }
 
         onAddLead(response.data);
         clearLeadForm();
         onClose();
       } catch (error) {
-        console.error(
-          "Error saving/updating lead:",
-          error.response ? error.response.data : error.message
-        );
-        Swal.fire(
-          "Error",
-          "An error occurred while saving/updating the lead.",
-          "error"
-        );
+        console.error('Error saving/updating lead:', error.response ? error.response.data : error.message);
+        Swal.fire('Error', 'An error occurred while saving/updating the lead.', 'error');
       }
     } else {
-      Swal.fire(
-        "Validation Error",
-        "Please fill in all required fields.",
-        "error"
-      );
+      Swal.fire('Validation Error', 'Please fill in all required fields.', 'error');
     }
   };
 
@@ -141,25 +107,25 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
 
   const clearLeadForm = () => {
     setLead({
-      id: "",
-      lead_no: "",
-      lead_date: "",
-      customer_name: "",
-      phone: "",
-      email: "",
-      website: "",
-      address: "",
-      unit_no: "",
-      city: "",
-      state: "",
-      country: "",
-      postal_code: "",
-      lead_type: "",
-      contact_person: "",
-      notes: "",
-      lead_status: "",
-      follow_up_date: "",
-      equipment_type: "",
+      id: '',
+      lead_no: '',
+      lead_date: '',
+      customer_name: '',
+      phone: '',
+      email: '',
+      website: '',
+      address: '',
+      unit_no: '',
+      city: '',
+      state: '',
+      country: '',
+      postal_code: '',
+      lead_type: '',
+      contact_person: '',
+      notes: '',
+      lead_status: '',
+      follow_up_date: '',
+      equipment_type: '',
       contacts: [],
     });
   };
@@ -174,14 +140,7 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="leadType">Lead Type</label>
-              <select
-                id="leadType"
-                value={lead.lead_type}
-                onChange={(e) =>
-                  setLead({ ...lead, lead_type: e.target.value })
-                }
-                required
-              >
+              <select id="leadType" value={lead.lead_type} onChange={(e) => setLead({ ...lead, lead_type: e.target.value })} required>
                 <option value="">Select Lead Type</option>
                 {leadTypeOptions.map((option) => (
                   <option key={option} value={option}>
@@ -198,14 +157,7 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="leadStatus">Lead Status</label>
-              <select
-                id="leadStatus"
-                value={lead.lead_status}
-                onChange={(e) =>
-                  setLead({ ...lead, lead_status: e.target.value })
-                }
-                required
-              >
+              <select id="leadStatus" value={lead.lead_status} onChange={(e) => setLead({ ...lead, lead_status: e.target.value })} required>
                 <option value="">Select Lead Status</option>
                 {leadStatusOptions.map((option) => (
                   <option key={option} value={option}>
@@ -222,23 +174,14 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
           <legend>Contacts</legend>
           <div className="form-row">
             {lead.contacts.map((contact, index) => (
-              <LeadContactForm
-                key={index}
-                contact={contact}
-                index={index}
-                onChange={handleContactChange}
-                onRemove={handleRemoveContact}
-              />
+              <LeadContactForm key={index} contact={contact} index={index} onChange={handleContactChange} onRemove={handleRemoveContact} />
             ))}
             <button
               type="button"
               onClick={() =>
                 setLead((prevLead) => ({
                   ...prevLead,
-                  contacts: [
-                    ...prevLead.contacts,
-                    { name: "", phone: "", email: "" },
-                  ],
+                  contacts: [...prevLead.contacts, { name: '', phone: '', email: '' }],
                 }))
               }
               className="add"

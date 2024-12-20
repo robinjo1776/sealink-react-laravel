@@ -1,30 +1,32 @@
-import { Route, Routes } from "react-router-dom";
-import RegisterPage from "./pages/Auth/RegisterPage";
-import LoginPage from "./pages/Auth/LoginPage";
+import { Route, Routes } from 'react-router-dom';
+import RegisterPage from './pages/Auth/RegisterPage';
+import LoginPage from './pages/Auth/LoginPage';
 
-import LeadsPage from "./pages/CRM/LeadsPage";
-import AddLeadForm from "./components/CRM/AddLead/AddLeadForm";
-import EditLeadForm from "./components/CRM/EditLead/EditLeadForm";
-import LeadFollowupPage from "./pages/CRM/LeadFollowupPage";
+import LeadsPage from './pages/CRM/LeadsPage';
+import AddLeadForm from './components/CRM/AddLead/AddLeadForm';
+import EditLeadForm from './components/CRM/EditLead/EditLeadForm';
+import LeadFollowupPage from './pages/CRM/LeadFollowupPage';
 
-import LeadQuotesPage from "./pages/Sales/LeadQuotesPage";
+import LeadQuotesPage from './pages/Sales/LeadQuotesPage';
 
-import CustomersPage from "./pages/Customers/CustomersPage";
-import EditCustomerForm from "./components/Customers/EditCustomerForm";
+import CustomersPage from './pages/Customers/CustomersPage';
+import EditCustomerForm from './components/Customers/EditCustomerForm';
 
-import OrderPage from "./pages/Orders/OrderPage";
-import AddOrderForm from "./components/Orders/AddOrderForm";
-import EditOrderForm from "./components/Orders/EditOrderForm";
+import OrderPage from './pages/Orders/OrderPage';
+import AddOrderForm from './components/Orders/AddOrderForm';
+import EditOrderForm from './components/Orders/EditOrderForm';
 
-import CarrierPage from "./pages/Carriers&Co/CarrierPage";
-import AddCarrierForm from "./components/Carriers&Co/AddCarrier/AddCarrierForm";
-import EditCarrierForm from "./components/Carriers&Co/EditCarrier/EditCarrierForm";
+import CarrierPage from './pages/Carriers&Co/CarrierPage';
+import AddCarrierForm from './components/Carriers&Co/AddCarrier/AddCarrierForm';
+import EditCarrierForm from './components/Carriers&Co/EditCarrier/EditCarrierForm';
 
-import UserPage from "./pages/Account/UserPage";
-import EditUserForm from "./components/Account/EditUserForm";
+import UserPage from './pages/Account/UserPage';
+import EditUserForm from './components/Account/EditUserForm';
 
-import PrivateRoute from "./components/common/PrivateRoute";
-import UserProvider from "./UserProvider";
+import PrivateRoute from './components/common/PrivateRoute';
+import UserProvider from './UserProvider';
+import QuotePage from './pages/Sales/QuotePage';
+import EditQuoteForm from './components/Sales/EditQuote/EditQuoteForm';
 
 const AppRoutes = () => (
   <UserProvider>
@@ -164,6 +166,23 @@ const AppRoutes = () => (
         element={
           <PrivateRoute>
             <EditCarrierForm />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/quote"
+        element={
+          <PrivateRoute>
+            <QuotePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/quote/:id"
+        element={
+          <PrivateRoute>
+            <EditQuoteForm />
           </PrivateRoute>
         }
       />

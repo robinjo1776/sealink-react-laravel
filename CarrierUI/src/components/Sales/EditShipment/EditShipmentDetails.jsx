@@ -1,7 +1,7 @@
 function EditShipmentDetails({ formShipment, setFormShipment }) {
   return (
     <fieldset className="form-section">
-      <div className="form-row">
+      <div className="form-row">     
         <div className="form-group">
           <label htmlFor="shipLoadDate">Load Date</label>
           <input

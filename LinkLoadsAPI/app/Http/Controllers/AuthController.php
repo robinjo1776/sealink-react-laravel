@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -18,31 +19,47 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'username' => 'required|string|unique:users,username',  // Ensure the username is unique
-            'email' => 'required|email|unique:users,email',  // You might still want the email to be unique
-            'password' => 'required|string|min:8|confirmed',  // Make sure password_confirmation is included in the request
-            'role' => 'required|string',
-            'emp_code' => 'required|string',
+        // Validate the incoming data
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:users,username|max:255',
+            'email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|string|min:8|confirmed',  // Ensure password_confirmation field is provided
+            'role' => 'required|string|in:admin,employee,carrier,customer', // Specific allowed roles
+            'emp_code' => 'required|string|max:255',  // Employee code must be a string
         ]);
 
-        // Create the user
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email, // Optional, but good for account recovery or notifications
-            'password' => Hash::make($request->password),  // Hash the password before saving
-            'role' => $request->role,
-            'emp_code' => $request->emp_code,
-        ]);
+        // Log the validated data to verify what is coming to the server
+        Log::info('User registration data:', $validated);
 
-        // Generate and return the API token
-        return response()->json([
-            'token' => $user->createToken('API Token')->plainTextToken,
-        ]);
+        try {
+            // Create the user in the database
+            $user = User::create([
+                'name' => $validated['name'],
+                'username' => $validated['username'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),  // Hash password before storing
+                'role' => $validated['role'],
+                'emp_code' => $validated['emp_code'],
+            ]);
+
+            // Generate a new token for the user
+            $token = $user->createToken('API Token')->plainTextToken;
+
+            // Return success response with token
+            return response()->json([
+                'message' => 'User created successfully!',
+                'token' => $token,
+                'user' => $user
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('User registration failed:', ['error' => $e->getMessage()]);
+            return response()->json([
+                'error' => 'Failed to register user. Please try again later.',
+                'details' => $e->getMessage(),
+            ], 500);
+        }
     }
-
 
     /**
      * Log the user in and return the token.
@@ -57,21 +74,23 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+        // Check credentials
         if (Auth::attempt($request->only('username', 'password'))) {
             $user = Auth::user();
             return response()->json([
+                'message' => 'Login successful!',
                 'token' => $user->createToken('API Token')->plainTextToken,
                 'user' => $user
             ]);
         }
 
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
+            'username' => ['The provided credentials are incorrect.'],
         ]);
     }
 
     /**
-     * Logout the user.
+     * Logout the user and revoke tokens.
      *
      * @return \Illuminate\Http\JsonResponse
      */
