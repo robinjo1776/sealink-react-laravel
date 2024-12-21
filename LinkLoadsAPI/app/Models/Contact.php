@@ -33,6 +33,9 @@ class Contact extends Model
         return $this->belongsTo(Customer::class);
     }
 
-
+    public function quote()
+    {
+        return $this->belongsTo(Quote::class);
+    }
 
 }

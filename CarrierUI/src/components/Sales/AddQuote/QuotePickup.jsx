@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-function QuotePickup({ setQuote = { setQuote }, quote, pickup = {}, index, onChange, onRemove }) {
+function QuotePickup({ setQuote, quote, pickup = {}, index, onChange, onRemove }) {
   const addressRef = useRef(null);
+
   useEffect(() => {
     const loadGoogleMapsApi = () => {
       if (window.google && window.google.maps) {
@@ -49,11 +50,18 @@ function QuotePickup({ setQuote = { setQuote }, quote, pickup = {}, index, onCha
     // Update the form customer state with the relevant values
     setQuote((prevQuote) => ({
       ...prevQuote,
-      address: mainAddress, // Only store the main address in the state
-      city: getComponent('locality', '', addressComponents),
-      state: getComponent('administrative_area_level_1', '', addressComponents),
-      country: getComponent('country', '', addressComponents),
-      postal: getComponent('postal_code', '', addressComponents),
+      quote_pickup: prevQuote.quote_pickup.map((p, idx) =>
+        idx === index
+          ? {
+              ...p,
+              address: mainAddress,
+              city: getComponent('locality', '', addressComponents),
+              state: getComponent('administrative_area_level_1', '', addressComponents),
+              country: getComponent('country', '', addressComponents),
+              postal: getComponent('postal_code', '', addressComponents),
+            }
+          : p
+      ),
     }));
   };
 
@@ -64,8 +72,9 @@ function QuotePickup({ setQuote = { setQuote }, quote, pickup = {}, index, onCha
 
   const handleQuoteChange = (e) => {
     const { name, value } = e.target;
-    // Update contact with the new value
     const updatedPickup = { ...pickup, [name]: value };
+
+    // Update the pickup information at the specific index
     onChange(index, updatedPickup);
   };
 
@@ -76,7 +85,7 @@ function QuotePickup({ setQuote = { setQuote }, quote, pickup = {}, index, onCha
         <input
           type="text"
           name="address"
-          value={quote.address}
+          value={pickup.address || ''}
           onChange={handleQuoteChange}
           ref={addressRef}
           placeholder="Enter your address"
@@ -84,19 +93,39 @@ function QuotePickup({ setQuote = { setQuote }, quote, pickup = {}, index, onCha
       </div>
       <div className="form-group">
         <label>City</label>
-        <input type="text" name="city" value={quote.city} onChange={handleQuoteChange} />
+        <input
+          type="text"
+          name="city"
+          value={pickup.city || ''}
+          onChange={handleQuoteChange}
+        />
       </div>
       <div className="form-group">
         <label>State</label>
-        <input type="text" name="state" value={quote.state} onChange={handleQuoteChange} />
+        <input
+          type="text"
+          name="state"
+          value={pickup.state || ''}
+          onChange={handleQuoteChange}
+        />
       </div>
       <div className="form-group">
         <label>Postal Code</label>
-        <input type="text" name="postal" value={quote.postal} onChange={handleQuoteChange} />
+        <input
+          type="text"
+          name="postal"
+          value={pickup.postal || ''}
+          onChange={handleQuoteChange}
+        />
       </div>
       <div className="form-group">
         <label>Country</label>
-        <input type="text" name="country" value={quote.country} onChange={handleQuoteChange} />
+        <input
+          type="text"
+          name="country"
+          value={pickup.country || ''}
+          onChange={handleQuoteChange}
+        />
       </div>
 
       <button type="button" onClick={() => onRemove(index)} className="remove">

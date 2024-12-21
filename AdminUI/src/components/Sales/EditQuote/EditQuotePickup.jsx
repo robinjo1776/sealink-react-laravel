@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function QuotePickup({ setQuote, quote_pickup = {}, index, onChange, onRemove }) {
+function EditQuotePickup({ pickup, index, onChange, onRemove }) {
   const addressRef = useRef(null);
 
   useEffect(() => {
@@ -41,15 +41,12 @@ function QuotePickup({ setQuote, quote_pickup = {}, index, onChange, onRemove })
 
   const updateAddressFields = (place) => {
     const addressComponents = place.address_components;
-
-    // Extract the main address (street_number + route)
     const streetNumber = getComponent('street_number', '', addressComponents);
     const route = getComponent('route', '', addressComponents);
     const mainAddress = `${streetNumber} ${route}`.trim(); // Combine street number and route
 
-    // Now we call onChange to update the specific pickup field
     onChange(index, {
-      ...quote_pickup,
+      ...pickup,
       address: mainAddress,
       city: getComponent('locality', '', addressComponents),
       state: getComponent('administrative_area_level_1', '', addressComponents),
@@ -63,11 +60,10 @@ function QuotePickup({ setQuote, quote_pickup = {}, index, onChange, onRemove })
     return component ? component.long_name : fallback;
   };
 
-  const handleQuoteChange = (e) => {
+  const handlePickupChange = (e) => {
     const { name, value } = e.target;
-    // Update contact with the new value
-    const updatedQuote = { ...quote_pickup, [name]: value };
-    onChange(index, updatedQuote); // Ensure onChange is called to update parent state
+    const updatedPickup = { ...pickup, [name]: value };
+    onChange(index, updatedPickup);
   };
 
   return (
@@ -77,27 +73,47 @@ function QuotePickup({ setQuote, quote_pickup = {}, index, onChange, onRemove })
         <input
           type="text"
           name="address"
-          value={quote_pickup.address || ''}
-          onChange={handleQuoteChange}
+          value={pickup.address} // Use pickup's value
+          onChange={handlePickupChange}
           ref={addressRef}
           placeholder="Enter your address"
         />
       </div>
       <div className="form-group">
         <label>City</label>
-        <input type="text" name="city" value={quote_pickup.city || ''} onChange={handleQuoteChange} placeholder="Enter city" />
+        <input
+          type="text"
+          name="city"
+          value={pickup.city} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
       <div className="form-group">
         <label>State</label>
-        <input type="text" name="state" value={quote_pickup.state || ''} onChange={handleQuoteChange} placeholder="Enter state" />
-      </div>
-      <div className="form-group">
-        <label>Country</label>
-        <input type="text" name="country" value={quote_pickup.country || ''} onChange={handleQuoteChange} placeholder="Enter country" />
+        <input
+          type="text"
+          name="state"
+          value={pickup.state} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
       <div className="form-group">
         <label>Postal Code</label>
-        <input type="text" name="postal" value={quote_pickup.postal || ''} onChange={handleQuoteChange} placeholder="Enter postal code" />
+        <input
+          type="text"
+          name="postal"
+          value={pickup.postal} // Use pickup's value
+          onChange={handlePickupChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Country</label>
+        <input
+          type="text"
+          name="country"
+          value={pickup.country} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
 
       <button type="button" onClick={() => onRemove(index)} className="remove">
@@ -107,4 +123,4 @@ function QuotePickup({ setQuote, quote_pickup = {}, index, onChange, onRemove })
   );
 }
 
-export default QuotePickup;
+export default EditQuotePickup;

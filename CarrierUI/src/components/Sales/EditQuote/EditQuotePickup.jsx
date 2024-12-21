@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-function EditQuotePickup({ setFormQuote, formQuote, index, onRemove }) {
+function EditQuotePickup({ pickup, index, onChange, onRemove }) {
   const addressRef = useRef(null);
+
   useEffect(() => {
     const loadGoogleMapsApi = () => {
       if (window.google && window.google.maps) {
@@ -40,26 +41,29 @@ function EditQuotePickup({ setFormQuote, formQuote, index, onRemove }) {
 
   const updateAddressFields = (place) => {
     const addressComponents = place.address_components;
-
-    // Extract the main address (street_number + route)
     const streetNumber = getComponent('street_number', '', addressComponents);
     const route = getComponent('route', '', addressComponents);
     const mainAddress = `${streetNumber} ${route}`.trim(); // Combine street number and route
 
-    // Update the form customer state with the relevant values
-    setFormQuote((prevQuote) => ({
-      ...prevQuote,
-      address: mainAddress, // Only store the main address in the state
+    onChange(index, {
+      ...pickup,
+      address: mainAddress,
       city: getComponent('locality', '', addressComponents),
       state: getComponent('administrative_area_level_1', '', addressComponents),
       country: getComponent('country', '', addressComponents),
       postal: getComponent('postal_code', '', addressComponents),
-    }));
+    });
   };
 
   const getComponent = (type, fallback, components) => {
     const component = components.find((c) => c.types.includes(type));
     return component ? component.long_name : fallback;
+  };
+
+  const handlePickupChange = (e) => {
+    const { name, value } = e.target;
+    const updatedPickup = { ...pickup, [name]: value };
+    onChange(index, updatedPickup);
   };
 
   return (
@@ -69,27 +73,47 @@ function EditQuotePickup({ setFormQuote, formQuote, index, onRemove }) {
         <input
           type="text"
           name="address"
-          value={formQuote.address}
-          onChange={(e) => setFormQuote({ ...formQuote, address: e.target.value })}
+          value={pickup.address} // Use pickup's value
+          onChange={handlePickupChange}
           ref={addressRef}
           placeholder="Enter your address"
         />
       </div>
       <div className="form-group">
         <label>City</label>
-        <input type="text" name="city" value={formQuote.city} onChange={(e) => setFormQuote({ ...formQuote, city: e.target.value })} />
+        <input
+          type="text"
+          name="city"
+          value={pickup.city} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
       <div className="form-group">
         <label>State</label>
-        <input type="text" name="state" value={formQuote.state} onChange={(e) => setFormQuote({ ...formQuote, state: e.target.value })} />
+        <input
+          type="text"
+          name="state"
+          value={pickup.state} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
       <div className="form-group">
         <label>Postal Code</label>
-        <input type="text" name="postal" value={formQuote.postal} onChange={(e) => setFormQuote({ ...formQuote, postal: e.target.value })} />
+        <input
+          type="text"
+          name="postal"
+          value={pickup.postal} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
       <div className="form-group">
         <label>Country</label>
-        <input type="text" name="country" value={formQuote.country} onChange={(e) => setFormQuote({ ...formQuote, country: e.target.value })} />
+        <input
+          type="text"
+          name="country"
+          value={pickup.country} // Use pickup's value
+          onChange={handlePickupChange}
+        />
       </div>
 
       <button type="button" onClick={() => onRemove(index)} className="remove">

@@ -33,11 +33,41 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
       const parsedDeliveries = Array.isArray(quote.quote_delivery) ? quote.quote_delivery : JSON.parse(quote.quote_delivery || '[]');
       setFormQuote({
         ...quote,
-        quote_pickup: parsedPickups, // Ensure this is always an array
-        quote_delivery: parsedDeliveries, // Ensure this is always an array
+        quote_pickup: parsedPickups,
+        quote_delivery: parsedDeliveries,
       });
     }
   }, [quote]);
+
+  const handlePickupChange = (index, updatedPickup) => {
+    const updatedPickups = formQuote.quote_pickup.map((pickup, i) => (i === index ? updatedPickup : pickup));
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_pickup: updatedPickups,
+    }));
+  };
+
+  const handleRemovePickup = (index) => {
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_pickup: prevQuote.quote_pickup.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleRemoveDelivery = (index) => {
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_delivery: prevQuote.quote_delivery.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleDeliveryChange = (index, updatedQuote) => {
+    const updatedPickups = formQuote.quote_delivery.map((quote_delivery, i) => (i === index ? updatedQuote : quote_delivery));
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_delivery: updatedPickups,
+    }));
+  };
 
   const updateQuote = async () => {
     try {
@@ -80,21 +110,6 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
     }));
   };
 
-  const handleRemovePickup = (index) => {
-    setFormQuote((prevQuote) => ({
-      ...prevQuote,
-      quote_pickup: prevQuote.quote_pickup.filter((_, i) => i !== index),
-    }));
-  };
-
-  const handlePickupChange = (index, updatedPickup) => {
-    const updatedPickups = formQuote.quote_pickup.map((pickup, i) => (i === index ? updatedPickup : pickup));
-    setFormQuote((prevQuote) => ({
-      ...prevQuote,
-      quote_pickup: updatedPickups,
-    }));
-  };
-
   const handleAddDelivery = () => {
     setFormQuote((prevQuote) => ({
       ...prevQuote,
@@ -102,21 +117,6 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
         ...prevQuote.quote_delivery,
         { address: '', city: '', state: '', country: '', postal: '', rate: '', currency: '', equipment: '', notes: '', packages: '', dimensions: '' },
       ],
-    }));
-  };
-
-  const handleRemoveDelivery = (index) => {
-    setFormQuote((prevQuote) => ({
-      ...prevQuote,
-      quote_delivery: prevQuote.quote_delivery.filter((_, i) => i !== index),
-    }));
-  };
-
-  const handleDeliveryChange = (index, updatedQuote) => {
-    const updatedPickups = formQuote.quote_delivery.map((quote_delivery, i) => (i === index ? updatedQuote : quote_delivery));
-    setFormQuote((prevQuote) => ({
-      ...prevQuote,
-      quote_delivery: updatedPickups,
     }));
   };
 

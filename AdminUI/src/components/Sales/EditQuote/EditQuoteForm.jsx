@@ -1,214 +1,179 @@
-import { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import { UserContext } from "../../../UserProvider";
+import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { UserContext } from '../../../UserProvider';
+import EditQuoteGeneral from './EditQuoteGeneral';
+import EditQuotePickup from './EditQuotePickup';
+import EditQuoteDelivery from './EditQuoteDelivery';
 
-
-const EditQuoteForm = ({ lead, onClose, onUpdate }) => {
+const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
   const users = useContext(UserContext);
 
-  const [formLead, setFormLead] = useState({
-    id: "",
-    lead_no: "",
-    lead_date: "",
-    customer_name: "",
-    phone: "",
-    email: "",
-    website: "",
-    address: "",
-    unit_no: "",
-    city: "",
-    state: "",
-    country: "",
-    postal_code: "",
-    equipment_type: "",
-    lead_type: "",
-    lead_status: "",
-    follow_up_date: "",
-    assigned_to: "",
-    contacts: [{ name: "", phone: "", email: "" }],
+  const [formQuote, setFormQuote] = useState({
+    id: '',
+    quote_type: '',
+    quote_customer: '',
+    quote_cust_ref_no: '',
+    quote_booked_by: '',
+    quote_temperature: '',
+    quote_hot: false,
+    quote_team: false,
+    quote_air_ride: false,
+    quote_tarp: false,
+    quote_hazmat: false,
+    quote_pickup: [{ address: '', city: '', state: '', country: '', postal: '' }],
+    quote_delivery: [
+      { address: '', city: '', state: '', country: '', postal: '', rate: '', currency: '', equipment: '', notes: '', packages: '', dimensions: '' },
+    ],
   });
 
-  const [employees, setEmployees] = useState([]);
-
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("No token found. Please log in.");
-        }
-
-        const response = await axios.get("http://127.0.0.1:8000/api/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        // Filter employees
-        const employees = response.data.filter(
-          (user) => user.role === "employee"
-        );
-        setEmployees(employees);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-
-        // Display alert if unauthorized
-        if (error.response && error.response.status === 401) {
-          Swal.fire({
-            icon: "error",
-            title: "Unauthorized",
-            text: "You are not authorized to view this data. Please log in again.",
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "An error occurred while fetching users. Please try again.",
-          });
-        }
-      }
-    };
-
-    fetchUsers();
-
-    if (lead) {
-      const parsedContacts = Array.isArray(lead.contacts)
-        ? lead.contacts
-        : JSON.parse(lead.contacts || "[]");
-      setFormLead({
-        ...lead,
-        contacts: parsedContacts.length > 0 ? parsedContacts : [],
+    if (quote) {
+      const parsedPickups = Array.isArray(quote.quote_pickup) ? quote.quote_pickup : JSON.parse(quote.quote_pickup || '[]');
+      const parsedDeliveries = Array.isArray(quote.quote_delivery) ? quote.quote_delivery : JSON.parse(quote.quote_delivery || '[]');
+      setFormQuote({
+        ...quote,
+        quote_pickup: parsedPickups,
+        quote_delivery: parsedDeliveries,
       });
     }
-  }, [lead]);
+  }, [quote]);
 
-  const updateLead = async () => {
+  const handlePickupChange = (index, updatedPickup) => {
+    const updatedPickups = formQuote.quote_pickup.map((pickup, i) => (i === index ? updatedPickup : pickup));
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_pickup: updatedPickups,
+    }));
+  };
+
+  const handleRemovePickup = (index) => {
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_pickup: prevQuote.quote_pickup.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleRemoveDelivery = (index) => {
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_delivery: prevQuote.quote_delivery.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleDeliveryChange = (index, updatedQuote) => {
+    const updatedPickups = formQuote.quote_delivery.map((quote_delivery, i) => (i === index ? updatedQuote : quote_delivery));
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_delivery: updatedPickups,
+    }));
+  };
+
+  const updateQuote = async () => {
     try {
-      // Get the token from localStorage or from the UserContext
-      const token = localStorage.getItem("token"); // Assuming the token is stored in localStorage
-
+      const token = localStorage.getItem('token');
       if (!token) {
-        // If no token is found, show an alert and exit the function
         Swal.fire({
-          icon: "error",
-          title: "Unauthorized",
-          text: "You are not logged in. Please log in again.",
+          icon: 'error',
+          title: 'Unauthorized',
+          text: 'You are not logged in. Please log in again.',
         });
         return;
       }
 
-      // Make the PUT request with the Authorization header
-      const response = await axios.put(
-        `http://127.0.0.1:8000/api/lead/${formLead.id}`,
-        formLead,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Show success message
-      Swal.fire({
-        icon: "success",
-        title: "Updated!",
-        text: "Lead data has been updated successfully.",
+      const response = await axios.put(`http://127.0.0.1:8000/api/quote/${formQuote.id}`, formQuote, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-
-      // Call onUpdate to update the lead data in the parent component
+      Swal.fire({
+        icon: 'success',
+        title: 'Updated!',
+        text: 'Quote data has been updated successfully.',
+      });
       onUpdate(response.data);
       onClose();
     } catch (error) {
-      console.error("Error updating lead:", error);
-
-      // Handle different errors, including the 401 Unauthorized
+      console.error('Error updating quote:', error);
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text:
-          error.response && error.response.status === 401
-            ? "Unauthorized. Please log in again."
-            : "Failed to update lead.",
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update customer.',
       });
     }
   };
 
-  const handleAddContact = () => {
-    setFormLead((prevLead) => ({
-      ...prevLead,
-      contacts: [...prevLead.contacts, { name: "", phone: "", email: "" }],
+  const handleAddPickup = () => {
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_pickup: [...prevQuote.quote_pickup, { address: '', city: '', state: '', country: '', postal: '' }],
     }));
   };
 
-  const handleRemoveContact = (index) => {
-    setFormLead((prevLead) => ({
-      ...prevLead,
-      contacts: prevLead.contacts.filter((_, i) => i !== index),
+  const handleAddDelivery = () => {
+    setFormQuote((prevQuote) => ({
+      ...prevQuote,
+      quote_delivery: [
+        ...prevQuote.quote_delivery,
+        { address: '', city: '', state: '', country: '', postal: '', rate: '', currency: '', equipment: '', notes: '', packages: '', dimensions: '' },
+      ],
     }));
   };
-
-  const handleContactChange = (index, updatedContact) => {
-    const updatedContacts = formLead.contacts.map((contact, i) =>
-      i === index ? updatedContact : contact
-    );
-    setFormLead((prevLead) => ({
-      ...prevLead,
-      contacts: updatedContacts,
-    }));
-  };
-
-  const equipmentTypeOptions = [
-    "Van",
-    "Reefer",
-    "Flatbed",
-    "Triaxle",
-    "Maxi",
-    "Btrain",
-    "Roll tite",
-  ];
-
-  const leadTypeOptions = [
-    "AB",
-    "BC",
-    "BDS",
-    "CA",
-    "DPD MAGMA",
-    "MB",
-    "ON",
-    "Super Leads",
-    "TBAB",
-    "USA",
-  ];
-
-  const leadStatusOptions = [
-    "Prospect customer",
-    "Lanes discussed",
-    "Product/Equipment discussed",
-    "E-mail sent to concerned person",
-    "Carrier portal registration",
-    "Quotations",
-    "Fob/Have broker",
-    "Voicemail/No answer",
-    "Different Department",
-    "No answer/Callback/Voicemail",
-    "Not interested reason provided in notes",
-    "Asset based only",
-  ];
 
   return (
     <div className="form-container">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          updateLead();
+          updateQuote();
         }}
         className="form-main"
       >
-
-
+        <EditQuoteGeneral formQuote={formQuote} setFormQuote={setFormQuote} />
+        <fieldset className="form-section">
+          <legend>Pickup</legend>
+          <div className="form-row">
+            {formQuote.quote_pickup.map((pickup, index) => (
+              <EditQuotePickup
+                key={index}
+                formQuote={formQuote}
+                setFormQuote={setFormQuote}
+                pickup={pickup}
+                index={index}
+                onChange={handlePickupChange}
+                onRemove={handleRemovePickup}
+              />
+            ))}
+            <button type="button" onClick={handleAddPickup} className="add">
+              Add Pickup
+            </button>
+          </div>
+        </fieldset>
+        <fieldset className="form-section">
+          <legend>Delivery</legend>
+          <div className="form-row">
+            {Array.isArray(formQuote.quote_delivery) && formQuote.quote_delivery.length > 0 ? (
+              formQuote.quote_delivery.map((delivery, index) => (
+                <EditQuoteDelivery
+                  key={index}
+                  formQuote={formQuote}
+                  setFormQuote={setFormQuote}
+                  delivery={delivery}
+                  index={index}
+                  onChange={handleDeliveryChange}
+                  onRemove={handleRemoveDelivery}
+                />
+              ))
+            ) : (
+              <p>No deliveries available</p>
+            )}
+            <button type="button" onClick={handleAddDelivery} className="add">
+              Add Delivery
+            </button>
+          </div>
+        </fieldset>
         <button type="submit" className="btn-submit">
-          Update Lead
+          Update Quote
         </button>
       </form>
     </div>

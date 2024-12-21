@@ -10,7 +10,7 @@ class Quote extends Model
     use HasFactory;
 
     protected $table = 'quotes';
-
+    protected $primaryKey = 'id';
     // Define the fillable properties
     protected $fillable = [
         'quote_type',

@@ -49,6 +49,7 @@ class EmailController extends Controller
         $models = [
             'carriers' => \App\Models\Carrier::class,
             'customers' => \App\Models\Customer::class,
+            'quotes' => \App\Models\Quote::class,
         ];
 
         return $models[$module] ?? null;

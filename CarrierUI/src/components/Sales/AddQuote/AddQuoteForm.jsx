@@ -26,7 +26,7 @@ const AddQuoteForm = ({ onClose, onAddQuote }) => {
   });
 
   const handlePickupChange = (index, updatedPickup) => {
-    // When a contact changes, update the specific contact in the contacts array
+    // Update the specific pickup in the quote
     const updatedPickups = [...quote.quote_pickup];
     updatedPickups[index] = updatedPickup;
     setQuote({ ...quote, quote_pickup: updatedPickups });
@@ -168,6 +168,7 @@ const AddQuoteForm = ({ onClose, onAddQuote }) => {
                         address: '',
                         city: '',
                         state: '',
+                        country: '',
                         postal: '',
                         rate: '',
                         currency: '',

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function QuoteDelivery({ quote_delivery = {}, index, onChange, onRemove }) {
+function EditQuoteDelivery({ delivery, index, onChange, onRemove }) {
   const addressRef = useRef(null);
 
   useEffect(() => {
@@ -41,15 +41,12 @@ function QuoteDelivery({ quote_delivery = {}, index, onChange, onRemove }) {
 
   const updateAddressFields = (place) => {
     const addressComponents = place.address_components;
-
-    // Extract the main address (street_number + route)
     const streetNumber = getComponent('street_number', '', addressComponents);
     const route = getComponent('route', '', addressComponents);
     const mainAddress = `${streetNumber} ${route}`.trim(); // Combine street number and route
 
-    // Now we call onChange to update the specific pickup field
     onChange(index, {
-      ...quote_delivery,
+      ...delivery,
       address: mainAddress,
       city: getComponent('locality', '', addressComponents),
       state: getComponent('administrative_area_level_1', '', addressComponents),
@@ -62,71 +59,62 @@ function QuoteDelivery({ quote_delivery = {}, index, onChange, onRemove }) {
     const component = components.find((c) => c.types.includes(type));
     return component ? component.long_name : fallback;
   };
-  const handleQuoteChange = (e) => {
+
+  const handleDeliveryChange = (e) => {
     const { name, value } = e.target;
-    // Update contact with the new value
-    const updatedQuote = { ...quote_delivery, [name]: value };
-    onChange(index, updatedQuote);
+    const updatedPickup = { ...delivery, [name]: value };
+    onChange(index, updatedPickup);
   };
 
   return (
     <div className="contact-form">
       <div className="form-group">
         <label>Address</label>
-        <input
-          type="text"
-          name="address"
-          value={quote_delivery.address || ''}
-          onChange={handleQuoteChange}
-          ref={addressRef}
-          placeholder="Enter address"
-        />
+        <input type="text" name="address" value={delivery.address} onChange={handleDeliveryChange} ref={addressRef} placeholder="Enter address" />
       </div>
       <div className="form-group">
         <label>City</label>
-        <input type="text" name="city" value={quote_delivery.city || ''} onChange={handleQuoteChange} />
+        <input type="text" name="city" value={delivery.city} onChange={handleDeliveryChange} />
       </div>
       <div className="form-group">
         <label>State</label>
-        <input type="text" name="state" value={quote_delivery.state || ''} onChange={handleQuoteChange} />
+        <input type="text" name="state" value={delivery.state} onChange={handleDeliveryChange} />
       </div>
       <div className="form-group">
         <label>Postal Code</label>
-        <input type="tel" name="postal" value={quote_delivery.postal || ''} onChange={handleQuoteChange} pattern="[0-9]{5}" maxLength="5" />
+        <input type="tel" name="postal" value={delivery.postal} onChange={handleDeliveryChange} pattern="[0-9]{5}" maxLength="5" />
+      </div>
+      <div className="form-group">
+        <label>Country</label>
+        <input type="text" name="country" value={delivery.country} onChange={handleDeliveryChange} />
       </div>
       <div className="form-group">
         <label>Rate</label>
-        <input type="number" name="rate" value={quote_delivery.rate || ''} onChange={handleQuoteChange} placeholder="Enter rate" />
+        <input type="number" name="rate" value={delivery.rate} onChange={handleDeliveryChange} placeholder="Enter rate" />
       </div>
       <div className="form-group">
         <label>Currency</label>
-        <input type="text" name="currency" value={quote_delivery.currency || ''} onChange={handleQuoteChange} placeholder="Enter currency code" />
+        <input type="text" name="currency" value={delivery.currency} onChange={handleDeliveryChange} placeholder="Enter currency code" />
       </div>
       <div className="form-group">
         <label>Equipment</label>
-        <input type="text" name="equipment" value={quote_delivery.equipment || ''} onChange={handleQuoteChange} placeholder="Enter equipment type" />
+        <input type="text" name="equipment" value={delivery.equipment} onChange={handleDeliveryChange} placeholder="Enter equipment type" />
       </div>
       <div className="form-group">
         <label>Notes</label>
-        <textarea name="notes" value={quote_delivery.notes || ''} onChange={handleQuoteChange} placeholder="Enter notes" />
+        <textarea name="notes" value={delivery.notes} onChange={handleDeliveryChange} placeholder="Enter notes" />
       </div>
       <div className="form-group">
         <label>Packages</label>
-        <input
-          type="number"
-          name="packages"
-          value={quote_delivery.packages || ''}
-          onChange={handleQuoteChange}
-          placeholder="Enter number of packages"
-        />
+        <input type="number" name="packages" value={delivery.packages} onChange={handleDeliveryChange} placeholder="Enter number of packages" />
       </div>
       <div className="form-group">
         <label>Dimensions</label>
         <input
           type="text"
           name="dimensions"
-          value={quote_delivery.dimensions || ''}
-          onChange={handleQuoteChange}
+          value={delivery.dimensions}
+          onChange={handleDeliveryChange}
           placeholder="Enter dimensions (e.g., 20x20x20 cm)"
         />
       </div>
@@ -138,4 +126,4 @@ function QuoteDelivery({ quote_delivery = {}, index, onChange, onRemove }) {
   );
 }
 
-export default QuoteDelivery;
+export default EditQuoteDelivery;

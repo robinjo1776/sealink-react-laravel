@@ -1,29 +1,23 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { UserContext } from '../../UserProvider';
 import EditQuoteForm from './EditQuote/EditQuoteForm';
 
 const QuoteTable = () => {
-  const users = useContext(UserContext);
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('created_at');
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedQuote, setSelectedQuote] = useState(null);
+  const [selectedQuote, setSelectedQuote] = useState([]);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isEmailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailData, setEmailData] = useState({ subject: '', content: '' });
   const perPage = 8;
-
-  const getUserNameById = (id) => {
-    const user = users.find((user) => user.id === id);
-    return user ? user.name : 'Unknown';
-  };
 
   useEffect(() => {
     const fetchQuotes = async () => {
@@ -139,14 +133,6 @@ const QuoteTable = () => {
     setSelectedQuote(null);
   };
 
-  const openAddModal = () => {
-    setAddModalOpen(true);
-  };
-
-  const closeAddModal = () => {
-    setAddModalOpen(false);
-  };
-
   const normalizedSearchQuery = searchQuery.toLowerCase();
   const filteredQuotes = quotes.filter((quote) =>
     Object.values(quote).some((val) => val !== null && val !== undefined && val.toString().toLowerCase().includes(normalizedSearchQuery))
@@ -175,6 +161,11 @@ const QuoteTable = () => {
   const totalPages = Math.ceil(filteredQuotes.length / perPage);
 
   const headers = [
+    {
+      key: 'select',
+      label: 'Select',
+      render: (item) => <input type="checkbox" checked={selectedQuote.includes(item.id)} onChange={() => toggleQuoteSelection(item.id)} />,
+    },
     { key: 'quote_type', label: 'Type' },
     { key: 'quote_customer', label: 'Customer' },
     { key: 'quote_cust_ref_no', label: 'Customer Ref#' },
@@ -196,9 +187,47 @@ const QuoteTable = () => {
     },
   ];
 
+  const toggleQuoteSelection = (id) => {
+    setSelectedQuote((prevSelected) => (prevSelected.includes(id) ? prevSelected.filter((quoteId) => quoteId !== id) : [...prevSelected, id]));
+  };
+
+  const sendEmails = async (subject, content) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token found');
+      }
+
+      const emailData = {
+        ids: [3],
+        subject,
+        content,
+        module: 'quotes',
+      };
+
+      const response = await axios.post('http://127.0.0.1:8000/api/email', emailData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Email Response:', response);
+      Swal.fire('Success!', 'Emails have been sent.', 'success');
+      setEmailModalOpen(false);
+      setSelectedQuote([]);
+    } catch (error) {
+      console.error('Error sending emails:', error.response ? error.response.data : error.message);
+      Swal.fire('Error!', 'Failed to send emails.', 'error');
+    }
+  };
+
   return (
     <div>
       <div className="header-container">
+        <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedQuote.length === 0}>
+          Send Email
+        </button>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search quotes..." />
         </div>
@@ -235,6 +264,24 @@ const QuoteTable = () => {
       {/* Edit Lead Modal */}
       <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Quote">
         {selectedQuote && <EditQuoteForm quote={selectedQuote} onClose={closeEditModal} onUpdate={updateQuote} />}
+      </Modal>
+
+      {/* Email Modal */}
+
+      <Modal isOpen={isEmailModalOpen} onClose={() => setEmailModalOpen(false)} title="Send Email">
+        <div className="email-modal">
+          <div>
+            <label htmlFor="subject">Subject:</label>
+            <input type="text" placeholder="Subject" onChange={(e) => setEmailData({ ...emailData, subject: e.target.value })} />
+          </div>
+          <div>
+            <label htmlFor="content">Content:</label>
+            <textarea placeholder="Content" onChange={(e) => setEmailData({ ...emailData, content: e.target.value })} />
+          </div>
+          <button type="submit" onClick={() => sendEmails(emailData.subject, emailData.content)}>
+            Send
+          </button>
+        </div>
       </Modal>
     </div>
   );
