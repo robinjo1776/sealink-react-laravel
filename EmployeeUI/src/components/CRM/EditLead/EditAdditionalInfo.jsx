@@ -6,7 +6,7 @@ function EditAdditionalInfo({ formLead, setFormLead }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const token = localStorage.getItem("token"); // Ensure token exists
+        const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token found. Please log in.");
         }
@@ -43,9 +43,9 @@ function EditAdditionalInfo({ formLead, setFormLead }) {
     };
 
     fetchUsers();
-  }, []); // Add empty dependency array to run once when component mounts
+  }, []);
 
-  const [employees, setEmployees] = useState([]); // State to hold employees
+  const [employees, setEmployees] = useState([]);
 
   const equipmentTypeOptions = [
     "Van",

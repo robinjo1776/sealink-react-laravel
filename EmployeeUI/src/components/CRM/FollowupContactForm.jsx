@@ -36,7 +36,7 @@ function FollowupContactForm({ formFollowup, setformFollowup }) {
               <label>Name</label>
               <input
                 type="text"
-                name="name" // Ensure the name attribute is present
+                name="name" 
                 value={contact.name}
                 onChange={(e) => handleContactChange(index, e)}
               />
@@ -45,7 +45,7 @@ function FollowupContactForm({ formFollowup, setformFollowup }) {
               <label>Phone</label>
               <input
                 type="tel"
-                name="phone" // Ensure the name attribute is present
+                name="phone" 
                 value={contact.phone}
                 onChange={(e) => handleContactChange(index, e)}
               />
@@ -54,7 +54,7 @@ function FollowupContactForm({ formFollowup, setformFollowup }) {
               <label>Email</label>
               <input
                 type="email"
-                name="email" // Ensure the name attribute is present
+                name="email" 
                 value={contact.email}
                 onChange={(e) => handleContactChange(index, e)}
               />

@@ -5,7 +5,7 @@ import Table from "../common/Table";
 import Modal from "../common/Modal";
 import EditLeadForm from "./EditLeadForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import LeadFollowupTable from "./LeadFollowupTable"; // Import your LeadFollowupTable
+import LeadFollowupTable from "./LeadFollowupTable"; 
 
 const LeadTable = () => {
   const [leads, setLeads] = useState([]);
@@ -23,7 +23,6 @@ const LeadTable = () => {
   const perPage = 8;
 
   // Fetch leads from the API
-  // Fetch leads from API
   useEffect(() => {
     const fetchLeads = async () => {
       try {
@@ -125,6 +124,7 @@ const LeadTable = () => {
       }
     }
   };
+
   // Handle sorting
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -186,13 +186,13 @@ const LeadTable = () => {
         title: "Unauthorized",
         text: "You need to log in to access follow-up data.",
       });
-      return; // Exit early if token is not available
+      return; 
     }
 
     setFollowupLoading(true);
 
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/employee", {
+      const response = await axios.get("http://127.0.0.1:8000/api/employee-followup", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -202,7 +202,7 @@ const LeadTable = () => {
       console.error("Error fetching follow-up data:", error);
     }
 
-    setFollowupModalOpen(true); // Open the modal after fetching the data
+    setFollowupModalOpen(true); 
   };
 
   const closeFollowupModal = () => {

@@ -46,7 +46,7 @@ const AddLeadFollowupForm = ({ onClose, onAddFollowup }) => {
       contacts: JSON.stringify(followupData.contacts),
     };
 
-    console.log("Lead data before submission:", formattedFollowupData); // Debugging log
+    console.log("Lead data before submission:", formattedFollowupData);
 
     if (validateLead()) {
       try {

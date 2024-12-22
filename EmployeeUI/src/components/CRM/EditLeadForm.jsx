@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // Add useContext here
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import LeadContactForm from "./LeadContactForm";
@@ -270,9 +270,9 @@ const EditLeadForm = ({ lead, onClose, onUpdate }) => {
               <LeadContactForm
                 key={index}
                 contact={contact}
-                index={index} // Pass index for identification
-                onChange={handleContactChange} // Update function
-                onRemove={handleRemoveContact} // Remove function
+                index={index}
+                onChange={handleContactChange}
+                onRemove={handleRemoveContact}
               />
             ))}
             <button type="button" onClick={handleAddContact} className="add">

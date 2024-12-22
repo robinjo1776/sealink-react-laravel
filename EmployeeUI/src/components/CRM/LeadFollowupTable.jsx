@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const LeadFollowupTable = () => {
   const { currentUser, loading: userLoading } = useContext(UserContext);
   const [followUps, setFollowUps] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lead_date");
   const [sortDesc, setSortDesc] = useState(true);
@@ -25,47 +25,48 @@ const LeadFollowupTable = () => {
   const navigate = useNavigate();
   const perPage = 8;
   useEffect(() => {
-  // Fetch lead follow-ups
-  const fetchFollowUps = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("No token found");
-        navigate("/login");
-        return;
+    // Fetch lead follow-ups
+    const fetchFollowUps = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found");
+          navigate("/login");
+          return;
+        }
+
+        const { data } = await axios.get(
+          "http://127.0.0.1:8000/api/employee-followup",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        if (data && Array.isArray(data)) {
+          console.log("Fetched Follow-ups:", data);
+          setFollowUps(data);
+        } else {
+          console.error("Unexpected data structure:", data);
+          setFollowUps([]);
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading followups:", error);
+        if (error.response && error.response.status === 401) {
+          console.log("Token expired or invalid");
+          localStorage.removeItem("token");
+          localStorage.removeItem("userId");
+          localStorage.removeItem("userRole");
+          navigate("/login");
+        }
+        setFollowUps([]);
+        setLoading(false);
       }
-  
-      const { data } = await axios.get("http://127.0.0.1:8000/api/employee", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-  
-      if (data && Array.isArray(data)) {
-        console.log("Fetched Follow-ups:", data);
-        setFollowUps(data); // Ensure followUps is always an array
-      } else {
-        console.error("Unexpected data structure:", data);
-        setFollowUps([]); // Set empty array if the data is invalid
-      }
-  
-      setLoading(false);
-    } catch (error) {
-      console.error("Error loading followups:", error);
-      if (error.response && error.response.status === 401) {
-        console.log("Token expired or invalid");
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("userRole");
-        navigate("/login");
-      }
-      setFollowUps([]); // Ensure followUps is always an array in case of error
-      setLoading(false);
-    }
-  };
-  
+    };
+
     fetchFollowUps();
   }, []);
-  
-
 
   // Handle sorting
   const handleSort = (column) => {
@@ -141,7 +142,6 @@ const LeadFollowupTable = () => {
 
         if (error.response) {
           if (error.response.status === 401) {
-            // Token is invalid or expired
             Swal.fire({
               icon: "error",
               title: "Unauthorized",
@@ -183,8 +183,8 @@ const LeadFollowupTable = () => {
     let valB = b[sortBy];
 
     // Handle case where value is null or undefined
-    if (valA == null) valA = ""; // Replace null/undefined with an empty string for comparison
-    if (valB == null) valB = ""; // Replace null/undefined with an empty string for comparison
+    if (valA == null) valA = "";
+    if (valB == null) valB = "";
 
     if (sortBy === "lead_date" || sortBy === "next_follow_up_date") {
       // Handle date sorting by comparing timestamps
@@ -214,7 +214,7 @@ const LeadFollowupTable = () => {
     { key: "customer_name", label: "Customer Name" },
     { key: "phone", label: "Phone" },
     { key: "email", label: "Email" },
-    { key: "lead_type", label: "Lead Type" },    
+    { key: "lead_type", label: "Lead Type" },
     {
       key: "lead_status",
       label: "Status",

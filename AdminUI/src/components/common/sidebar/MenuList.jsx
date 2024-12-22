@@ -67,16 +67,12 @@ const MenuList = ({ darkTheme, userRole }) => {
     {
       key: 'sales-quotes-menu',
       icon: <DollarCircleOutlined />,
-      label: 'Sales & Quotes',
+      label: 'Quotes',
       children: [
-        { key: 'quote', label: <Link to="/quote">Quotes</Link> },
+        { key: 'shipment', label: <Link to="/shipment">Shipment</Link> },
         {
-          key: 'ads-ship',
-          label: <Link to="/advertise-shipments">Ads Ship.</Link>,
-        },
-        {
-          key: 'quotes-lead',
-          label: <Link to="/quotes-lead">Leads with Quotes</Link>,
+          key: 'quotes-leads',
+          label: <Link to="/quotes-lead">Leads</Link>,
         },
       ],
     },

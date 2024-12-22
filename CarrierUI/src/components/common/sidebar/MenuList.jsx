@@ -7,7 +7,7 @@ import {
   BarsOutlined,
   DollarCircleOutlined,
   UsergroupAddOutlined,
-  FileTextOutlined,
+  NotificationOutlined,
   FileDoneOutlined,
   FolderOpenOutlined,
   PayCircleOutlined,
@@ -51,17 +51,10 @@ const MenuList = ({ darkTheme, userRole }) => {
       label: <Link to="/">Home</Link>,
     },
 
+    { key: 'sales-quotes', icon: <DollarCircleOutlined />, label: <Link to="/quote">Quotes</Link> },
     {
-      key: 'sales-quotes-menu',
-      icon: <DollarCircleOutlined />,
-      label: 'Sales & Quotes',
-      children: [
-        { key: 'sales-quotes', label: <Link to="/quote">Quotes</Link> },
-        {
-          key: 'ads-ship',
-          label: <Link to="/shipment">Ads Ship.</Link>,
-        },
-      ],
+      key: 'ads-ship',icon: <NotificationOutlined />,
+      label: <Link to="/shipment">Ads Ship.</Link>,
     },
 
     {

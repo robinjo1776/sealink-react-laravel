@@ -13,8 +13,8 @@ import CustomersPage from './pages/Customers/CustomersPage';
 import EditCustomerForm from './components/Customers/EditCustomerForm';
 
 import OrderPage from './pages/Orders/OrderPage';
-import AddOrderForm from './components/Orders/AddOrderForm';
-import EditOrderForm from './components/Orders/EditOrderForm';
+import EditOrderForm from './components/Orders/EditOrder/EditOrderForm';
+import AddOrderForm from './components/Orders/AddOrder/AddOrderForm';
 
 import CarrierPage from './pages/Carriers&Co/CarrierPage';
 import AddCarrierForm from './components/Carriers&Co/AddCarrier/AddCarrierForm';
@@ -27,6 +27,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import UserProvider from './UserProvider';
 import QuotePage from './pages/Sales/QuotePage';
 import EditQuoteForm from './components/Sales/EditQuote/EditQuoteForm';
+
 
 const AppRoutes = () => (
   <UserProvider>
@@ -171,7 +172,7 @@ const AppRoutes = () => (
       />
 
       <Route
-        path="/quote"
+        path="/shipment"
         element={
           <PrivateRoute>
             <QuotePage />

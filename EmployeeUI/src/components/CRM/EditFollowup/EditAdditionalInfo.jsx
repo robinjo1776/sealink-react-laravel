@@ -16,7 +16,7 @@ function EditAdditionalInfo({ followupEdit = {}, setfollowupEdit }) {
         <div className="form-group">
           <label htmlFor="remarks">Remarks</label>
           <textarea
-            value={followupEdit.remarks || ''} 
+            value={followupEdit.remarks || ""}
             onChange={(e) =>
               setfollowupEdit({ ...followupEdit, remarks: e.target.value })
             }
@@ -27,7 +27,7 @@ function EditAdditionalInfo({ followupEdit = {}, setfollowupEdit }) {
           <label htmlFor="equipment">Equipment</label>
           <select
             id="equipment"
-            value={followupEdit.equipment || ''} 
+            value={followupEdit.equipment || ""}
             onChange={(e) =>
               setfollowupEdit({
                 ...followupEdit,
@@ -46,7 +46,7 @@ function EditAdditionalInfo({ followupEdit = {}, setfollowupEdit }) {
         <div className="form-group">
           <label htmlFor="notes">Notes</label>
           <textarea
-            value={followupEdit.notes || ''}
+            value={followupEdit.notes || ""}
             onChange={(e) =>
               setfollowupEdit({ ...followupEdit, notes: e.target.value })
             }
@@ -57,6 +57,5 @@ function EditAdditionalInfo({ followupEdit = {}, setfollowupEdit }) {
     </fieldset>
   );
 }
-
 
 export default EditAdditionalInfo;

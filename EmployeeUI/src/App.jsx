@@ -6,7 +6,7 @@ import MenuList from "./components/common/sidebar/MenuList";
 import ToggleThemeButton from "./components/common/sidebar/ToggleThemeButton";
 import { Header } from "antd/es/layout/layout";
 import AppRoutes from "./routes.jsx";
-import logo from "./assets/images/logo.jpg";
+import logo from "/assets/images/logo.jpg";
 import "antd/dist/reset.css";
 import "./styles/Table.css";
 
@@ -17,7 +17,7 @@ const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [userRole, setUserRole] = useState(
     localStorage.getItem("userRole") || "employee"
-  ); // Default to employee
+  );
 
   useEffect(() => {
     // Retrieve theme preference from localStorage

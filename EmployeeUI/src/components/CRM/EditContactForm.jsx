@@ -36,7 +36,7 @@ function EditContactForm({ formLead, setFormLead }) {
             <label>Name</label>
             <input
               type="text"
-              name="name" // Ensure the name attribute is present
+              name="name"
               value={contact.name}
               onChange={(e) => handleContactChange(index, e)}
             />
@@ -45,7 +45,7 @@ function EditContactForm({ formLead, setFormLead }) {
             <label>Phone</label>
             <input
               type="tel"
-              name="contact_no" // Ensure the name attribute is present
+              name="contact_no"
               value={contact.contact_no}
               onChange={(e) => handleContactChange(index, e)}
             />
@@ -54,13 +54,17 @@ function EditContactForm({ formLead, setFormLead }) {
             <label>Email</label>
             <input
               type="email"
-              name="email" // Ensure the name attribute is present
+              name="email"
               value={contact.email}
               onChange={(e) => handleContactChange(index, e)}
             />
           </div>
 
-          <button type="button" onClick={() => handleRemoveContact(index)} className="remove">
+          <button
+            type="button"
+            onClick={() => handleRemoveContact(index)}
+            className="remove"
+          >
             Remove
           </button>
         </div>

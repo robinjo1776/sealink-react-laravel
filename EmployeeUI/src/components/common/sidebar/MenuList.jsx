@@ -1,12 +1,9 @@
-import React, { useMemo } from "react";
-import { Menu } from "antd";
-import PropTypes from "prop-types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  UsergroupAddOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
-import "../../../styles/global.css"; // Adjust the path as needed
+import React, { useMemo } from 'react';
+import { Menu } from 'antd';
+import PropTypes from 'prop-types';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { UsergroupAddOutlined, LogoutOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import '../../../styles/global.css'; // Adjust the path as needed
 
 const MenuList = ({ darkTheme, userRole }) => {
   const location = useLocation();
@@ -14,24 +11,18 @@ const MenuList = ({ darkTheme, userRole }) => {
   const currentPath = location.pathname;
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   const employeeItems = [
+    { key: 'lead', icon: <UsergroupAddOutlined />, label: <Link to="/emp_lead">Leads</Link> },
+    { key: 'follow-up', icon: <ClockCircleOutlined />, label: <Link to="/follow-up">Lead F/U</Link> },
+
     {
-      key: "crm-menu",
-      icon: <UsergroupAddOutlined />,
-      label: "CRM",
-      children: [
-        { key: "lead", label: <Link to="/emp_lead">Leads</Link> },
-        { key: "follow-up", label: <Link to="/follow-up">Lead F/U</Link> },
-      ],
-    },
-    {
-      key: "logout",
+      key: 'logout',
       icon: <LogoutOutlined />,
-      label: "Logout",
+      label: 'Logout',
       onClick: handleLogout,
     },
   ];
@@ -42,21 +33,14 @@ const MenuList = ({ darkTheme, userRole }) => {
 
   const getSelectedKeys = () => {
     return items.reduce((acc, item) => {
-      if (
-        item.label &&
-        item.label.props &&
-        item.label.props.to === currentPath
-      ) {
+      if (item.label && item.label.props && item.label.props.to === currentPath) {
         acc.push(item.key);
       }
       if (item.children) {
         item.children.forEach((child) => {
           if (child.label && child.label.props && child.label.props.to) {
             const childPath = child.label.props.to;
-            if (
-              currentPath === childPath ||
-              currentPath.startsWith(childPath)
-            ) {
+            if (currentPath === childPath || currentPath.startsWith(childPath)) {
               acc.push(item.key, child.key);
             }
           }
@@ -68,7 +52,7 @@ const MenuList = ({ darkTheme, userRole }) => {
 
   return (
     <Menu
-      theme={darkTheme ? "dark" : "light"}
+      theme={darkTheme ? 'dark' : 'light'}
       mode="inline"
       className="menu-bar"
       selectedKeys={getSelectedKeys()}

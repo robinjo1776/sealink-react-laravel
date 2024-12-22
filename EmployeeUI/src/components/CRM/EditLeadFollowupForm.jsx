@@ -53,7 +53,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
 
   const updateFollowup = async () => {
     try {
-      const token = localStorage.getItem("token"); // Assuming the token is stored in localStorage
+      const token = localStorage.getItem("token");
       if (!token) {
         Swal.fire({
           icon: "error",

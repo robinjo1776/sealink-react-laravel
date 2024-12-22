@@ -59,6 +59,16 @@
   outline: none; /* Remove default outline */
 }
 
+/* margin for checkboxes */
+#hot,
+#tarp,
+#team,
+#air_ride,
+#hazmat {
+  width: 1rem;
+  margin-left: 0.5rem;
+}
+
 /* Submit button styling */
 .btn-submit {
   background-color: #007bff; /* Primary button color */
