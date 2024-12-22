@@ -83,13 +83,13 @@ const EditOrderForm = ({ order, onClose, onUpdate }) => {
         ? order.destination_location
         : JSON.parse(order.destination_location || '[]');
       const parsedCharges = Array.isArray(order.charges) ? order.charges : JSON.parse(order.charges || '[]');
-      const parsedDiscounts = Array.isArray(order.dicsounts) ? order.dicsounts : JSON.parse(order.dicsounts || '[]');
+      const parsedDiscounts = Array.isArray(order.discounts) ? order.discounts : JSON.parse(order.discounts || '[]');
       setFormOrder({
         ...order,
         origin_location: parsedOrigins.length > 0 ? parsedOrigins : [],
         destination_location: parsedDestinations.length > 0 ? parsedDestinations : [],
         charges: parsedCharges.length > 0 ? parsedCharges : [],
-        dicsounts: parsedDiscounts.length > 0 ? parsedDiscounts : [],
+        discounts: parsedDiscounts.length > 0 ? parsedDiscounts : [],
       });
     }
   }, [order]);

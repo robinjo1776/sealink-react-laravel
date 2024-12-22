@@ -8,8 +8,8 @@ import OrderOrigin from './OrderOrigin';
 import OrderDestination from './OrderDestination';
 import OrderSpecs from './OrderSpecs';
 import OrderRevenue from './OrderRevenue';
-import OrderCharges from '../OrderCharges';
-import OrderDiscounts from '../OrderDiscounts';
+import OrderCharges from './OrderCharges';
+import OrderDiscounts from './OrderDiscounts';
 import OrderTax from './OrderTax';
 
 const AddOrderForm = ({ onClose, onAddOrder }) => {
