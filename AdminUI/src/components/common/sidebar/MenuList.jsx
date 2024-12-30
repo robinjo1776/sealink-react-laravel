@@ -170,7 +170,7 @@ const MenuList = ({ darkTheme, userRole }) => {
       label: 'Carriers & Co.',
       children: [
         { key: 'carrier', label: <Link to="/carrier">Carriers</Link> },
-        { key: 'vendors', label: <Link to="/vendors">Vendors</Link> },
+        { key: 'vendor', label: <Link to="/vendor">Vendors</Link> },
         { key: 'brokers', label: <Link to="/brokers">Brokers</Link> },
       ],
     },

@@ -12,33 +12,33 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id(); // auto-incrementing ID
-            $table->string('customer');
-            $table->string('customer_ref_no');
-            $table->string('branch');
-            $table->string('booked_by');
-            $table->string('account_rep');
-            $table->string('sales_rep');
-            $table->string('customer_po_no');
-            $table->string('commodity');
-            $table->string('equipment');
-            $table->string('load_type');
-            $table->string('temperature');
-            $table->json('origin_location'); // JSON field for locations
-            $table->json('destination_location'); // JSON field for locations
-            $table->boolean('hot')->default(false);
-            $table->boolean('team')->default(false);
-            $table->boolean('air_ride')->default(false);
-            $table->boolean('tarp')->default(false);
-            $table->boolean('hazmat')->default(false);
-            $table->string('currency');
-            $table->decimal('base_price', 10, 2);
-            $table->json('charges'); // JSON field for charges
-            $table->json('discounts'); // JSON field for discounts
-            $table->decimal('gst', 10, 2);
-            $table->decimal('pst', 10, 2);
-            $table->decimal('hst', 10, 2);
-            $table->decimal('qst', 10, 2);
-            $table->decimal('final_price', 10, 2);
+            $table->string('customer')->nullable();
+            $table->string('customer_ref_no')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('booked_by')->nullable();
+            $table->string('account_rep')->nullable();
+            $table->string('sales_rep')->nullable();
+            $table->string('customer_po_no')->nullable();
+            $table->string('commodity')->nullable();
+            $table->string('equipment')->nullable();
+            $table->string('load_type')->nullable();
+            $table->string('temperature')->nullable();
+            $table->json('origin_location')->nullable();
+            $table->json('destination_location')->nullable();
+            $table->boolean('hot')->default(false)->nullable();
+            $table->boolean('team')->default(false)->nullable();
+            $table->boolean('air_ride')->default(false)->nullable();
+            $table->boolean('tarp')->default(false)->nullable();
+            $table->boolean('hazmat')->default(false)->nullable();
+            $table->string('currency')->nullable();
+            $table->decimal('base_price', 10, 2)->nullable();
+            $table->json('charges')->nullable();
+            $table->json('discounts')->nullable();
+            $table->decimal('gst', 10, 2)->nullable();
+            $table->decimal('pst', 10, 2)->nullable();
+            $table->decimal('hst', 10, 2)->nullable();
+            $table->decimal('qst', 10, 2)->nullable();
+            $table->decimal('final_price', 10, 2)->nullable();
             $table->text('notes')->nullable();
             $table->timestamps(); // created_at, updated_at
         });

@@ -14,6 +14,7 @@ use App\Http\Controllers\LeadFollowupController;
 use App\Http\Controllers\EmployeeFollowupController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\VendorController;
 
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/lead-followup', LeadFollowupController::class);
 
     // CRUD operations for Customers
+    Route::post('/customer', [CustomerController::class, 'store']);
     Route::get('/customer', [CustomerController::class, 'index']);
     Route::get('/customer/{id}', [CustomerController::class, 'show']);
     Route::put('/customer/{id}', [CustomerController::class, 'update']);
@@ -65,7 +67,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/employee-followup', [EmployeeFollowupController::class, 'index']);
 
     /*Carrier route */
-
     Route::apiResource('/carrier', CarrierController::class);
 
     /* Shipment route */
@@ -73,4 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     /* Quote route */
     Route::apiResource('/quote', QuoteController::class);
+
+    /*Vendor route */
+    Route::apiResource('/vendor', VendorController::class);
 });
