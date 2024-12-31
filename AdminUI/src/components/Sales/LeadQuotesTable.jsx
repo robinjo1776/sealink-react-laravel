@@ -17,7 +17,7 @@ const LeadQuotesTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedLead, setSelectedLead] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const perPage = 8;
+  const perPage = 100;
 
   const getUserNameById = (id) => {
     const user = users.find((user) => user.id === id);
@@ -251,6 +251,9 @@ const LeadQuotesTable = () => {
     <div>
       {/* Header with Add Lead button and search input */}
       <div className="header-container">
+        <div className="header-actions">
+          <h1 className="page-heading">Leads with quotes</h1>
+        </div>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." />
         </div>

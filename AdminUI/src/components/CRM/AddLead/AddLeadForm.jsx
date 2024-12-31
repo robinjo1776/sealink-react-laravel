@@ -46,7 +46,7 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
     'Voicemail/No answer',
     'Different Department',
     'No answer/Callback/Voicemail',
-    'Not interested reason provided in notes',
+    'Not interested',
     'Asset based only',
   ];
 

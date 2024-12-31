@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2024 at 05:07 PM
+-- Generation Time: Dec 31, 2024 at 05:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `linkloads`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `brokers`
+--
+
+CREATE TABLE `brokers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `broker_name` varchar(255) NOT NULL,
+  `broker_address` varchar(255) DEFAULT NULL,
+  `broker_city` varchar(255) DEFAULT NULL,
+  `broker_state` varchar(255) DEFAULT NULL,
+  `broker_country` varchar(255) DEFAULT NULL,
+  `broker_postal` varchar(255) DEFAULT NULL,
+  `broker_email` varchar(255) DEFAULT NULL,
+  `broker_phone` varchar(255) DEFAULT NULL,
+  `broker_ext` varchar(255) DEFAULT NULL,
+  `broker_fax` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `brokers`
+--
+
+INSERT INTO `brokers` (`id`, `broker_name`, `broker_address`, `broker_city`, `broker_state`, `broker_country`, `broker_postal`, `broker_email`, `broker_phone`, `broker_ext`, `broker_fax`, `created_at`, `updated_at`) VALUES
+(1, 'John Doe Logistics', '123 Freight Lane', 'Los Angeles', 'California', 'USA', '90001', 'contact@johndoelogistics.com', '+1-555-123-4567', '101', '+1-555-765-4321', '2024-12-31 10:01:42', '2024-12-31 10:01:42'),
+(2, 'Global Freight Solutions', '789 Cargo Avenue', 'Chicago', 'Illinois', 'USA', '60601', 'info@globalfreight.com', '+1-312-555-2345', '303', '+1-312-555-6789', '2024-12-31 10:02:09', '2024-12-31 10:02:09'),
+(3, 'Elite Shipping Co.', '321 Ocean Drive', 'Miami', 'Florida', 'USA', '33102', 'support@eliteshipping.com', '+1-786-555-4567', '404', '+1-786-555-8901', '2024-12-31 10:02:15', '2024-12-31 10:04:19'),
+(4, 'Pacific Logistics', '111 Harbor Blvd', 'Seattle', 'Washington', 'USA', '98101', 'contact@pacificlogistics.com', '+1-206-555-7890', '505', '+1-206-555-1234', '2024-12-31 10:02:22', '2024-12-31 10:02:22'),
+(5, 'Swift Cargo Brokers', '222 Rapid Lane', 'Dallas', 'Texas', 'USA', '75201', 'hello@swiftcargo.com', '+1-469-555-6789', '606', '+1-469-555-4321', '2024-12-31 10:02:29', '2024-12-31 10:02:29');
 
 -- --------------------------------------------------------
 
@@ -166,7 +199,6 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `cust_name`, `cust_type`, `cust_ref_no`, `cust_website`, `cust_email`, `cust_contact_no`, `cust_contact_no_ext`, `cust_tax_id`, `cust_primary_address`, `cust_primary_city`, `cust_primary_state`, `cust_primary_country`, `cust_primary_postal`, `cust_primary_unit_no`, `cust_mailing_address`, `cust_mailing_city`, `cust_mailing_state`, `cust_mailing_country`, `cust_mailing_postal`, `cust_mailing_unit_no`, `cust_ap_name`, `cust_ap_address`, `cust_ap_city`, `cust_ap_state`, `cust_ap_country`, `cust_ap_postal`, `cust_ap_unit_no`, `cust_ap_email`, `cust_ap_phone`, `cust_ap_phone_ext`, `cust_ap_fax`, `cust_broker_name`, `cust_bkp_notes`, `cust_bkspl_notes`, `cust_credit_status`, `cust_credit_mop`, `cust_credit_appd`, `cust_credit_expd`, `cust_credit_terms`, `cust_credit_limit`, `cust_credit_notes`, `cust_credit_application`, `cust_credit_currency`, `cust_sbk_agreement`, `cust_credit_agreement`, `cust_contact`, `cust_equipment`, `created_at`, `updated_at`) VALUES
 (1, 'Robin Joseph', 'Retailer', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Drive', 'Toronto', 'Ontario', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, '[]', '2024-09-23 04:17:43', '2024-12-06 05:33:20'),
 (7, 'Rajesh', 'Distributor', '46446467', 'www.ffrg.com', 'rajesh@gmail.com', 'on', '209', 'JN 6756', '30 Greenwich Avenue', 'New York', 'New York', 'United States', '10011', NULL, '8', NULL, NULL, NULL, NULL, NULL, NULL, '90 Feet Road', 'Patna', 'Bihar', 'India', NULL, NULL, NULL, NULL, NULL, NULL, 'Broker 2', 'good', 'hgjg', 'Not Approved', 'Wire Transfer', '2024-12-03', '2025-01-03', '39', '7', 'fhjfhj', 1, 'USD', 'http://127.0.0.1:8000/storage/uploads/VKobKSy3BoCpXLdU0z3oELwmLV9vCpObFAzMo2qx.pdf', 'http://127.0.0.1:8000/storage/uploads/Vqr9npXj8Vk1OjFFWEzpQXKMCBRlbvxm73s8TESS.pdf', '[]', '[]', '2024-11-21 22:31:55', '2024-12-06 01:13:38'),
-(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-12-25 22:05:34', '2024-12-25 22:05:34'),
 (9, 'Robin Joseph', 'Retailer', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Drive', 'Toronto', 'Ontario', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, '[]', '2024-09-23 04:17:43', '2024-12-06 05:33:20'),
 (10, 'Rajesh', 'Distributor', '46446467', 'www.ffrg.com', 'rajesh@gmail.com', 'on', '209', 'JN 6756', '30 Greenwich Avenue', 'New York', 'New York', 'United States', '10011', NULL, '8', NULL, NULL, NULL, NULL, NULL, NULL, '90 Feet Road', 'Patna', 'Bihar', 'India', NULL, NULL, NULL, NULL, NULL, NULL, 'Broker 2', 'good', 'hgjg', 'Not Approved', 'Wire Transfer', '2024-12-03', '2025-01-03', '39', '7', 'fhjfhj', 1, 'USD', 'http://127.0.0.1:8000/storage/uploads/VKobKSy3BoCpXLdU0z3oELwmLV9vCpObFAzMo2qx.pdf', 'http://127.0.0.1:8000/storage/uploads/Vqr9npXj8Vk1OjFFWEzpQXKMCBRlbvxm73s8TESS.pdf', '[]', '[]', '2024-09-23 04:17:43', '2024-12-06 05:33:20'),
 (11, 'Robin Joseph', 'Retailer', '54345345345', 'www.fred.com', 'robinjo1776@gmail.com', '5435345345', '33', '535435', '30 Greendowns Drive', 'Toronto', 'Ontario', 'Canada', 'M1M 2G7', NULL, '5 E 98th St, New York, NY 10029, USA', 'New York', 'New York', 'United States', '10029', NULL, 'George', 'I-405, Los Angeles, CA, USA', 'Los Angeles', 'California', 'United States', '44442g', 33, 'robinjo1776@gmail.com', '4379713752', '55', NULL, 'broker2', NULL, NULL, 'Approved', 'Direct Deposit', '2024-09-10', '2024-10-10', '5', '4', 'bdbdgbb', NULL, 'USD', NULL, NULL, NULL, '[]', '2024-09-23 04:17:43', '2024-12-06 05:33:20'),
@@ -329,14 +361,14 @@ INSERT INTO `leads` (`id`, `lead_no`, `lead_date`, `follow_up_date`, `customer_n
 (27, 6783, '2024-10-21', '2024-11-01', 'Eglington', 7664674474, 'eglington@gmail.com', 'www.eglington.com', 'Maxi', '2nd Ave, New York, NY, USA', 'New York', 'New York', 'United States', NULL, 2, 'CA', 'Van', 'Different Department', 'gfger', '[]', '2024-10-21 03:00:50', '2024-11-19 09:47:56', NULL),
 (28, 7763, '2024-11-17', '2024-11-21', 'Aiden', 905887533, 'dan@gmail.com', 'www.kol.com', 'Flatbed', '5th Ave, Grace Park West, Caloocan, Metro Manila, Philippines', 'Caloocan', 'Metro Manila', 'Philippines', NULL, 34, 'BDS', 'sam', 'Lanes discussed', 'hjjg', '[]', '2024-11-17 08:44:54', '2024-12-01 23:07:24', NULL),
 (30, 4032, '2024-11-18', '2024-12-05', 'Julian', 8587858578, 'jul@gmail.com', 'www.julian.com', 'Flatbed', '6th Road', 'Rawalpindi', 'Punjab', 'Pakistan', 'C1414', 9, 'MB', 'Robin', 'No answer/Callback/Voicemail', 'hjhgjh', '[{\"name\":\"Kasturba\",\"phone\":\"8848748486\",\"email\":\"kas@gmail.com\"}]', '2024-11-17 23:22:50', '2024-12-01 23:23:50', NULL),
-(31, 6762, '2024-11-22', '2024-12-05', 'Benjamin', 9087554747, 'benjamin@gmail.com', 'www.benjamin.com', 'Maxi', '38 Oxley Rd, Singapore 238629', 'Singapore', 'Singapore', 'Singapore', '238629', 38, 'DPD MAGMA', 'Russell', 'Quotations', 'vdvd', '[{\"name\":\"Jill\",\"phone\":\"7667747467\",\"email\":\"jill43@gmail.com\"}]', '2024-11-21 20:30:09', '2024-12-02 21:56:59', NULL),
-(32, 32678, '2024-12-02', '2024-12-18', 'Panket', 9085686866, 'pankit@gmail.com', 'www.pankit.com', 'Reefer', 'Birlik, 365 AVM, 06610 Çankaya/Ankara, Türkiye', 'Ankara', 'Ankara', 'Türkiye', '06610', 35, 'ON', 'Biplov', 'Quotations', 'vvsf', '[]', '2024-12-01 20:37:31', '2024-12-05 22:31:06', NULL),
-(33, 507, '2024-12-04', '2024-12-25', 'Oswald', 9045674356, 'oswaldgracious@gmail.com', 'www.oswald.com', 'Reefer', '300 Landsberger Allee', 'Berlin', 'Berlin', 'Germany', '13055', NULL, 'ON', 'Home', 'Product/Equipment discussed', 'nhgng', '[{\"name\":\"Howley\",\"phone\":\"8789384942\",\"email\":\"howley@gmail.com\"}]', '2024-12-03 20:38:44', '2024-12-03 20:39:00', NULL),
-(34, 3290, '2024-12-06', '2024-12-19', 'Erin', 4950868635, 'erinjade@gmail.com', 'www.erinjade.com', 'Maxi', '671 Lincoln Avenue', 'Winnetka', 'Illinois', 'United States', '60093', NULL, 'MB', 'Ivan', 'E-mail sent to concerned person', 'hhrthrt', '[{\"name\":\"Rubel Hossain\",\"phone\":\"79695353\",\"email\":\"ruelhossain@gmail.com\"}]', '2024-12-05 22:28:25', '2024-12-05 22:28:47', NULL),
-(35, 4560, '2024-12-16', '2025-01-09', 'Ronak Kapadia', 5607567565, 'ronak@gmail.com', NULL, 'Flatbed', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'BDS', NULL, 'Asset based only', NULL, '[]', '2024-12-15 22:49:18', '2024-12-15 22:49:18', NULL),
-(36, 9087, '2024-12-16', '2025-01-02', 'Sealink', 886864433, 'shanemcmohan@gmail.com', 'www.fred.com', 'Triaxle', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'CA', NULL, 'Not interested reason provided in notes', NULL, '[]', '2024-12-16 00:09:45', '2024-12-16 00:09:45', NULL),
-(37, 2390, '2024-12-16', '2025-01-08', 'Robin Joseph', 4379713752, 'robinjo1776@gmail.com', NULL, 'Triaxle', '66', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', 66, 'CA', 'Zain', 'E-mail sent to concerned person', 'hfhf', '[]', '2024-12-16 00:10:49', '2024-12-16 00:10:49', NULL),
-(38, 2345, '2024-12-20', '2024-12-25', 'John Doe Enterprises', 1234567890, 'contact@johndoe.com', 'https://www.johndoe.com', 'Forklift', '123 Business St.', 'New York', 'NY', 'USA', '10001', 101, 'New Business', 'Jane Smith', 'Open', 'Interested in renting forklifts for 6 months.', NULL, '2024-12-17 22:57:01', '2024-12-17 22:57:01', NULL);
+(31, 6762, '2024-11-22', '2024-12-05', 'Benjamin', 9087554747, 'benjamin@gmail.com', 'www.benjamin.com', 'Maxi', '38 Oxley Rd, Singapore 238629', 'Singapore', 'Singapore', 'Singapore', '238629', 38, 'DPD MAGMA', 'Russell', 'Quotations', 'vdvd', '[{\"name\":\"Jill\",\"phone\":\"7667747467\",\"email\":\"jill43@gmail.com\"}]', '2024-11-21 20:30:09', '2024-12-31 09:32:06', 'Daniel'),
+(32, 32678, '2024-12-02', '2024-12-18', 'Panket', 9085686866, 'pankit@gmail.com', 'www.pankit.com', 'Reefer', 'Birlik, 365 AVM, 06610 Çankaya/Ankara, Türkiye', 'Ankara', 'Ankara', 'Türkiye', '06610', 35, 'ON', 'Biplov', 'Quotations', 'vvsf', '[]', '2024-12-01 20:37:31', '2024-12-31 09:18:46', 'Kuber'),
+(33, 507, '2024-12-04', '2024-12-25', 'Oswald', 9045674356, 'oswaldgracious@gmail.com', 'www.oswald.com', 'Reefer', '300 Landsberger Allee', 'Berlin', 'Berlin', 'Germany', '13055', NULL, 'ON', 'Home', 'Product/Equipment discussed', 'nhgng', '[{\"name\":\"Howley\",\"phone\":\"8789384942\",\"email\":\"howley@gmail.com\"}]', '2024-12-03 20:38:44', '2024-12-31 09:18:39', 'Daniel'),
+(34, 3290, '2024-12-06', '2024-12-19', 'Erin', 4950868635, 'erinjade@gmail.com', 'www.erinjade.com', 'Maxi', '671 Lincoln Avenue', 'Winnetka', 'Illinois', 'United States', '60093', NULL, 'MB', 'Ivan', 'E-mail sent to concerned person', 'hhrthrt', '[{\"name\":\"Rubel Hossain\",\"phone\":\"79695353\",\"email\":\"ruelhossain@gmail.com\"}]', '2024-12-05 22:28:25', '2024-12-31 09:18:28', 'Kuber'),
+(35, 4560, '2024-12-16', '2025-01-09', 'Ronak Kapadia', 5607567565, 'ronak@gmail.com', NULL, 'Flatbed', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'BDS', NULL, 'Asset based only', NULL, '[]', '2024-12-15 22:49:18', '2024-12-31 09:18:08', 'Daniel'),
+(36, 9087, '2024-12-16', '2025-01-02', 'Sealink', 886864433, 'shanemcmohan@gmail.com', 'www.fred.com', 'Triaxle', '48 Calle de San Vicente Ferrer', 'Madrid', 'Comunidad de Madrid', 'Spain', '28004', NULL, 'CA', NULL, 'Not interested', NULL, '[]', '2024-12-16 00:09:45', '2024-12-31 09:18:00', 'Daniel'),
+(37, 2390, '2024-12-16', '2025-01-08', 'Robin Joseph', 4379713752, 'robinjo1776@gmail.com', NULL, 'Triaxle', '66', 'Toronto, Ontario, Canada', 'ON', 'Canada', 'M1M 2G7', 66, 'CA', 'Zain', 'E-mail sent to concerned person', 'hfhf', '[]', '2024-12-16 00:10:49', '2024-12-31 09:17:50', 'Daniel'),
+(38, 2345, '2024-12-20', '2024-12-25', 'John Doe Enterprises', 1234567890, 'contact@johndoe.com', 'https://www.johndoe.com', 'Forklift', '123 Business St.', 'New York', 'NY', 'USA', '10001', 101, 'New Business', 'Jane Smith', 'Prospect customer', 'Interested in renting forklifts for 6 months.', '[]', '2024-12-17 22:57:01', '2024-12-31 09:03:19', 'Kuber');
 
 -- --------------------------------------------------------
 
@@ -431,7 +463,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (57, '2024_12_18_021931_create_shipments_table', 10),
 (58, '2024_12_18_080648_create_quotes_table', 10),
 (59, '2024_12_21_095724_create_orders_table', 10),
-(60, '2024_12_30_063445_create_vendors_table', 11);
+(60, '2024_12_30_063445_create_vendors_table', 11),
+(61, '2024_12_31_152331_create_brokers_table', 12);
 
 -- --------------------------------------------------------
 
@@ -904,7 +937,14 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (648, 'App\\Models\\User', 1, 'API Token', 'c2c17fe0c3532417b8c878d24953e4a076611589cfd5e668c81483c689be3dfd', '[\"*\"]', '2024-12-25 23:09:50', NULL, '2024-12-25 22:00:31', '2024-12-25 23:09:50'),
 (649, 'App\\Models\\User', 1, 'API Token', '8b579fdf7d0e6811c91fb4796221741e3663dd55269db2d56015e71b181ab664', '[\"*\"]', '2024-12-30 10:34:40', NULL, '2024-12-29 20:54:32', '2024-12-30 10:34:40'),
 (650, 'App\\Models\\User', 1, 'API Token', '0b3e9389f0e43249a7f54f8220f004bdbd2e692f7d80fb4f5b4899f4c3605c3a', '[\"*\"]', NULL, NULL, '2024-12-30 01:19:48', '2024-12-30 01:19:48'),
-(651, 'App\\Models\\User', 1, 'API Token', '4220d18072950d06af9ac97f5e84e8f57a59a6e94e8cb76eba6214f678b06cb5', '[\"*\"]', '2024-12-30 01:37:59', NULL, '2024-12-30 01:27:43', '2024-12-30 01:37:59');
+(651, 'App\\Models\\User', 1, 'API Token', '4220d18072950d06af9ac97f5e84e8f57a59a6e94e8cb76eba6214f678b06cb5', '[\"*\"]', '2024-12-30 01:37:59', NULL, '2024-12-30 01:27:43', '2024-12-30 01:37:59'),
+(652, 'App\\Models\\User', 1, 'API Token', '0699a627cdd36cfb51599134713b476e2bc93ac177b800d9debc0f8beefb2f64', '[\"*\"]', '2024-12-31 02:44:13', NULL, '2024-12-30 20:15:27', '2024-12-31 02:44:13'),
+(653, 'App\\Models\\User', 1, 'API Token', '46861d95c61a08ff99f7ecd09515d03302a049b18646bb85cb16c5ff197c6fd4', '[\"*\"]', '2024-12-31 10:47:24', NULL, '2024-12-31 04:44:32', '2024-12-31 10:47:24'),
+(654, 'App\\Models\\User', 7, 'API Token', '41fa15cd06cdc7ca633896777b39c3ff9b21e83df0cd77a6d3d94fd720b33e3b', '[\"*\"]', '2024-12-31 05:31:09', NULL, '2024-12-31 05:18:26', '2024-12-31 05:31:09'),
+(655, 'App\\Models\\User', 11, 'API Token', '7604b4abbdccad6b1801a2c3e0087043777f1edcd7064c39241df8575ce6e16e', '[\"*\"]', '2024-12-31 05:20:11', NULL, '2024-12-31 05:19:52', '2024-12-31 05:20:11'),
+(656, 'App\\Models\\User', 13, 'API Token', '42e19e8210c2dc5a14bcff719375f170fd50cb35931b650a8d65a19db080be03', '[\"*\"]', '2024-12-31 05:20:36', NULL, '2024-12-31 05:20:35', '2024-12-31 05:20:36'),
+(657, 'App\\Models\\User', 11, 'API Token', '9a69a44a9e540f9ff5fd209550d8f65f88c2f3cf8a4427cf47c534fca208783b', '[\"*\"]', '2024-12-31 05:29:37', NULL, '2024-12-31 05:29:35', '2024-12-31 05:29:37'),
+(658, 'App\\Models\\User', 1, 'API Token', '9980bcf0290a2b49227a425de3d461b4fb2d2fdd991a95b391b5bfab0217dd35', '[\"*\"]', '2024-12-31 10:05:05', NULL, '2024-12-31 10:01:14', '2024-12-31 10:05:05');
 
 -- --------------------------------------------------------
 
@@ -1071,6 +1111,12 @@ INSERT INTO `vendors` (`id`, `type`, `legal_name`, `remit_name`, `vendor_type`, 
 --
 
 --
+-- Indexes for table `brokers`
+--
+ALTER TABLE `brokers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `carriers`
 --
 ALTER TABLE `carriers`
@@ -1167,6 +1213,12 @@ ALTER TABLE `vendors`
 --
 
 --
+-- AUTO_INCREMENT for table `brokers`
+--
+ALTER TABLE `brokers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `carriers`
 --
 ALTER TABLE `carriers`
@@ -1206,7 +1258,7 @@ ALTER TABLE `lead_follow_up`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1218,7 +1270,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=652;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=659;
 
 --
 -- AUTO_INCREMENT for table `quotes`

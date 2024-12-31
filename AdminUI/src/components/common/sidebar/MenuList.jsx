@@ -88,8 +88,7 @@ const MenuList = ({ darkTheme, userRole }) => {
     {
       key: 'customers-menu',
       icon: <FileTextOutlined />,
-      label: 'Customers',
-      children: [{ key: 'customer', label: <Link to="/customer">Customers</Link> }],
+      label: <Link to="/customer">Customers</Link>,
     },
     {
       key: 'reports-menu',
@@ -157,8 +156,8 @@ const MenuList = ({ darkTheme, userRole }) => {
           label: <Link to="/payable-day-count">Payable Day Count</Link>,
         },
         {
-          key: 'pay-to-carrier-vendor',
-          label: <Link to="/pay-to-carrier-vendor">Pay to Vendor</Link>,
+          key: 'make-payment',
+          label: <Link to="/make-payment">Make Payment</Link>,
         },
         { key: 'paid-list', label: <Link to="/paid-list">Paid List</Link> },
         { key: 'ap-summary', label: <Link to="/summary">Summary</Link> },
@@ -171,7 +170,7 @@ const MenuList = ({ darkTheme, userRole }) => {
       children: [
         { key: 'carrier', label: <Link to="/carrier">Carriers</Link> },
         { key: 'vendor', label: <Link to="/vendor">Vendors</Link> },
-        { key: 'brokers', label: <Link to="/brokers">Brokers</Link> },
+        { key: 'broker', label: <Link to="/broker">Brokers</Link> },
       ],
     },
     {

@@ -19,7 +19,7 @@ const LeadTable = () => {
   const [selectedLead, setSelectedLead] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
-  const perPage = 8;
+  const perPage = 100;
 
   const getUserNameById = (id) => {
     const user = users.find((user) => user.id === id);
@@ -232,7 +232,7 @@ const LeadTable = () => {
         return 'badge-different';
       case 'No answer/Callback/Voicemail':
         return 'badge-callback';
-      case 'Not interested reason provided in notes':
+      case 'Not interested':
         return 'badge-not-interested';
       case 'Asset based only':
         return 'badge-asset';
@@ -244,9 +244,12 @@ const LeadTable = () => {
   return (
     <div>
       <div className="header-container">
-        <button onClick={openAddModal} className="add-button">
-          Add Lead
-        </button>
+        <div className="header-actions">
+          <h1 className="page-heading">Leads</h1>
+          <button onClick={openAddModal} className="add-button">
+            Add
+          </button>
+        </div>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search leads..." />
         </div>

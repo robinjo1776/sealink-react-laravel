@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
 import EditCustomerForm from './EditCustomerForm';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, MailOutlined } from '@ant-design/icons';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -18,7 +18,7 @@ const CustomerTable = () => {
   const [selectedCustomers, setSelectedCustomers] = useState([]);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [emailData, setEmailData] = useState({ subject: '', content: '' });
-  const perPage = 8;
+  const perPage = 100;
 
   // Fetch customer data on component mount
   useEffect(() => {
@@ -242,9 +242,13 @@ const CustomerTable = () => {
     <div>
       {/* Header with Send Email button and search input */}
       <div className="header-container">
+        <div className="header-actions">
+          <h1 className="page-heading">Customers</h1>
+        </div>
         <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedCustomers.length === 0}>
-          Send Email
+          Email <MailOutlined />
         </button>
+
         <div className="search-container">
           <input
             className="search-bar"

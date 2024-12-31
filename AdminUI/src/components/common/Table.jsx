@@ -5,7 +5,7 @@ import '../../styles/Table.css';
 const Table = ({ data, headers, handleSort, sortBy, sortDesc, currentPage, totalPages, setCurrentPage }) => {
   return (
     <div className="container">
-      <table className="table table-striped">
+      <table className="table">
         <thead>
           <tr className="header-row">
             {headers.map((header) => (

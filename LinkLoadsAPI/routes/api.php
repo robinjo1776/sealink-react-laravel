@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
@@ -77,4 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     /*Vendor route */
     Route::apiResource('/vendor', VendorController::class);
+
+    /*Broker route */
+    Route::apiResource('/broker', BrokerController::class);
 });

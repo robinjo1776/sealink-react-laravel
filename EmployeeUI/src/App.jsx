@@ -8,7 +8,6 @@ import { Header } from "antd/es/layout/layout";
 import AppRoutes from "./routes.jsx";
 import logo from "/assets/images/logo.jpg";
 import "antd/dist/reset.css";
-import "./styles/Table.css";
 
 const { Sider } = Layout;
 
@@ -49,34 +48,25 @@ const App = () => {
 
   return (
     <Router>
-      <LayoutWithSidebar
-        darkTheme={darkTheme}
-        setCollapsed={setCollapsed}
-        collapsed={collapsed}
-        toggleTheme={toggleTheme}
-        colorBgContainer={colorBgContainer}
-        logo={logo}
+      <LayoutWithSidebar 
+        darkTheme={darkTheme} 
+        setCollapsed={setCollapsed} 
+        collapsed={collapsed} 
+        toggleTheme={toggleTheme} 
+        colorBgContainer={colorBgContainer} 
+        logo={logo} 
         userRole={userRole}
       />
     </Router>
   );
 };
 
-const LayoutWithSidebar = ({
-  darkTheme,
-  setCollapsed,
-  collapsed,
-  toggleTheme,
-  colorBgContainer,
-  logo,
-  userRole,
-}) => {
+const LayoutWithSidebar = ({ darkTheme, setCollapsed, collapsed, toggleTheme, colorBgContainer, logo, userRole }) => {
   const location = useLocation();
-  const authPages = ["/login", "/register", "/emp_login"];
-  const isAuthPage = authPages.includes(location.pathname);
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register'|| location.pathname === '/emp_login';
 
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout>
       {!isAuthPage && (
         <Sider
           collapsed={collapsed}
@@ -84,7 +74,6 @@ const LayoutWithSidebar = ({
           trigger={null}
           className="sidebar"
           theme={darkTheme ? "dark" : "light"}
-          width={200} // Fixed sidebar width
         >
           <MenuList darkTheme={darkTheme} userRole={userRole} />
           <ToggleThemeButton darkTheme={darkTheme} ToggleTheme={toggleTheme} />
@@ -100,11 +89,7 @@ const LayoutWithSidebar = ({
               alignItems: "center",
             }}
           >
-            <img
-              src={logo}
-              alt="App Logo"
-              style={{ height: "40px", margin: "0 16px" }}
-            />
+            <img src={logo} alt="App Logo" style={{ height: "40px", margin: "0 16px" }} />
             <Button
               className="toggle"
               onClick={() => setCollapsed(!collapsed)}
@@ -113,14 +98,8 @@ const LayoutWithSidebar = ({
             />
           </Header>
         )}
-        <Layout.Content
-          style={{
-            padding: "0 24px",
-            minHeight: "calc(100vh - 64px)",
-            width: "100%",
-          }}
-        >
-          <AppRoutes userRole={userRole} /> {/* Pass userRole to routes */}
+        <Layout.Content style={{ padding: "0 24px", minHeight: "calc(100vh - 64px)" }}>
+          <AppRoutes />
         </Layout.Content>
       </Layout>
     </Layout>

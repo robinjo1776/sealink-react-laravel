@@ -1,28 +1,26 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { UserContext } from '../../UserProvider';
-import AddVendorForm from './AddVendor/AddVendorForm';
-import EditVendorForm from './EditVendor/EditVendorForm';
+import AddBrokerForm from './AddBroker/AddBrokerForm';
+import EditBrokerForm from './EditBroker/EditBrokerForm';
 
-const VendorTable = () => {
-  const users = useContext(UserContext);
-  const [vendors, setVendors] = useState([]);
+const BrokerTable = () => {
+  const [brokers, setBrokers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('created_at');
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedVendor, setSelectedVendor] = useState(null);
+  const [selectedBroker, setSelectedBroker] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const perPage = 100;
 
   useEffect(() => {
-    const fetchVendors = async () => {
+    const fetchBrokers = async () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -30,22 +28,22 @@ const VendorTable = () => {
         }
 
         setLoading(true);
-        const { data } = await axios.get('http://127.0.0.1:8000/api/vendor', {
+        const { data } = await axios.get('http://127.0.0.1:8000/api/broker', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('Fetched vendors:', data);
-        setVendors(data);
+        console.log('Fetched brokers:', data);
+        setBrokers(data);
       } catch (error) {
-        console.error('Error loading vendors:', error);
+        console.error('Error loading brokers:', error);
         handleFetchError(error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchVendors();
+    fetchBrokers();
   }, []);
 
   const handleFetchError = (error) => {
@@ -58,11 +56,11 @@ const VendorTable = () => {
     }
   };
 
-  const updateVendor = (updatedVendor) => {
-    setVendors((prevVendors) => prevVendors.map((vendor) => (vendor.id === updatedVendor.id ? { ...vendor, ...updatedVendor } : vendor)));
+  const updateBroker = (updatedBroker) => {
+    setBrokers((prevBrokers) => prevBrokers.map((broker) => (broker.id === updatedBroker.id ? { ...broker, ...updatedBroker } : broker)));
   };
 
-  const deleteVendor = async (id) => {
+  const deleteBroker = async (id) => {
     const confirmed = await Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone.',
@@ -79,18 +77,18 @@ const VendorTable = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.delete(`http://127.0.0.1:8000/api/vendor/${id}`, {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/broker/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
         console.log('Delete Response:', response);
-        setVendors((prevVendors) => prevVendors.filter((vendor) => vendor.id !== id));
-        Swal.fire('Deleted!', 'The vendor has been deleted.', 'success');
+        setBrokers((prevBrokers) => prevBrokers.filter((broker) => broker.id !== id));
+        Swal.fire('Deleted!', 'The broker has been deleted.', 'success');
       } catch (error) {
-        console.error('Error deleting vendor:', error);
-        Swal.fire('Error!', 'Failed to delete the vendor.', 'error');
+        console.error('Error deleting broker:', error);
+        Swal.fire('Error!', 'Failed to delete the broker.', 'error');
       }
     }
   };
@@ -105,11 +103,11 @@ const VendorTable = () => {
   };
 
   const normalizedSearchQuery = searchQuery.toLowerCase();
-  const filteredCarriers = vendors.filter((carrier) =>
-    Object.values(carrier).some((val) => val !== null && val !== undefined && val.toString().toLowerCase().includes(normalizedSearchQuery))
+  const filteredBrokers = brokers.filter((broker) =>
+    Object.values(broker).some((val) => val !== null && val !== undefined && val.toString().toLowerCase().includes(normalizedSearchQuery))
   );
 
-  const sortedCarriers = filteredCarriers.sort((a, b) => {
+  const sortedBrokers = filteredBrokers.sort((a, b) => {
     let valA = a[sortBy];
     let valB = b[sortBy];
 
@@ -123,22 +121,20 @@ const VendorTable = () => {
     return sortDesc ? valB - valA : valA - valB;
   });
 
-  const paginatedData = sortedCarriers.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const paginatedData = sortedBrokers.slice((currentPage - 1) * perPage, currentPage * perPage);
 
-  const totalPages = Math.ceil(filteredCarriers.length / perPage);
+  const totalPages = Math.ceil(filteredBrokers.length / perPage);
 
   const headers = [
-    { key: 'legal_name', label: 'Legal Name' },
-    { key: 'vendor_code', label: 'Code' },
-    { key: 'vendor_type', label: 'Type' },
-    { key: 'service', label: 'Service' },
-    { key: 'primary_address', label: 'Address' },
-    { key: 'primary_phone', label: 'Phone' },
-    { key: 'primary_email', label: 'Email' },
-    { key: 'scac', label: 'SCAC' },
-    { key: 'ap_name', label: 'AP' },
-    { key: 'ap_name', label: 'AR' },
-
+    { key: 'broker_name', label: 'Name' },
+    { key: 'broker_address', label: 'Street' },
+    { key: 'broker_city', label: 'City' },
+    { key: 'broker_state', label: 'State' },
+    { key: 'broker_country', label: 'Country' },
+    { key: 'broker_email', label: 'Email' },
+    { key: 'broker_phone', label: 'Phone' },
+    { key: 'broker_fax', label: 'Fax' },
+    { key: 'broker_ext', label: ' Phone Ext' },
     {
       key: 'actions',
       label: 'Actions',
@@ -147,7 +143,7 @@ const VendorTable = () => {
           <button onClick={() => openEditModal(item)} className="btn-edit">
             <EditOutlined />
           </button>
-          <button onClick={() => deleteVendor(item.id)} className="btn-delete">
+          <button onClick={() => deleteBroker(item.id)} className="btn-delete">
             <DeleteOutlined />
           </button>
         </>
@@ -155,14 +151,14 @@ const VendorTable = () => {
     },
   ];
 
-  const openEditModal = (vendor) => {
-    setSelectedVendor(vendor);
+  const openEditModal = (broker) => {
+    setSelectedBroker(broker);
     setEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setEditModalOpen(false);
-    setSelectedVendor(null);
+    setSelectedBroker(null);
   };
 
   const openAddModal = () => {
@@ -177,7 +173,7 @@ const VendorTable = () => {
     <div>
       <div className="header-container">
         <div className="header-actions">
-          <h1 className="page-heading">Vendors</h1>
+          <h1 className="page-heading">Brokers</h1>
           <button onClick={openAddModal} className="add-button">
             Add
           </button>
@@ -210,17 +206,17 @@ const VendorTable = () => {
         />
       )}
 
-      {/* Edit Vendor Modal */}
-      <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Vendor">
-        {selectedVendor && <EditVendorForm vendor={selectedVendor} onClose={closeEditModal} onUpdate={updateVendor} />}
+      {/* Edit Broker Modal */}
+      <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Broker">
+        {selectedBroker && <EditBrokerForm broker={selectedBroker} onClose={closeEditModal} onUpdate={updateBroker} />}
       </Modal>
 
-      {/* Add Vendor Modal */}
-      <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Vendor">
-        <AddVendorForm
+      {/* Add Broker Modal */}
+      <Modal isOpen={isAddModalOpen} onClose={closeAddModal} title="Add Broker">
+        <AddBrokerForm
           onClose={closeAddModal}
-          onAddVendor={(newVendor) => {
-            setVendors((prevVendors) => [...prevVendors, newVendor]);
+          onAddBroker={(newBroker) => {
+            setBrokers((prevBrokers) => [...prevBrokers, newBroker]);
             closeAddModal();
           }}
         />
@@ -229,4 +225,4 @@ const VendorTable = () => {
   );
 };
 
-export default VendorTable;
+export default BrokerTable;

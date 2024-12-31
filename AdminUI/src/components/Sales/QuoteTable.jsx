@@ -3,7 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, MailOutlined } from '@ant-design/icons';
 import EditQuoteForm from './EditQuote/EditQuoteForm';
 
 const QuoteTable = () => {
@@ -17,7 +17,7 @@ const QuoteTable = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [emailData, setEmailData] = useState({ subject: '', content: '' });
-  const perPage = 8;
+  const perPage = 100;
 
   useEffect(() => {
     const fetchQuotes = async () => {
@@ -225,8 +225,11 @@ const QuoteTable = () => {
   return (
     <div>
       <div className="header-container">
+        <div className="header-actions">
+          <h1 className="page-heading">Shipments with quotes</h1>
+        </div>
         <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedQuote.length === 0}>
-          Send Email
+          Email <MailOutlined />
         </button>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search quotes..." />

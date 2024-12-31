@@ -23,6 +23,9 @@ import PrivateRoute from './components/common/PrivateRoute';
 import UserProvider from './UserProvider';
 import QuotePage from './pages/Sales/QuotePage';
 import EditQuoteForm from './components/Sales/EditQuote/EditQuoteForm';
+import BrokerPage from './pages/Carriers&Co/BrokerPage';
+import AddBrokerForm from './components/Carriers&Co/AddBroker/AddBrokerForm';
+import EditBrokerForm from './components/Carriers&Co/EditBroker/EditBrokerForm';
 
 const AppRoutes = () => (
   <UserProvider>
@@ -187,6 +190,31 @@ const AppRoutes = () => (
         element={
           <PrivateRoute>
             <EditVendorForm />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/broker"
+        element={
+          <PrivateRoute>
+            <BrokerPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/broker/add-broker"
+        element={
+          <PrivateRoute>
+            <AddBrokerForm />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/broker/:id"
+        element={
+          <PrivateRoute>
+            <EditBrokerForm />
           </PrivateRoute>
         }
       />

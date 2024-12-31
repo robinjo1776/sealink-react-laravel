@@ -16,7 +16,7 @@ const LeadFollowupTable = () => {
   const [selectedFollowup, setselectedFollowup] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
-  const perPage = 8;
+  const perPage = 100;
   useEffect(() => {
     const fetchFollowUps = async () => {
       try {
@@ -75,7 +75,9 @@ const LeadFollowupTable = () => {
   };
 
   const updateFollowup = (updatedFollowup) => {
-    setFollowUps((prevFollowups) => prevFollowups.map((followUp) => (followUp.id === updatedFollowup.id ? { ...followUp, ...updatedFollowup } : followUp)));
+    setFollowUps((prevFollowups) =>
+      prevFollowups.map((followUp) => (followUp.id === updatedFollowup.id ? { ...followUp, ...updatedFollowup } : followUp))
+    );
   };
 
   const deleteFollowup = async (id) => {
@@ -223,6 +225,9 @@ const LeadFollowupTable = () => {
       ) : (
         <>
           <div className="header-container">
+            <div className="header-actions">
+              <h1 className="page-heading">Follow-ups</h1>
+            </div>
             <div className="search-container">
               <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." />
             </div>

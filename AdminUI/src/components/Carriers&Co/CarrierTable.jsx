@@ -5,7 +5,7 @@ import Table from '../common/Table';
 import Modal from '../common/Modal';
 import EditCarrierForm from './EditCarrier/EditCarrierForm';
 import AddCarrierForm from './AddCarrier/AddCarrierForm';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, MailOutlined } from '@ant-design/icons';
 import { UserContext } from '../../UserProvider';
 
 const CarrierTable = () => {
@@ -22,7 +22,7 @@ const CarrierTable = () => {
   const [selectedCarriers, setSelectedCarriers] = useState([]);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [emailData, setEmailData] = useState({ subject: '', content: '' });
-  const perPage = 8;
+  const perPage = 100;
 
   useEffect(() => {
     const fetchCarriers = async () => {
@@ -203,54 +203,55 @@ const CarrierTable = () => {
       if (!token) {
         throw new Error('No token found');
       }
-  
+
       if (selectedCarriers.length === 0) {
         Swal.fire('Error!', 'Please select at least one carrier to send the email.', 'error');
         return;
       }
-  
+
       const emailData = {
-        ids: selectedCarriers,  // The carrier IDs for email sending
+        ids: selectedCarriers, // The carrier IDs for email sending
         subject,
         content,
       };
-  
+
       const response = await axios.post('http://127.0.0.1:8000/api/email', emailData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-  
+
       console.log('Email Response:', response);
       Swal.fire('Success!', 'Emails have been sent.', 'success');
       setEmailModalOpen(false);
-      setSelectedCarriers([]);  // Clear the selected carriers after sending the email
+      setSelectedCarriers([]); // Clear the selected carriers after sending the email
     } catch (error) {
       console.error('Error sending emails:', error.response ? error.response.data : error.message);
       Swal.fire('Error!', 'Failed to send emails.', 'error');
     }
   };
-  
+
   const handleEmailSubmit = () => {
     if (!emailData.subject || !emailData.content) {
       Swal.fire('Error!', 'Please provide both subject and content for the email.', 'error');
       return;
     }
-  
+
     sendEmails(emailData.subject, emailData.content);
   };
-  
-  
 
   return (
     <div>
       <div className="header-container">
-        <button onClick={openAddModal} className="add-button">
-          Add Carrier
-        </button>
+        <div className="header-actions">
+          <h1 className="page-heading">Carriers</h1>
+          <button onClick={openAddModal} className="add-button">
+            Add
+          </button>
+        </div>
         <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedCarriers.length === 0}>
-          Send Email
+          Email <MailOutlined />
         </button>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search carriers..." />

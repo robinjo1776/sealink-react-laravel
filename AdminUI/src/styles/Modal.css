@@ -12,9 +12,9 @@
 }
 
 .modal-content {
-  background: white;
+  background-color: white !important;
   border-radius: 5px;
-  padding: 20px;
+  padding: 0rem;
   position: relative;
   width: 500px;
   max-height: 90vh; /* Limit the height of the modal */
@@ -35,7 +35,12 @@
   max-height: 70vh; /* Adjust height for content */
   overflow-y: auto; /* Enable scrolling for the body */
 }
-
+.text-xl{
+padding: 1rem;
+text-align: center;
+background-color:white !important;
+color: black
+}
 .modal-content form,
 .email-modal {
   display: flex;

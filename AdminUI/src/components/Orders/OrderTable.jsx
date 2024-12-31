@@ -17,7 +17,7 @@ const OrderTable = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
-  const perPage = 8;
+  const perPage = 100;
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -195,9 +195,12 @@ const OrderTable = () => {
   return (
     <div>
       <div className="header-container">
-        <button onClick={openAddModal} className="add-button">
-          Add Order
-        </button>
+        <div className="header-actions">
+          <h1 className="page-heading">Orders</h1>
+          <button onClick={openAddModal} className="add-button">
+            Add
+          </button>
+        </div>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search orders..." />
         </div>

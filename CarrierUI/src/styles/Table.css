@@ -1,22 +1,30 @@
 .container {
   padding: 20px;
   font-family: Arial, sans-serif;
+  background-color: rgba(28, 17, 41, 0.88) !important;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: 0.5rem; /* Space between action buttons */
+  align-items: center; /* Vertical alignment */
+}
+
+.page-heading {
+  margin: 0; /* Remove unnecessary top and bottom margin */
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: white;
 }
 
 .header-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* Ensures space between button and search bar */
-  margin: 20px 0; /* Adds vertical margin above and below the header */
+  align-items: center; /* Aligns items vertically centered */
+  justify-content: space-between; /* Places heading and button at opposite ends */
+  margin: 20px 0; /* Vertical margin for spacing */
   margin-top: 40px; /* Adds more space specifically at the top to account for the sidebar */
-}
-.loading-indicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  font-size: 18px;
-  color: #333;
 }
 
 .add-button {
@@ -31,6 +39,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-left: 1rem; /* Optional spacing between heading and button */
 }
 
 .add-button:hover {
@@ -54,34 +63,18 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
-.table-striped {
-  border: 1px solid #ddd;
-}
-
-.table-striped thead {
-  background-color: #f4f4f4;
-}
-
-.table-striped th,
-.table-striped td {
+.table th,
+.table td {
   padding: 8px; /* Adjust padding for a more compact table */
   text-align: left;
   font-size: 12px; /* Adjusted font size for table text */
+  color: gainsboro;
 }
 
-.table-striped th {
+.table th {
   cursor: pointer;
-}
-
-.table-striped tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.table-striped td {
-  border-bottom: 1px solid #ddd;
 }
 
 .button-group {
@@ -106,7 +99,6 @@
   color: #ff4d4f;
 }
 
-/* Styling for the Convert to Customer button */
 .btn-convert {
   background-color: #4caf50; /* Green color */
   color: white;
@@ -132,7 +124,6 @@
   margin-right: 8px; /* Space between icon and text */
 }
 
-/* Optional: Disabled state for the button */
 .btn-convert:disabled {
   background-color: #ccc;
   cursor: not-allowed;
@@ -187,13 +178,11 @@
   background-color: #2f54eb; /* Blue */
 }
 
-/* Default badge style */
 .badge-default {
   background-color: #d9d9d9; /* Gray */
   color: #000; /* Black text */
 }
 
-/* Additional styles for badges, if needed */
 .badge {
   padding: 3px 8px;
   border-radius: 12px;
@@ -222,27 +211,6 @@
   background-color: #f5222d; /* Red */
 }
 
-.badge-default {
-  background-color: #d9d9d9;
-  color: #000;
-}
-/* TARP status indicators */
-.tarp-yes {
-  color: green;
-  font-weight: bold;
-  background-color: #d4edda;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.tarp-no {
-  color: red;
-  font-weight: bold;
-  background-color: #f8d7da;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
 .pagination {
   margin-top: 20px;
   text-align: center;
@@ -251,6 +219,7 @@
 .pagination-controls {
   display: inline-flex;
   align-items: center;
+  color: gainsboro;
 }
 
 .previous,
