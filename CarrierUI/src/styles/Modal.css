@@ -35,11 +35,11 @@
   max-height: 70vh; /* Adjust height for content */
   overflow-y: auto; /* Enable scrolling for the body */
 }
-.text-xl {
-  padding: 1rem;
-  text-align: center;
-  background-color: white !important;
-  color: black;
+.text-xl{
+padding: 1rem;
+text-align: center;
+background-color:white !important;
+color: black
 }
 .modal-content form,
 .email-modal {

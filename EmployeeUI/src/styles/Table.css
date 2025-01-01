@@ -4,6 +4,7 @@
   background-color: rgba(28, 17, 41, 0.88) !important;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
+
 }
 /* Header Actions */
 .header-actions {
@@ -39,7 +40,6 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-left: 1rem; /* Optional spacing between heading and button */
 }
 
 .add-button:hover {
@@ -188,7 +188,7 @@
   padding: 3px 8px;
   border-radius: 12px;
   color: #fff;
-  font-size: 0.8rem; /* Smaller font size for badges */
+  font-size: 0.7rem; /* Smaller font size for badges */
   font-weight: 500; /* Adjust font weight if needed */
 }
 

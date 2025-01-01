@@ -21,7 +21,12 @@ const AddShipmentForm = ({ onClose, onAddShipment }) => {
     ship_notes: '',
   });
 
+  const validateShipment = () => {
+    return shipment.ship_load_date;
+  };
+
   const handleSubmit = async (event) => {
+    if (validateShipment()) {
     event.preventDefault();
     try {
       let response;
@@ -54,7 +59,7 @@ const AddShipmentForm = ({ onClose, onAddShipment }) => {
       Swal.fire('Error', 'An error occurred while saving/updating the lead.', 'error');
     }
   };
-
+  }
   const clearShipmentForm = () => {
     setShipment({
       id: '',

@@ -14,12 +14,12 @@ function LeadDetails({ lead, setLead }) {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="leadDate">Lead Date</label>
+          <label htmlFor="leadDate">Lead Date*</label>
           <input
             type="date"
             value={lead.lead_date}
             onChange={(e) => setLead({ ...lead, lead_date: e.target.value })}
-            id="leadDate"
+            id="leadDate" required
           />
         </div>
         <div className="form-group">
@@ -30,7 +30,7 @@ function LeadDetails({ lead, setLead }) {
             onChange={(e) =>
               setLead({ ...lead, customer_name: e.target.value })
             }
-            id="customerName"
+            id="customerName" 
           />
         </div>
         <div className="form-group">

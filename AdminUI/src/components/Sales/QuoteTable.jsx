@@ -13,7 +13,8 @@ const QuoteTable = () => {
   const [sortBy, setSortBy] = useState('created_at');
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedQuote, setSelectedQuote] = useState([]);
+  const [selectedQuoteIds, setSelectedQuoteIds] = useState([]); // For multiple selection
+  const [selectedQuote, setSelectedQuote] = useState(null); // For editing a single quote
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [emailData, setEmailData] = useState({ subject: '', content: '' });
@@ -100,7 +101,7 @@ const QuoteTable = () => {
             Swal.fire({
               icon: 'error',
               title: 'Error!',
-              text: 'Failed to delete the lead.',
+              text: 'Failed to delete the quote.',
             });
           }
         } else {
@@ -123,8 +124,8 @@ const QuoteTable = () => {
     }
   };
 
-  const openEditModal = (lead) => {
-    setSelectedQuote(lead);
+  const openEditModal = (quote) => {
+    setSelectedQuote(quote);
     setEditModalOpen(true);
   };
 
@@ -139,38 +140,32 @@ const QuoteTable = () => {
   );
 
   const sortedQuotes = filteredQuotes.sort((a, b) => {
-    // Handle sorting for different data types
     let valA = a[sortBy];
     let valB = b[sortBy];
 
-    // Handle case where value is null or undefined
     if (valA == null) valA = '';
     if (valB == null) valB = '';
 
     if (typeof valA === 'string') {
-      // Sort strings alphabetically
       return sortDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
     }
 
-    // Default number sorting
     return sortDesc ? valB - valA : valA - valB;
   });
 
   const paginatedData = sortedQuotes.slice((currentPage - 1) * perPage, currentPage * perPage);
-
   const totalPages = Math.ceil(filteredQuotes.length / perPage);
 
   const headers = [
     {
       key: 'select',
       label: 'Select',
-      render: (item) => <input type="checkbox" checked={selectedQuote.includes(item.id)} onChange={() => toggleQuoteSelection(item.id)} />,
+      render: (item) => <input type="checkbox" checked={selectedQuoteIds.includes(item.id)} onChange={() => toggleQuoteSelection(item.id)} />,
     },
     { key: 'quote_type', label: 'Type' },
     { key: 'quote_customer', label: 'Customer' },
     { key: 'quote_cust_ref_no', label: 'Customer Ref#' },
     { key: 'quote_booked_by', label: 'Booked by' },
-
     {
       key: 'actions',
       label: 'Actions',
@@ -188,7 +183,7 @@ const QuoteTable = () => {
   ];
 
   const toggleQuoteSelection = (id) => {
-    setSelectedQuote((prevSelected) => (prevSelected.includes(id) ? prevSelected.filter((quoteId) => quoteId !== id) : [...prevSelected, id]));
+    setSelectedQuoteIds((prevSelected) => (prevSelected.includes(id) ? prevSelected.filter((quoteId) => quoteId !== id) : [...prevSelected, id]));
   };
 
   const sendEmails = async (subject, content) => {
@@ -199,7 +194,7 @@ const QuoteTable = () => {
       }
 
       const emailData = {
-        ids: [3],
+        ids: selectedQuoteIds,
         subject,
         content,
         module: 'quotes',
@@ -215,7 +210,7 @@ const QuoteTable = () => {
       console.log('Email Response:', response);
       Swal.fire('Success!', 'Emails have been sent.', 'success');
       setEmailModalOpen(false);
-      setSelectedQuote([]);
+      setSelectedQuoteIds([]);
     } catch (error) {
       console.error('Error sending emails:', error.response ? error.response.data : error.message);
       Swal.fire('Error!', 'Failed to send emails.', 'error');
@@ -228,7 +223,7 @@ const QuoteTable = () => {
         <div className="header-actions">
           <h1 className="page-heading">Shipments with quotes</h1>
         </div>
-        <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedQuote.length === 0}>
+        <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedQuoteIds.length === 0}>
           Email <MailOutlined />
         </button>
         <div className="search-container">
@@ -246,11 +241,7 @@ const QuoteTable = () => {
             label: (
               <div className="sortable-header" onClick={() => handleSort(header.key)}>
                 {header.label}
-                {sortBy === header.key && (
-                  <span className="sort-icon">
-                    {sortDesc ? '▲' : '▼'} {/* Render Asc/Desc icon based on the sort order */}
-                  </span>
-                )}
+                {sortBy === header.key && <span className="sort-icon">{sortDesc ? '▲' : '▼'}</span>}
               </div>
             ),
           }))}
@@ -260,16 +251,16 @@ const QuoteTable = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           setCurrentPage={setCurrentPage}
-          onEditClick={openEditModal}
         />
       )}
 
-      {/* Edit Lead Modal */}
       <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Edit Quote">
-        {selectedQuote && <EditQuoteForm quote={selectedQuote} onClose={closeEditModal} onUpdate={updateQuote} />}
+        {selectedQuote ? (
+          <EditQuoteForm quote={selectedQuote} onClose={closeEditModal} onUpdate={updateQuote} />
+        ) : (
+          <p>No quote selected for editing.</p>
+        )}
       </Modal>
-
-      {/* Email Modal */}
 
       <Modal isOpen={isEmailModalOpen} onClose={() => setEmailModalOpen(false)} title="Send Email">
         <div className="email-modal">

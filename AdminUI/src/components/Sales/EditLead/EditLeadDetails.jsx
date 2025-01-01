@@ -8,12 +8,23 @@ function EditLeadDetails({ formLead, setFormLead }) {
           <input type="text" value={formLead.lead_no} onChange={(e) => setFormLead({ ...formLead, lead_no: e.target.value })} id="leadNo" required />
         </div>
         <div className="form-group">
-          <label htmlFor="leadDate">Lead Date</label>
-          <input type="date" value={formLead.lead_date} onChange={(e) => setFormLead({ ...formLead, lead_date: e.target.value })} id="leadDate" />
+          <label htmlFor="leadDate">Lead Date*</label>
+          <input
+            type="date"
+            value={formLead.lead_date}
+            onChange={(e) => setFormLead({ ...formLead, lead_date: e.target.value })}
+            id="leadDate"
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="customerName">Customer Name</label>
-          <input type="text" value={formLead.customer_name} onChange={(e) => setFormLead({ ...formLead, customer_name: e.target.value })} id="customerName" />
+          <input
+            type="text"
+            value={formLead.customer_name}
+            onChange={(e) => setFormLead({ ...formLead, customer_name: e.target.value })}
+            id="customerName"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone</label>

@@ -16,7 +16,7 @@ function LeadInfo({ followupData, setFollowupData }) {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="leadDate">Lead Date</label>
+          <label htmlFor="leadDate">Lead Date*</label>
           <input
             type="date"
             value={followupData.lead_date}
@@ -26,7 +26,7 @@ function LeadInfo({ followupData, setFollowupData }) {
                 lead_date: e.target.value,
               })
             }
-            id="leadDate"
+            id="leadDate" required
           />
         </div>
       </div>

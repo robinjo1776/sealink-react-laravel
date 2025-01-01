@@ -77,37 +77,43 @@ function EditCustomerForm({ customer, onClose, onUpdate }) {
     }
   }, [customer]);
 
+  const validateCustomer = () => {
+    return formCustomer.cust_name;
+  };
+
   const updateCustomer = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    if (validateCustomer()) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Unauthorized',
+            text: 'You are not logged in. Please log in again.',
+          });
+          return;
+        }
+
+        const response = await axios.put(`http://127.0.0.1:8000/api/customer/${formCustomer.id}`, formCustomer, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Customer data has been updated successfully.',
+        });
+        onUpdate(response.data);
+        onClose();
+      } catch (error) {
+        console.error('Error updating customer:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Unauthorized',
-          text: 'You are not logged in. Please log in again.',
+          title: 'Oops...',
+          text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update customer.',
         });
-        return;
       }
-
-      const response = await axios.put(`http://127.0.0.1:8000/api/customer/${formCustomer.id}`, formCustomer, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      Swal.fire({
-        icon: 'success',
-        title: 'Updated!',
-        text: 'Customer data has been updated successfully.',
-      });
-      onUpdate(response.data);
-      onClose();
-    } catch (error) {
-      console.error('Error updating customer:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update customer.',
-      });
     }
   };
 
@@ -191,7 +197,13 @@ function EditCustomerForm({ customer, onClose, onUpdate }) {
           <div className="form-row">
             {Array.isArray(formCustomer.cust_equipment) && formCustomer.cust_equipment.length > 0 ? (
               formCustomer.cust_equipment.map((equipment, index) => (
-                <CustomerEquipment key={index} equipment={equipment} index={index} onChange={handleEquipmentChange} onRemove={handleRemoveEquipment} />
+                <CustomerEquipment
+                  key={index}
+                  equipment={equipment}
+                  index={index}
+                  onChange={handleEquipmentChange}
+                  onRemove={handleRemoveEquipment}
+                />
               ))
             ) : (
               <p>No equipment available</p>

@@ -44,42 +44,48 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
     }
   }, [followUp]);
 
+  const validateFollowup = () => {
+    return followupEdit.lead_no && followupEdit.lead_date && followupEdit.lead_status;
+  };
+
   const updateFollowup = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    if (validateFollowup()) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Unauthorized',
+            text: 'You are not logged in. Please log in again.',
+          });
+          return;
+        }
+
+        // Log the followupEdit payload to check if it's in the correct format
+        console.log('Payload to be sent:', followupEdit);
+
+        const response = await axios.put(`http://127.0.0.1:8000/api/lead-followup/${followupEdit.id}`, followupEdit, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Follow-up data has been updated successfully.',
+        });
+
+        onUpdate(response.data);
+        onClose();
+      } catch (error) {
+        console.error('Error updating follow-up:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Unauthorized',
-          text: 'You are not logged in. Please log in again.',
+          title: 'Oops...',
+          text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update follow-up.',
         });
-        return;
       }
-
-      // Log the followupEdit payload to check if it's in the correct format
-      console.log('Payload to be sent:', followupEdit);
-
-      const response = await axios.put(`http://127.0.0.1:8000/api/lead-followup/${followupEdit.id}`, followupEdit, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Updated!',
-        text: 'Follow-up data has been updated successfully.',
-      });
-
-      onUpdate(response.data);
-      onClose();
-    } catch (error) {
-      console.error('Error updating follow-up:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update follow-up.',
-      });
     }
   };
 
@@ -198,10 +204,16 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="leadNo">Lead No*</label>
-              <input type="text" value={followupEdit.lead_no} onChange={(e) => setfolloupEdit({ ...followupEdit, lead_no: e.target.value })} id="leadNo" required />
+              <input
+                type="text"
+                value={followupEdit.lead_no}
+                onChange={(e) => setfolloupEdit({ ...followupEdit, lead_no: e.target.value })}
+                id="leadNo"
+                required
+              />
             </div>
             <div className="form-group">
-              <label htmlFor="leadDate">Lead Date</label>
+              <label htmlFor="leadDate">Lead Date*</label>
               <input
                 type="date"
                 value={followupEdit.lead_date}
@@ -212,6 +224,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                   })
                 }
                 id="leadDate"
+                required
               />
             </div>
           </div>
@@ -236,7 +249,12 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" value={followupEdit.email} onChange={(e) => setfolloupEdit({ ...followupEdit, email: e.target.value })} id="email" />
+              <input
+                type="email"
+                value={followupEdit.email}
+                onChange={(e) => setfolloupEdit({ ...followupEdit, email: e.target.value })}
+                id="email"
+              />
             </div>
           </div>
         </fieldset>
@@ -263,7 +281,12 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="country">Country</label>
-              <input type="text" value={followupEdit.country} onChange={(e) => setfolloupEdit({ ...followupEdit, country: e.target.value })} id="country" />
+              <input
+                type="text"
+                value={followupEdit.country}
+                onChange={(e) => setfolloupEdit({ ...followupEdit, country: e.target.value })}
+                id="country"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="postalCode">Postal Code</label>
@@ -281,7 +304,12 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="unitNo">Unit No</label>
-              <input type="text" value={followupEdit.unit_no} onChange={(e) => setfolloupEdit({ ...followupEdit, unit_no: e.target.value })} id="unitNo" />
+              <input
+                type="text"
+                value={followupEdit.unit_no}
+                onChange={(e) => setfolloupEdit({ ...followupEdit, unit_no: e.target.value })}
+                id="unitNo"
+              />
             </div>
           </div>
         </fieldset>

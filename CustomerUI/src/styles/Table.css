@@ -16,7 +16,7 @@
   margin: 0; /* Remove unnecessary top and bottom margin */
   font-size: 1.7rem;
   font-weight: bold;
-  color: white;
+  color: white
 }
 
 .header-container {
@@ -39,7 +39,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-left: 1rem; /* Optional spacing between heading and button */
+  margin-left: 0.5rem; /* Optional spacing between heading and button */
 }
 
 .add-button:hover {
@@ -70,12 +70,13 @@
   padding: 8px; /* Adjust padding for a more compact table */
   text-align: left;
   font-size: 12px; /* Adjusted font size for table text */
-  color: gainsboro;
+  color: gainsboro
 }
 
 .table th {
   cursor: pointer;
 }
+
 
 .button-group {
   display: flex;

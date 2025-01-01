@@ -5,9 +5,14 @@ function EditQuoteGeneral({ formQuote, setFormQuote }) {
       <legend>General</legend>
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="creditStatus">Quote Type</label>
+          <label htmlFor="creditStatus">Quote Type*</label>
 
-          <select id="customerType" value={formQuote.quote_type} onChange={(e) => setFormQuote({ ...formQuote, quote_type: e.target.value })}>
+          <select
+            id="customerType"
+            value={formQuote.quote_type}
+            onChange={(e) => setFormQuote({ ...formQuote, quote_type: e.target.value })}
+            required
+          >
             {quoteTypeOptions.map((type) => (
               <option key={type} value={type}>
                 {type}

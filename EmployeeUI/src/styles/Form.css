@@ -13,8 +13,7 @@
   display: flex;
   flex-direction: column;
   background-color: white !important;
-
-  color: gainsboro !important;
+  color: black !important;
 }
 
 /* Flexbox for form sections */
@@ -53,7 +52,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-  color: gainsboro;
+  color: black !important;
 }
 
 /* Focus state for inputs */

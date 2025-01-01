@@ -53,7 +53,12 @@ function EditAdditionalInfo({ formLead, setFormLead }) {
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="contactPerson">Contact Person</label>
-          <input type="text" value={formLead.contact_person} onChange={(e) => setFormLead({ ...formLead, contact_person: e.target.value })} id="contactPerson" />
+          <input
+            type="text"
+            value={formLead.contact_person}
+            onChange={(e) => setFormLead({ ...formLead, contact_person: e.target.value })}
+            id="contactPerson"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes</label>
@@ -61,7 +66,12 @@ function EditAdditionalInfo({ formLead, setFormLead }) {
         </div>
         <div className="form-group">
           <label htmlFor="follow_up_date">Next Follow-Up Date</label>
-          <input type="date" value={formLead.follow_up_date} onChange={(e) => setFormLead({ ...formLead, follow_up_date: e.target.value })} id="follow_up_date" />
+          <input
+            type="date"
+            value={formLead.follow_up_date}
+            onChange={(e) => setFormLead({ ...formLead, follow_up_date: e.target.value })}
+            id="follow_up_date"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="equipmentType">Equipment Type</label>

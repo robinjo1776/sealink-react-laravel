@@ -68,8 +68,12 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
       quote_delivery: updatedPickups,
     }));
   };
-
+  const validateQuote = () => {
+    return formQuote.quote_type;
+  };
   const updateQuote = async () => {
+    if (validateQuote()) {
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -102,7 +106,7 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
       });
     }
   };
-
+  }
   const handleAddPickup = () => {
     setFormQuote((prevQuote) => ({
       ...prevQuote,

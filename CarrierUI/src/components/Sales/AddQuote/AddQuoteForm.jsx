@@ -52,6 +52,10 @@ const AddQuoteForm = ({ onClose, onAddQuote }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const validateQuote = () => {
+      return quote.quote_type;
+    };
+
     if (validateQuote()) {
       try {
         let response;
@@ -86,10 +90,6 @@ const AddQuoteForm = ({ onClose, onAddQuote }) => {
     } else {
       Swal.fire('Validation Error', 'Please fill in all required fields.', 'error');
     }
-  };
-
-  const validateQuote = () => {
-    return quote.quote_customer && quote.quote_cust_ref_no;
   };
 
   const clearQuoteForm = () => {

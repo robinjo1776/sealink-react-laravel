@@ -1,28 +1,19 @@
 function EditGeneral({ formCarrier, setformCarrier }) {
-  const currencyOptions = ["CAD", "USD"];
+  const currencyOptions = ['CAD', 'USD'];
   return (
     <fieldset className="form-section">
       <legend>General</legend>
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="dba">DBA</label>
-          <input
-            type="text"
-            value={formCarrier.dba}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, dba: e.target.value })
-            }
-            id="dba"
-          />
+          <label htmlFor="dba">DBA*</label>
+          <input type="text" value={formCarrier.dba} onChange={(e) => setformCarrier({ ...formCarrier, dba: e.target.value })} id="dba" required />
         </div>
         <div className="form-group">
           <label htmlFor="legalName">Legal Name</label>
           <input
             type="text"
             value={formCarrier.legal_name}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, legal_name: e.target.value })
-            }
+            onChange={(e) => setformCarrier({ ...formCarrier, legal_name: e.target.value })}
             id="legalName"
           />
         </div>
@@ -31,53 +22,28 @@ function EditGeneral({ formCarrier, setformCarrier }) {
           <input
             type="text"
             value={formCarrier.remit_name}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, remit_name: e.target.value })
-            }
+            onChange={(e) => setformCarrier({ ...formCarrier, remit_name: e.target.value })}
             id="remitName"
           />
         </div>
         <div className="form-group">
           <label htmlFor="accNo">Account Number</label>
-          <input
-            type="text"
-            value={formCarrier.acc_no}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, acc_no: e.target.value })
-            }
-            id="accNo"
-          />
+          <input type="text" value={formCarrier.acc_no} onChange={(e) => setformCarrier({ ...formCarrier, acc_no: e.target.value })} id="accNo" />
         </div>
         <div className="form-group">
           <label htmlFor="branch">Branch</label>
-          <input
-            type="text"
-            value={formCarrier.branch}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, branch: e.target.value })
-            }
-            id="branch"
-          />
+          <input type="text" value={formCarrier.branch} onChange={(e) => setformCarrier({ ...formCarrier, branch: e.target.value })} id="branch" />
         </div>
         <div className="form-group">
           <label htmlFor="website">Website</label>
-          <input
-            type="text"
-            value={formCarrier.website}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, website: e.target.value })
-            }
-            id="website"
-          />
+          <input type="text" value={formCarrier.website} onChange={(e) => setformCarrier({ ...formCarrier, website: e.target.value })} id="website" />
         </div>
         <div className="form-group">
           <label htmlFor="fedIdNo">Federal ID Number</label>
           <input
             type="text"
             value={formCarrier.fed_id_no}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, fed_id_no: e.target.value })
-            }
+            onChange={(e) => setformCarrier({ ...formCarrier, fed_id_no: e.target.value })}
             id="fedIdNo"
           />
         </div>
@@ -106,18 +72,16 @@ function EditGeneral({ formCarrier, setformCarrier }) {
           <input
             type="text"
             value={formCarrier.pay_terms}
-            onChange={(e) =>
-              setformCarrier({ ...formCarrier, pay_terms: e.target.value })
-            }
+            onChange={(e) => setformCarrier({ ...formCarrier, pay_terms: e.target.value })}
             id="payTerms"
           />
         </div>
         <div className="form-group">
           <label
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              width: "100%",
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
             }}
           >
             1099
@@ -137,9 +101,9 @@ function EditGeneral({ formCarrier, setformCarrier }) {
         <div className="form-group">
           <label
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              width: "100%",
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
             }}
           >
             Advertise

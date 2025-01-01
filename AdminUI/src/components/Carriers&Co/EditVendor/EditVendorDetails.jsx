@@ -10,6 +10,7 @@ function EditVendorDetails({ formVendor, setFormVendor }) {
             value={formVendor.legal_name}
             onChange={(e) => setFormVendor({ ...formVendor, legal_name: e.target.value })}
             id="legalName"
+            
           />
         </div>
         <div className="form-group">

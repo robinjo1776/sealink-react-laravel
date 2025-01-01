@@ -1,28 +1,16 @@
 function LeadType({ followupData, setFollowupData }) {
-  const leadTypeOptions = [
-    "AB",
-    "BC",
-    "BDS",
-    "CA",
-    "DPD MAGMA",
-    "MB",
-    "ON",
-    "Super Leads",
-    "TBAB",
-    "USA",
-  ];
+  const leadTypeOptions = ['AB', 'BC', 'BDS', 'CA', 'DPD MAGMA', 'MB', 'ON', 'Super Leads', 'TBAB', 'USA'];
   return (
     <fieldset className="form-section">
       <legend>Lead Type and Contact</legend>
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="equipmentType">Lead Type</label>
+          <label htmlFor="equipmentType">Lead Type*</label>
           <select
             id="equipmentType"
             value={followupData.lead_type}
-            onChange={(e) =>
-              setFollowupData({ ...followupData, lead_type: e.target.value })
-            }
+            onChange={(e) => setFollowupData({ ...followupData, lead_type: e.target.value })}
+            required
           >
             <option value="">Select Lead Type</option>
             {leadTypeOptions.map((option) => (

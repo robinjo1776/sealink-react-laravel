@@ -12,7 +12,7 @@ const LeadQuotesTable = () => {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('lead_date');
+  const [sortBy, setSortBy] = useState('created_at');
   const [sortDesc, setSortDesc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedLead, setSelectedLead] = useState(null);

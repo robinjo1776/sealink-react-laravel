@@ -139,7 +139,7 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
           <legend>Lead Type</legend>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="leadType">Lead Type</label>
+              <label htmlFor="leadType">Lead Type*</label>
               <select id="leadType" value={lead.lead_type} onChange={(e) => setLead({ ...lead, lead_type: e.target.value })} required>
                 <option value="">Select Lead Type</option>
                 {leadTypeOptions.map((option) => (
@@ -156,7 +156,7 @@ const AddLeadForm = ({ onClose, onAddLead }) => {
           <legend>Lead Status</legend>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="leadStatus">Lead Status</label>
+              <label htmlFor="leadStatus">Lead Status*</label>
               <select id="leadStatus" value={lead.lead_status} onChange={(e) => setLead({ ...lead, lead_status: e.target.value })} required>
                 <option value="">Select Lead Status</option>
                 {leadStatusOptions.map((option) => (

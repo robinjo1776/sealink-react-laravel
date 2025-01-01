@@ -15,7 +15,7 @@ function EditLeadDetails({ formLead, setFormLead }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="leadDate">Lead Date</label>
+              <label htmlFor="leadDate">Lead Date*</label>
               <input
                 type="date"
                 value={formLead.lead_date}

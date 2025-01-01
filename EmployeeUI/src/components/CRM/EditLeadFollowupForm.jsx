@@ -1,49 +1,45 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import FollowupProductForm from "./FollowupProductForm";
-import FollowupContactForm from "./FollowupContactForm";
-import EditLeadInfo from "./EditFollowup/EditLeadInfo";
-import EditLeadType from "./EditFollowup/EditLeadType";
-import EditFollowupDetails from "./EditFollowup/EditFollowupDetails";
-import EditAddressDetails from "./EditFollowup/EditAddressDetails";
-import EditAdditionalInfo from "./EditFollowup/EditAdditionalInfo";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import FollowupProductForm from './FollowupProductForm';
+import FollowupContactForm from './FollowupContactForm';
+import EditLeadInfo from './EditFollowup/EditLeadInfo';
+import EditLeadType from './EditFollowup/EditLeadType';
+import EditFollowupDetails from './EditFollowup/EditFollowupDetails';
+import EditAddressDetails from './EditFollowup/EditAddressDetails';
+import EditAdditionalInfo from './EditFollowup/EditAdditionalInfo';
 
 const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   const [followupEdit, setfollowupEdit] = useState({
-    id: "",
-    lead_no: "",
-    lead_date: "",
-    customer_name: "",
-    phone: "",
-    email: "",
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-    postal_code: "",
-    unit_no: "",
-    lead_type: "",
-    contact_person: "",
-    notes: "",
-    next_follow_up_date: "",
-    followup_type: "",
+    id: '',
+    lead_no: '',
+    lead_date: '',
+    customer_name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    country: '',
+    postal_code: '',
+    unit_no: '',
+    lead_type: '',
+    contact_person: '',
+    notes: '',
+    next_follow_up_date: '',
+    followup_type: '',
     products: [],
-    lead_status: "",
-    remarks: "",
-    equipment: "",
+    lead_status: '',
+    remarks: '',
+    equipment: '',
     contacts: [],
   });
 
   useEffect(() => {
     if (followUp) {
-      const parsedContacts = Array.isArray(followUp.contacts)
-        ? followUp.contacts
-        : JSON.parse(followUp.contacts || "[]");
-      const parsedProducts = Array.isArray(followUp.products)
-        ? followUp.products
-        : JSON.parse(followUp.products || "[]");
-        setfollowupEdit({
+      const parsedContacts = Array.isArray(followUp.contacts) ? followUp.contacts : JSON.parse(followUp.contacts || '[]');
+      const parsedProducts = Array.isArray(followUp.products) ? followUp.products : JSON.parse(followUp.products || '[]');
+      setfollowupEdit({
         ...followUp,
         contacts: parsedContacts.length > 0 ? parsedContacts : [],
         products: parsedProducts.length > 0 ? parsedProducts : [],
@@ -51,56 +47,55 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
     }
   }, [followUp]);
 
+  const validateFollowup = () => {
+    return followupEdit.lead_no;
+  };
+
   const updateFollowup = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        Swal.fire({
-          icon: "error",
-          title: "Unauthorized",
-          text: "You are not logged in. Please log in again.",
-        });
-        return;
-      }
+    if (validateFollowup()) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Unauthorized',
+            text: 'You are not logged in. Please log in again.',
+          });
+          return;
+        }
 
-      // Log the followupEdit payload to check if it's in the correct format
-      console.log("Payload to be sent:", followupEdit);
+        // Log the followupEdit payload to check if it's in the correct format
+        console.log('Payload to be sent:', followupEdit);
 
-      const response = await axios.put(
-        `http://127.0.0.1:8000/api/lead-followup/${followupEdit.id}`,
-        followupEdit,
-        {
+        const response = await axios.put(`http://127.0.0.1:8000/api/lead-followup/${followupEdit.id}`, followupEdit, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
-      );
+        });
 
-      Swal.fire({
-        icon: "success",
-        title: "Updated!",
-        text: "Follow-up data has been updated successfully.",
-      });
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Follow-up data has been updated successfully.',
+        });
 
-      onUpdate(response.data);
-      onClose();
-    } catch (error) {
-      console.error("Error updating follow-up:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text:
-          error.response && error.response.status === 401
-            ? "Unauthorized. Please log in again."
-            : "Failed to update follow-up.",
-      });
+        onUpdate(response.data);
+        onClose();
+      } catch (error) {
+        console.error('Error updating follow-up:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update follow-up.',
+        });
+      }
     }
   };
 
   const handleAddContact = () => {
     setfollowupEdit((prevFollowup) => ({
       ...prevFollowup,
-      contacts: [...prevFollowup.contacts, { name: "", phone: "", email: "" }],
+      contacts: [...prevFollowup.contacts, { name: '', phone: '', email: '' }],
     }));
   };
 
@@ -112,9 +107,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   };
 
   const handleContactChange = (index, updatedContact) => {
-    const updatedContacts = followupEdit.contacts.map((contact, i) =>
-      i === index ? updatedContact : contact
-    );
+    const updatedContacts = followupEdit.contacts.map((contact, i) => (i === index ? updatedContact : contact));
     setfollowupEdit({
       ...followupEdit,
       contacts: updatedContacts,
@@ -124,7 +117,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   const handleAddProduct = () => {
     setfollowupEdit((prevFollowup) => ({
       ...prevFollowup,
-      products: [...prevFollowup.products, { name: "", quantity: "" }],
+      products: [...prevFollowup.products, { name: '', quantity: '' }],
     }));
   };
 
@@ -136,9 +129,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   };
 
   const handleProductChange = (index, updatedProduct) => {
-    const updatedProducts = followupEdit.products.map((product, i) =>
-      i === index ? updatedProduct : product
-    );
+    const updatedProducts = followupEdit.products.map((product, i) => (i === index ? updatedProduct : product));
     setfollowupEdit({
       ...followupEdit,
       products: updatedProducts,
@@ -155,26 +146,14 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
         className="form-main"
       >
         {/* Lead Information */}
-        <EditLeadInfo
-          followupEdit={followupEdit}
-          setfollowupEdit={setfollowupEdit}
-        />
+        <EditLeadInfo followupEdit={followupEdit} setfollowupEdit={setfollowupEdit} />
         {/* Address Details */}
-        <EditAddressDetails
-          followupEdit={followupEdit}
-          setfollowupEdit={setfollowupEdit}
-        />
+        <EditAddressDetails followupEdit={followupEdit} setfollowupEdit={setfollowupEdit} />
         {/* Lead Type & Contact */}
-        <EditLeadType
-          followupEdit={followupEdit}
-          setfollowupEdit={setfollowupEdit}
-        />
+        <EditLeadType followupEdit={followupEdit} setfollowupEdit={setfollowupEdit} />
 
         {/* Follow-up Details */}
-        <EditFollowupDetails
-          followupEdit={followupEdit}
-          setfollowupEdit={setfollowupEdit}
-        />
+        <EditFollowupDetails followupEdit={followupEdit} setfollowupEdit={setfollowupEdit} />
         <fieldset className="form-section">
           <legend>Products</legend>
           <div className="form-row">
@@ -212,10 +191,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
           </div>
         </fieldset>
         {/* Additional Info */}
-        <EditAdditionalInfo
-          formFollowup={followupEdit}
-          setfollowupEdit={setfollowupEdit}
-        />
+        <EditAdditionalInfo formFollowup={followupEdit} setfollowupEdit={setfollowupEdit} />
 
         <div className="submit-button-container">
           <button type="submit" className="btn-submit">

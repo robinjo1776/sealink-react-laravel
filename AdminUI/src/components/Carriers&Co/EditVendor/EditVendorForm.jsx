@@ -81,37 +81,43 @@ function EditVendorForm({ vendor, onClose, onUpdate }) {
     }
   }, [vendor]);
 
+  const validateVendor = () => {
+    return formVendor.type;
+  };
+
   const updateVendor = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    if (validateVendor()) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Unauthorized',
+            text: 'You are not logged in. Please log in again.',
+          });
+          return;
+        }
+
+        const response = await axios.put(`http://127.0.0.1:8000/api/vendor/${formVendor.id}`, formVendor, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Vendor data has been updated successfully.',
+        });
+        onUpdate(response.data);
+        onClose();
+      } catch (error) {
+        console.error('Error updating vendor:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Unauthorized',
-          text: 'You are not logged in. Please log in again.',
+          title: 'Oops...',
+          text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update vendor.',
         });
-        return;
       }
-
-      const response = await axios.put(`http://127.0.0.1:8000/api/vendor/${formVendor.id}`, formVendor, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      Swal.fire({
-        icon: 'success',
-        title: 'Updated!',
-        text: 'Vendor data has been updated successfully.',
-      });
-      onUpdate(response.data);
-      onClose();
-    } catch (error) {
-      console.error('Error updating vendor:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update vendor.',
-      });
     }
   };
 
@@ -152,7 +158,7 @@ function EditVendorForm({ vendor, onClose, onUpdate }) {
           <legend>Vendor Type</legend>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="carrType">Vendor Type</label>
+              <label htmlFor="carrType">Vendor Type*</label>
               <select
                 name="carrType"
                 value={formVendor.type}

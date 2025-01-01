@@ -69,37 +69,43 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
     }));
   };
 
+  const validateQuote = () => {
+    return formQuote.quote_type;
+  };
+
   const updateQuote = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    if (validateQuote()) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Unauthorized',
+            text: 'You are not logged in. Please log in again.',
+          });
+          return;
+        }
+
+        const response = await axios.put(`http://127.0.0.1:8000/api/quote/${formQuote.id}`, formQuote, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Quote data has been updated successfully.',
+        });
+        onUpdate(response.data);
+        onClose();
+      } catch (error) {
+        console.error('Error updating quote:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Unauthorized',
-          text: 'You are not logged in. Please log in again.',
+          title: 'Oops...',
+          text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update customer.',
         });
-        return;
       }
-
-      const response = await axios.put(`http://127.0.0.1:8000/api/quote/${formQuote.id}`, formQuote, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      Swal.fire({
-        icon: 'success',
-        title: 'Updated!',
-        text: 'Quote data has been updated successfully.',
-      });
-      onUpdate(response.data);
-      onClose();
-    } catch (error) {
-      console.error('Error updating quote:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update customer.',
-      });
     }
   };
 

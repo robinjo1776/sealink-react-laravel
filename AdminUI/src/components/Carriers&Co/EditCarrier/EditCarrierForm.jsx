@@ -90,7 +90,12 @@ function EditCarrierForm({ carrier, onClose, onUpdate }) {
     }
   }, [carrier]);
 
+  const validateCarrier = () => {
+    return formCarrier.dba;
+  };
+
   const updateCarrier = async () => {
+    if (validateCarrier()) {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -130,7 +135,8 @@ function EditCarrierForm({ carrier, onClose, onUpdate }) {
       });
     }
   };
-
+  }
+  
   const handleAddContact = () => {
     setformCarrier((prevCarrier) => ({
       ...prevCarrier,

@@ -84,6 +84,10 @@ const AddVendorForm = ({ onClose, onAddVendor }) => {
     setVendor({ ...vendor, contacts: updatedContacts });
   };
 
+  const validateVendor = () => {
+    return vendor.type;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -121,10 +125,6 @@ const AddVendorForm = ({ onClose, onAddVendor }) => {
     } else {
       Swal.fire('Validation Error', 'Please fill in all required fields.', 'error');
     }
-  };
-
-  const validateVendor = () => {
-    return vendor.type;
   };
 
   const vendorTypeOptions = ['Vendor', 'Factoring Company'];
@@ -196,7 +196,7 @@ const AddVendorForm = ({ onClose, onAddVendor }) => {
           <legend>Vendor Type</legend>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="carrType">Vendor Type</label>
+              <label htmlFor="carrType">Vendor Type*</label>
               <select
                 name="carrType"
                 value={vendor.type}

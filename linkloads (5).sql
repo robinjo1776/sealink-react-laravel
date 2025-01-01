@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2024 at 05:19 PM
+-- Generation Time: Jan 01, 2025 at 05:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -117,6 +117,16 @@ CREATE TABLE `carriers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carriers`
+--
+
+INSERT INTO `carriers` (`id`, `dba`, `legal_name`, `remit_name`, `acc_no`, `branch`, `website`, `fed_id_no`, `pref_curr`, `pay_terms`, `form_1099`, `advertise`, `advertise_email`, `carr_type`, `rating`, `brok_carr_aggmt`, `docket_no`, `dot_number`, `wcb_no`, `ca_bond_no`, `us_bond_no`, `scac`, `csa_approved`, `hazmat`, `smsc_code`, `approved`, `li_provider`, `li_policy_no`, `li_coverage`, `li_start_date`, `li_end_date`, `ci_provider`, `ci_policy_no`, `ci_coverage`, `ci_start_date`, `ci_end_date`, `coi_cert`, `primary_address`, `primary_city`, `primary_state`, `primary_country`, `primary_postal`, `primary_phone`, `mailing_address`, `mailing_city`, `mailing_state`, `mailing_country`, `mailing_postal`, `mailing_phone`, `int_notes`, `contact`, `equipment`, `lane`, `created_at`, `updated_at`) VALUES
+(1, 'Sealink Transport', 'Sealink Logistics Inc.', 'Sealink Remittance', 'ACC123456', 'New York', 'https://www.sealinklogistics.com', '12-3456789', 'USD', 'Net 30', 1, 1, 'info@sealinklogistics.com', 'Freight', '4.5', '1', 'D123456', '123456789', 'WCB987654', 'CAB12345', 'USB98765', 'SLNK', 1, 0, 'SMS123', 1, 'Allianz', 'LI12345678', 1000000.00, '2025-01-01', '2025-12-31', 'Zurich', 'CI87654321', 2000000.00, '2025-01-01', '2025-12-31', '1', '123 Logistics St', 'New York', 'NY', 'USA', '10001', '+1-212-555-1234', 'PO Box 1234', 'New York', 'NY', 'USA', '10002', '+1-212-555-5678', 'Reliable carrier for East Coast routes.', '\"[{\\\"name\\\":\\\"John Doe\\\",\\\"email\\\":\\\"johndoe@sealinklogistics.com\\\",\\\"phone\\\":\\\"+1-212-555-6789\\\"},{\\\"name\\\":\\\"Jane Smith\\\",\\\"email\\\":\\\"janesmith@sealinklogistics.com\\\",\\\"phone\\\":\\\"+1-212-555-9876\\\"}]\"', '\"[\\\"Flatbed\\\",\\\"Dry Van\\\",\\\"Reefer\\\"]\"', '\"[\\\"New York to Florida\\\",\\\"California to Texas\\\"]\"', '2025-01-01 00:51:56', '2025-01-01 00:51:56'),
+(2, 'Global Freight', 'Global Freight Inc.', 'Global Freight Payments', 'GF123456', 'Los Angeles', 'https://www.globalfreight.com', '98-7654321', 'USD', 'Net 15', 0, 1, 'contact@globalfreight.com', 'International', '4.8', '1', 'D654321', '987654321', 'WCB123456', 'CAB54321', 'USB54321', 'GFLT', 0, 1, 'SMS456', 1, 'State Farm', 'LI87654321', 2000000.00, '2025-01-15', '2026-01-14', 'Progressive', 'CI65432187', 1500000.00, '2025-02-01', '2026-01-31', '1', '456 Freight Blvd', 'Los Angeles', 'CA', 'USA', '90001', '+1-323-555-1234', 'PO Box 9876', 'Los Angeles', 'CA', 'USA', '90002', '+1-323-555-5678', 'Specializes in hazmat transportation.', '\"[{\\\"name\\\":\\\"Alice Johnson\\\",\\\"email\\\":\\\"alice@globalfreight.com\\\",\\\"phone\\\":\\\"+1-323-555-6789\\\"}]\"', '\"[\\\"Tanker\\\",\\\"Flatbed\\\"]\"', '\"[\\\"Los Angeles to Mexico\\\",\\\"California to Nevada\\\"]\"', '2025-01-01 00:52:33', '2025-01-01 00:52:33'),
+(3, 'FastTrack Logistics', 'FastTrack Logistics LLC', 'FastTrack Accounts', 'FT123098', 'Chicago', 'https://www.fasttracklogistics.com', '11-2233445', 'USD', 'Net 45', 1, 0, NULL, 'Domestic', '4.2', '0', 'D112233', '556677889', 'WCB998877', 'CAB11223', 'USB11223', 'FTLK', 1, 0, 'SMS789', 0, 'Geico', 'LI99887766', 500000.00, '2025-03-01', '2025-12-31', 'Allstate', 'CI11223344', 1000000.00, '2025-04-01', '2026-03-31', '0', '789 Logistics Rd', 'Chicago', 'IL', 'USA', '60601', '+1-312-555-4321', 'PO Box 5432', 'Chicago', 'IL', 'USA', '60602', '+1-312-555-8765', 'Pending approval for regional operations.', '\"[{\\\"name\\\":\\\"Bob Davis\\\",\\\"email\\\":\\\"bob@fasttracklogistics.com\\\",\\\"phone\\\":\\\"+1-312-555-9876\\\"}]\"', '\"[\\\"Dry Van\\\",\\\"Step Deck\\\"]\"', '\"[\\\"Chicago to Detroit\\\",\\\"Midwest Region\\\"]\"', '2025-01-01 00:52:45', '2025-01-01 00:52:45'),
+(4, 'NextGen Carriers', 'NextGen Transportation Corp.', 'NextGen Finance', 'NG567890', 'Houston', 'https://www.nextgencarriers.com', '33-4455667', 'USD', 'Net 60', 1, 1, 'support@nextgencarriers.com', 'Long Haul', '4.7', '1', 'D334455', '223344556', 'WCB665544', 'CAB33445', 'USB33445', 'NGCN', 1, 1, 'SMS012', 1, 'AIG', 'LI12345432', 3000000.00, '2025-01-01', '2025-12-31', 'AXA', 'CI54321234', 2500000.00, '2025-02-01', '2026-01-31', '1', '123 Cargo Ln', 'Houston', 'TX', 'USA', '77001', '+1-713-555-3456', 'PO Box 6789', 'Houston', 'TX', 'USA', '77002', '+1-713-555-6789', 'Handles specialized freight for oil industry.', '\"[{\\\"name\\\":\\\"Charlie Brown\\\",\\\"email\\\":\\\"charlie@nextgencarriers.com\\\",\\\"phone\\\":\\\"+1-713-555-8765\\\"}]\"', '\"[\\\"Flatbed\\\",\\\"Double Drop\\\",\\\"Lowboy\\\"]\"', '\"[\\\"Texas to Oklahoma\\\",\\\"Texas to Louisiana\\\"]\"', '2025-01-01 00:52:54', '2025-01-01 00:52:54');
 
 -- --------------------------------------------------------
 
@@ -944,7 +954,14 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (655, 'App\\Models\\User', 11, 'API Token', '7604b4abbdccad6b1801a2c3e0087043777f1edcd7064c39241df8575ce6e16e', '[\"*\"]', '2024-12-31 05:20:11', NULL, '2024-12-31 05:19:52', '2024-12-31 05:20:11'),
 (656, 'App\\Models\\User', 13, 'API Token', '42e19e8210c2dc5a14bcff719375f170fd50cb35931b650a8d65a19db080be03', '[\"*\"]', '2024-12-31 05:20:36', NULL, '2024-12-31 05:20:35', '2024-12-31 05:20:36'),
 (657, 'App\\Models\\User', 11, 'API Token', '9a69a44a9e540f9ff5fd209550d8f65f88c2f3cf8a4427cf47c534fca208783b', '[\"*\"]', '2024-12-31 05:29:37', NULL, '2024-12-31 05:29:35', '2024-12-31 05:29:37'),
-(658, 'App\\Models\\User', 1, 'API Token', '9980bcf0290a2b49227a425de3d461b4fb2d2fdd991a95b391b5bfab0217dd35', '[\"*\"]', '2024-12-31 10:05:05', NULL, '2024-12-31 10:01:14', '2024-12-31 10:05:05');
+(658, 'App\\Models\\User', 1, 'API Token', '9980bcf0290a2b49227a425de3d461b4fb2d2fdd991a95b391b5bfab0217dd35', '[\"*\"]', '2024-12-31 10:05:05', NULL, '2024-12-31 10:01:14', '2024-12-31 10:05:05'),
+(659, 'App\\Models\\User', 1, 'API Token', 'de662c9ad709a3dfe326a043ff556fb9a6272f4aab6efbe01bf6d389f490ac87', '[\"*\"]', '2025-01-01 02:35:04', NULL, '2024-12-31 23:49:15', '2025-01-01 02:35:04'),
+(660, 'App\\Models\\User', 1, 'API Token', 'f0598280024afa2a6ce233a9a1698736cdfff0d0bde680624b8e02fb81b2600d', '[\"*\"]', '2025-01-01 00:57:33', NULL, '2025-01-01 00:45:46', '2025-01-01 00:57:33'),
+(661, 'App\\Models\\User', 7, 'API Token', 'd39ca64db2b8848dd766103f2b638060ed1a75df386ab6c94878c5196f927569', '[\"*\"]', '2025-01-01 02:36:41', NULL, '2025-01-01 02:36:14', '2025-01-01 02:36:41'),
+(662, 'App\\Models\\User', 1, 'API Token', 'a891ea458b5ab65c1a450837d0576eed9fe1a7930a1bebabb77f31366d2f27d3', '[\"*\"]', '2025-01-01 09:34:54', NULL, '2025-01-01 04:58:01', '2025-01-01 09:34:54'),
+(663, 'App\\Models\\User', 7, 'API Token', '54bd03282676bada5bced8e1169302121df5e4c954429f78fc6ea751f60fd220', '[\"*\"]', '2025-01-01 09:34:54', NULL, '2025-01-01 04:58:24', '2025-01-01 09:34:54'),
+(664, 'App\\Models\\User', 11, 'API Token', 'e1a7105d1706ba1f9a3e0224347fb89dd602accf46a456017714f0447a81c2bb', '[\"*\"]', '2025-01-01 09:36:45', NULL, '2025-01-01 08:24:59', '2025-01-01 09:36:45'),
+(665, 'App\\Models\\User', 13, 'API Token', '8d1f9f51a39abec88eda523dbb1aafd4d4ff9c311d306ab050360f52f1e5ac41', '[\"*\"]', '2025-01-01 09:39:14', NULL, '2025-01-01 09:38:34', '2025-01-01 09:39:14');
 
 -- --------------------------------------------------------
 
@@ -970,6 +987,19 @@ CREATE TABLE `quotes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `quotes`
+--
+
+INSERT INTO `quotes` (`id`, `quote_type`, `quote_customer`, `quote_cust_ref_no`, `quote_booked_by`, `quote_temperature`, `quote_hot`, `quote_team`, `quote_air_ride`, `quote_tarp`, `quote_hazmat`, `quote_pickup`, `quote_delivery`, `created_at`, `updated_at`) VALUES
+(1, 'Freight', 'Sealink Logistics', 'REF12345', 'John Doe', 34.00, 0, 1, 1, 0, 1, '\"[{\\\"address\\\":\\\"123 Warehouse Rd\\\",\\\"city\\\":\\\"New York\\\",\\\"state\\\":\\\"NY\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"10001\\\",\\\"contact\\\":\\\"Mike Johnson\\\",\\\"phone\\\":\\\"+1-212-555-1234\\\",\\\"pickup_date\\\":\\\"2025-01-15\\\",\\\"instructions\\\":\\\"Load must be secured with straps.\\\"}]\"', '\"[{\\\"address\\\":\\\"456 Distribution Blvd\\\",\\\"city\\\":\\\"Los Angeles\\\",\\\"state\\\":\\\"CA\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"90001\\\",\\\"contact\\\":\\\"Sarah Lee\\\",\\\"phone\\\":\\\"+1-323-555-5678\\\",\\\"delivery_date\\\":\\\"2025-01-20\\\",\\\"instructions\\\":\\\"Deliver to Dock 3.\\\"}]\"', '2025-01-01 00:54:38', '2025-01-01 00:54:38'),
+(2, 'Refrigerated', 'Global Freight Inc.', 'REF67890', 'Alice Smith', -20.00, 1, 0, 0, 1, 0, '\"[{\\\"address\\\":\\\"789 Cold Storage Ln\\\",\\\"city\\\":\\\"Chicago\\\",\\\"state\\\":\\\"IL\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"60601\\\",\\\"contact\\\":\\\"James Brown\\\",\\\"phone\\\":\\\"+1-312-555-6789\\\",\\\"pickup_date\\\":\\\"2025-02-10\\\",\\\"instructions\\\":\\\"Ensure reefer is pre-cooled to -20\\\\u00b0C.\\\"}]\"', '\"[{\\\"address\\\":\\\"321 Frozen Goods Ave\\\",\\\"city\\\":\\\"Houston\\\",\\\"state\\\":\\\"TX\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"77001\\\",\\\"contact\\\":\\\"Emily Davis\\\",\\\"phone\\\":\\\"+1-713-555-4321\\\",\\\"delivery_date\\\":\\\"2025-02-15\\\",\\\"instructions\\\":\\\"Temperature must be logged every 2 hours.\\\"}]\"', '2025-01-01 00:54:58', '2025-01-01 00:54:58'),
+(3, 'Oversized', 'FastTrack Logistics', 'REF45678', 'Robert Wilson', 0.00, 0, 1, 1, 1, 0, '\"[{\\\"address\\\":\\\"567 Industrial Park\\\",\\\"city\\\":\\\"Atlanta\\\",\\\"state\\\":\\\"GA\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"30301\\\",\\\"contact\\\":\\\"Tom Harris\\\",\\\"phone\\\":\\\"+1-404-555-3456\\\",\\\"pickup_date\\\":\\\"2025-03-05\\\",\\\"instructions\\\":\\\"Use crane for loading oversized cargo.\\\"}]\"', '\"[{\\\"address\\\":\\\"890 Heavy Haul Rd\\\",\\\"city\\\":\\\"Dallas\\\",\\\"state\\\":\\\"TX\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"75201\\\",\\\"contact\\\":\\\"Laura Martin\\\",\\\"phone\\\":\\\"+1-214-555-6789\\\",\\\"delivery_date\\\":\\\"2025-03-10\\\",\\\"instructions\\\":\\\"Offload using forklift.\\\"}]\"', '2025-01-01 00:55:12', '2025-01-01 00:55:12'),
+(4, 'Dry Van', 'NextGen Carriers', 'REF11223', 'Michael Carter', 25.00, 0, 0, 1, 0, 0, '\"[{\\\"address\\\":\\\"100 Logistics Center\\\",\\\"city\\\":\\\"Seattle\\\",\\\"state\\\":\\\"WA\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"98101\\\",\\\"contact\\\":\\\"Susan Green\\\",\\\"phone\\\":\\\"+1-206-555-7890\\\",\\\"pickup_date\\\":\\\"2025-04-01\\\",\\\"instructions\\\":\\\"Standard dry van load.\\\"}]\"', '\"[{\\\"address\\\":\\\"200 Retail Blvd\\\",\\\"city\\\":\\\"Portland\\\",\\\"state\\\":\\\"OR\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"97201\\\",\\\"contact\\\":\\\"David Lee\\\",\\\"phone\\\":\\\"+1-503-555-2345\\\",\\\"delivery_date\\\":\\\"2025-04-03\\\",\\\"instructions\\\":\\\"Deliver to loading dock A.\\\"}]\"', '2025-01-01 00:55:54', '2025-01-01 00:55:54'),
+(5, 'Refrigerated', 'Global Freight Inc.', 'REF55678', 'Karen White', -18.00, 1, 1, 0, 1, 0, '\"[{\\\"address\\\":\\\"450 Cold Storage Facility\\\",\\\"city\\\":\\\"Boston\\\",\\\"state\\\":\\\"MA\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"02101\\\",\\\"contact\\\":\\\"Laura Adams\\\",\\\"phone\\\":\\\"+1-617-555-6789\\\",\\\"pickup_date\\\":\\\"2025-05-10\\\",\\\"instructions\\\":\\\"Reefer unit set to -18\\\\u00b0C.\\\"}]\"', '\"[{\\\"address\\\":\\\"650 Food Processing Ave\\\",\\\"city\\\":\\\"Newark\\\",\\\"state\\\":\\\"NJ\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"07101\\\",\\\"contact\\\":\\\"Mark Taylor\\\",\\\"phone\\\":\\\"+1-973-555-1234\\\",\\\"delivery_date\\\":\\\"2025-05-12\\\",\\\"instructions\\\":\\\"Maintain temperature throughout transit.\\\"}]\"', '2025-01-01 00:56:03', '2025-01-01 00:56:03'),
+(6, 'Flatbed', 'FastTrack Logistics', 'REF33456', 'Sophia Brown', 0.00, 0, 0, 0, 1, 1, '\"[{\\\"address\\\":\\\"789 Heavy Haul Yard\\\",\\\"city\\\":\\\"Phoenix\\\",\\\"state\\\":\\\"AZ\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"85001\\\",\\\"contact\\\":\\\"Nathan Scott\\\",\\\"phone\\\":\\\"+1-602-555-9876\\\",\\\"pickup_date\\\":\\\"2025-06-15\\\",\\\"instructions\\\":\\\"Load oversized cargo securely.\\\"}]\"', '\"[{\\\"address\\\":\\\"123 Construction Zone\\\",\\\"city\\\":\\\"Las Vegas\\\",\\\"state\\\":\\\"NV\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"89101\\\",\\\"contact\\\":\\\"Olivia Harris\\\",\\\"phone\\\":\\\"+1-702-555-6543\\\",\\\"delivery_date\\\":\\\"2025-06-18\\\",\\\"instructions\\\":\\\"Deliver to site manager.\\\"}]\"', '2025-01-01 00:56:11', '2025-01-01 00:56:11'),
+(7, 'LTL (Less-than-Truckload)', 'Sealink Logistics', 'REF99887', 'Emma Johnson', 10.00, 0, 0, 1, 0, 1, '\"[{\\\"address\\\":\\\"789 Distribution Point\\\",\\\"city\\\":\\\"Denver\\\",\\\"state\\\":\\\"CO\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"80201\\\",\\\"contact\\\":\\\"Liam Evans\\\",\\\"phone\\\":\\\"+1-303-555-8765\\\",\\\"pickup_date\\\":\\\"2025-07-01\\\",\\\"instructions\\\":\\\"Ensure hazmat safety protocols.\\\"}]\"', '\"[{\\\"address\\\":\\\"456 Delivery Center\\\",\\\"city\\\":\\\"Salt Lake City\\\",\\\"state\\\":\\\"UT\\\",\\\"country\\\":\\\"USA\\\",\\\"postal_code\\\":\\\"84101\\\",\\\"contact\\\":\\\"Isabella Davis\\\",\\\"phone\\\":\\\"+1-801-555-3210\\\",\\\"delivery_date\\\":\\\"2025-07-03\\\",\\\"instructions\\\":\\\"Special handling required for hazmat.\\\"}]\"', '2025-01-01 00:56:16', '2025-01-01 00:56:16');
+
 -- --------------------------------------------------------
 
 --
@@ -991,6 +1021,17 @@ CREATE TABLE `shipments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shipments`
+--
+
+INSERT INTO `shipments` (`id`, `ship_load_date`, `ship_pickup_location`, `ship_delivery_location`, `ship_driver`, `ship_weight`, `ship_ftl_ltl`, `ship_tarp`, `ship_equipment`, `ship_price`, `ship_notes`, `created_at`, `updated_at`) VALUES
+(1, '2025-01-10', '123 Logistics Ave, Chicago, IL, USA', '456 Distribution Blvd, Dallas, TX, USA', 'John Doe', 25000.00, 'FTL', 1, 'Flatbed', 1500.50, 'Ensure load is tarped securely.', '2025-01-01 00:57:08', '2025-01-01 00:57:08'),
+(2, '2025-02-01', '789 Cold Storage Rd, New York, NY, USA', '321 Frozen Foods Ln, Miami, FL, USA', 'Alice Smith', 15000.00, 'LTL', 0, 'Refrigerated Van', 2200.75, 'Reefer must be set to -20°C.', '2025-01-01 00:57:15', '2025-01-01 00:57:15'),
+(3, '2025-03-05', '567 Heavy Haul Way, Atlanta, GA, USA', '890 Construction Blvd, Houston, TX, USA', 'Robert Wilson', 50000.00, 'FTL', 1, 'Lowboy', 3000.00, 'Oversized load. Use escort vehicles.', '2025-01-01 00:57:21', '2025-01-01 00:57:21'),
+(4, '2025-04-20', '100 Industrial Park, Seattle, WA, USA', '200 Retail Distribution, Portland, OR, USA', 'Sophia Brown', 18000.00, 'LTL', 0, 'Dry Van', 1200.00, 'Deliver by end of business day.', '2025-01-01 00:57:26', '2025-01-01 00:57:26'),
+(5, '2025-05-15', '123 Manufacturing Rd, Phoenix, AZ, USA', '456 Warehouse St, Las Vegas, NV, USA', 'Liam Johnson', 30000.00, 'FTL', 0, 'Step Deck', 2500.00, 'Verify cargo straps are tightened.', '2025-01-01 00:57:34', '2025-01-01 00:57:34');
 
 -- --------------------------------------------------------
 
@@ -1222,7 +1263,7 @@ ALTER TABLE `brokers`
 -- AUTO_INCREMENT for table `carriers`
 --
 ALTER TABLE `carriers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -1270,19 +1311,19 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=659;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=666;
 
 --
 -- AUTO_INCREMENT for table `quotes`
 --
 ALTER TABLE `quotes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `shipments`
 --
 ALTER TABLE `shipments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

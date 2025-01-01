@@ -5,7 +5,7 @@ function QuoteGeneral({ quote, setQuote }) {
       <legend>General</legend>
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="creditStatus">Quote Type</label>
+          <label htmlFor="creditStatus">Quote Type*</label>
           <select
             name="creditStatus"
             value={quote.quote_type}
@@ -15,6 +15,7 @@ function QuoteGeneral({ quote, setQuote }) {
                 quote_type: e.target.value,
               })
             }
+            required
           >
             <option value="">Select..</option>
             {quoteTypeOptions.map((status) => (

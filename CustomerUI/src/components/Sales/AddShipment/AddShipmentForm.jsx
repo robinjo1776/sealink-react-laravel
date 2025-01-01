@@ -20,41 +20,44 @@ const AddShipmentForm = ({ onClose, onAddShipment }) => {
     ship_price: '',
     ship_notes: '',
   });
-
+  const validateShipment = () => {
+    return shipment.ship_load_date;
+  };
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      let response;
-      const token = localStorage.getItem('token');
+    if (validateShipment()) {
+      event.preventDefault();
+      try {
+        let response;
+        const token = localStorage.getItem('token');
 
-      if (!token) {
-        Swal.fire('Error', 'No token found', 'error');
-        return;
+        if (!token) {
+          Swal.fire('Error', 'No token found', 'error');
+          return;
+        }
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        if (shipment.id) {
+          response = await axios.put(`http://127.0.0.1:8000/api/shipment/${shipment.id}`, shipment, { headers });
+          Swal.fire('Updated!', 'Lead data has been updated successfully.', 'success');
+        } else {
+          response = await axios.post('http://127.0.0.1:8000/api/shipment', shipment, {
+            headers,
+          });
+          Swal.fire('Saved!', 'Lead data has been saved successfully.', 'success');
+        }
+
+        onAddShipment(response.data);
+        clearShipmentForm();
+        onClose();
+      } catch (error) {
+        console.error('Error saving/updating shipment:', error.response ? error.response.data : error.message);
+        Swal.fire('Error', 'An error occurred while saving/updating the lead.', 'error');
       }
-
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      if (shipment.id) {
-        response = await axios.put(`http://127.0.0.1:8000/api/shipment/${shipment.id}`, shipment, { headers });
-        Swal.fire('Updated!', 'Lead data has been updated successfully.', 'success');
-      } else {
-        response = await axios.post('http://127.0.0.1:8000/api/shipment', shipment, {
-          headers,
-        });
-        Swal.fire('Saved!', 'Lead data has been saved successfully.', 'success');
-      }
-
-      onAddShipment(response.data);
-      clearShipmentForm();
-      onClose();
-    } catch (error) {
-      console.error('Error saving/updating shipment:', error.response ? error.response.data : error.message);
-      Swal.fire('Error', 'An error occurred while saving/updating the lead.', 'error');
     }
   };
-
   const clearShipmentForm = () => {
     setShipment({
       id: '',

@@ -42,47 +42,53 @@ const EditLeadQuotesForm = ({ lead, onClose, onUpdate }) => {
     }
   }, [lead]);
 
-  const updateLead = async () => {
-    try {
-      // Get the token from localStorage or from the UserContext
-      const token = localStorage.getItem('token');
+  const validateLeadQuotes = () => {
+    return formLead.lead_no && formLead.lead_date && formLead.lead_status;
+  };
 
-      if (!token) {
-        // If no token is found, show an alert and exit the function
+  const updateLead = async () => {
+    if (validateLeadQuotes()) {
+      try {
+        // Get the token from localStorage or from the UserContext
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+          // If no token is found, show an alert and exit the function
+          Swal.fire({
+            icon: 'error',
+            title: 'Unauthorized',
+            text: 'You are not logged in. Please log in again.',
+          });
+          return;
+        }
+
+        // Make the PUT request with the Authorization header
+        const response = await axios.put(`http://127.0.0.1:8000/api/lead/${formLead.id}`, formLead, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Lead data has been updated successfully.',
+        });
+
+        // Call onUpdate to update the lead data in the parent component
+        onUpdate(response.data);
+        onClose();
+      } catch (error) {
+        console.error('Error updating lead:', error);
+
+        // Handle different errors, including the 401 Unauthorized
         Swal.fire({
           icon: 'error',
-          title: 'Unauthorized',
-          text: 'You are not logged in. Please log in again.',
+          title: 'Oops...',
+          text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update lead.',
         });
-        return;
       }
-
-      // Make the PUT request with the Authorization header
-      const response = await axios.put(`http://127.0.0.1:8000/api/lead/${formLead.id}`, formLead, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      // Show success message
-      Swal.fire({
-        icon: 'success',
-        title: 'Updated!',
-        text: 'Lead data has been updated successfully.',
-      });
-
-      // Call onUpdate to update the lead data in the parent component
-      onUpdate(response.data);
-      onClose();
-    } catch (error) {
-      console.error('Error updating lead:', error);
-
-      // Handle different errors, including the 401 Unauthorized
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response && error.response.status === 401 ? 'Unauthorized. Please log in again.' : 'Failed to update lead.',
-      });
     }
   };
 
@@ -165,8 +171,8 @@ const EditLeadQuotesForm = ({ lead, onClose, onUpdate }) => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="leadStatus">Lead Status</label>
-            <select id="leadStatus" value={formLead.lead_status} onChange={(e) => setFormLead({ ...formLead, lead_status: e.target.value })}>
+            <label htmlFor="leadStatus">Lead Status*</label>
+            <select id="leadStatus" value={formLead.lead_status} onChange={(e) => setFormLead({ ...formLead, lead_status: e.target.value })} required>
               <option value="">Select Lead Status</option>
               {leadStatusOptions.map((status) => (
                 <option key={status} value={status}>
