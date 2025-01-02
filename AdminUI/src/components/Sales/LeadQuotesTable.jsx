@@ -3,9 +3,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
-import EditLeadQuotesForm from './EditLeadQuotesForm';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { UserContext } from '../../UserProvider';
+import EditLeadQuotesForm from './EditLead/EditLeadQuotesForm';
 
 const LeadQuotesTable = () => {
   const users = useContext(UserContext);
@@ -252,7 +252,7 @@ const LeadQuotesTable = () => {
       {/* Header with Add Lead button and search input */}
       <div className="header-container">
         <div className="header-actions">
-          <h1 className="page-heading">Leads with quotes</h1>
+          <h1 className="page-heading">Lead quotes</h1>
         </div>
         <div className="search-container">
           <input className="search-bar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." />

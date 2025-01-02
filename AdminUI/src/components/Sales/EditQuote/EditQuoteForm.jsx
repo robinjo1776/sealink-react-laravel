@@ -12,7 +12,7 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
   const [formQuote, setFormQuote] = useState({
     id: '',
     quote_type: '',
-    quote_customer: '',
+    quote_customer: '', // Make sure to use quote_customer here
     quote_cust_ref_no: '',
     quote_booked_by: '',
     quote_temperature: '',
@@ -62,10 +62,10 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
   };
 
   const handleDeliveryChange = (index, updatedQuote) => {
-    const updatedPickups = formQuote.quote_delivery.map((quote_delivery, i) => (i === index ? updatedQuote : quote_delivery));
+    const updatedDeliveries = formQuote.quote_delivery.map((delivery, i) => (i === index ? updatedQuote : delivery));
     setFormQuote((prevQuote) => ({
       ...prevQuote,
-      quote_delivery: updatedPickups,
+      quote_delivery: updatedDeliveries,
     }));
   };
 
@@ -135,7 +135,7 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
         }}
         className="form-main"
       >
-        <EditQuoteGeneral formQuote={formQuote} setFormQuote={setFormQuote} />
+        <EditQuoteGeneral formQuote={formQuote} setFormQuote={setFormQuote} /> 
         <fieldset className="form-section">
           <legend>Pickup</legend>
           <div className="form-row">
@@ -158,21 +158,17 @@ const EditQuoteForm = ({ quote, onClose, onUpdate }) => {
         <fieldset className="form-section">
           <legend>Delivery</legend>
           <div className="form-row">
-            {Array.isArray(formQuote.quote_delivery) && formQuote.quote_delivery.length > 0 ? (
-              formQuote.quote_delivery.map((delivery, index) => (
-                <EditQuoteDelivery
-                  key={index}
-                  formQuote={formQuote}
-                  setFormQuote={setFormQuote}
-                  delivery={delivery}
-                  index={index}
-                  onChange={handleDeliveryChange}
-                  onRemove={handleRemoveDelivery}
-                />
-              ))
-            ) : (
-              <p>No deliveries available</p>
-            )}
+            {formQuote.quote_delivery.map((delivery, index) => (
+              <EditQuoteDelivery
+                key={index}
+                formQuote={formQuote}
+                setFormQuote={setFormQuote}
+                delivery={delivery}
+                index={index}
+                onChange={handleDeliveryChange}
+                onRemove={handleRemoveDelivery}
+              />
+            ))}
             <button type="button" onClick={handleAddDelivery} className="add">
               Add Delivery
             </button>

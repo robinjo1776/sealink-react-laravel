@@ -1,4 +1,51 @@
+import Select from 'react-select';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 function QuoteGeneral({ quote, setQuote }) {
+  const [customers, setCustomers] = useState([]);
+  const [customerRefNos, setCustomerRefNos] = useState([]);
+
+  // Fetch customers and their reference numbers on component mount
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Adjust based on where you store the token
+
+        const { data } = await axios.get('http://127.0.0.1:8000/api/customer', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token
+          },
+        });
+
+        console.log('Fetched customers:', data); // Debugging the fetched data
+
+        // Transform data into the required format for react-select
+        const formattedCustomers = data.map((quote_customer) => ({
+          value: quote_customer.cust_name, // Ensure 'value' is set to 'customer.id'
+          label: quote_customer.cust_name, // Label to display
+          refNo: quote_customer.cust_ref_no, // Reference number
+        }));
+
+        setCustomers(formattedCustomers);
+      } catch (error) {
+        console.error('Error fetching customers:', error);
+      }
+    };
+
+    fetchCustomers();
+  }, []);
+
+  // Update customer reference numbers based on the selected customer
+  useEffect(() => {
+    if (quote.quote_customer) {
+      const selectedCustomer = customers.find((c) => c.value === quote.quote_customer);
+      setCustomerRefNos(selectedCustomer ? [{ value: selectedCustomer.refNo, label: selectedCustomer.refNo }] : []);
+    } else {
+      setCustomerRefNos([]);
+    }
+  }, [quote.quote_customer, customers]);
+
   const quoteTypeOptions = ['FTL', 'LTL'];
   return (
     <fieldset className="form-section">
@@ -26,16 +73,31 @@ function QuoteGeneral({ quote, setQuote }) {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="legalName">Customer</label>
-          <input type="text" value={quote.quote_customer} onChange={(e) => setQuote({ ...quote, quote_customer: e.target.value })} id="legalName" />
+          <label htmlFor="quote_customer">Customer</label>
+          <Select
+            id="quote_customer"
+            options={customers}
+            value={customers.find((c) => c.value === quote.quote_customer) || null}
+            onChange={(selected) => {
+              console.log('Selected customer:', selected); // Debugging selected customer
+              setQuote({ ...quote, quote_customer: selected ? selected.value : '' });
+            }}
+            placeholder="Select a customer"
+            isClearable
+          />
         </div>
         <div className="form-group">
-          <label htmlFor="remitName">Customer Ref. No</label>
-          <input
-            type="text"
-            value={quote.quote_cust_ref_no}
-            onChange={(e) => setQuote({ ...quote, quote_cust_ref_no: e.target.value })}
-            id="remitName"
+          <label htmlFor="customerRefNo">Customer Ref. No</label>
+          <Select
+            id="customerRefNo"
+            options={customerRefNos}
+            value={customerRefNos.find((c) => c.value === quote.quote_cust_ref_no) || null}
+            onChange={(selected) => {
+              console.log('Selected refNo:', selected); // Debugging selected refNo
+              setQuote({ ...quote, quote_cust_ref_no: selected ? selected.value : '' });
+            }}
+            placeholder="Select a reference number"
+            isClearable
           />
         </div>
         <div className="form-group">

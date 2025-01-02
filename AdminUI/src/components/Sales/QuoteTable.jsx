@@ -221,7 +221,7 @@ const QuoteTable = () => {
     <div>
       <div className="header-container">
         <div className="header-actions">
-          <h1 className="page-heading">Shipments with quotes</h1>
+          <h1 className="page-heading">Customer quotes</h1>
         </div>
         <button onClick={() => setEmailModalOpen(true)} className="send-email-button" disabled={selectedQuoteIds.length === 0}>
           Email <MailOutlined />

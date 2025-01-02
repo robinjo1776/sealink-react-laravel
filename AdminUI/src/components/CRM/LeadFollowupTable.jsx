@@ -3,8 +3,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Table from '../common/Table';
 import Modal from '../common/Modal';
-import EditLeadFollowupForm from './EditLeadFollowupForm';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import EditLeadFollowupForm from './EditFollowup/EditLeadFollowupForm';
 
 const LeadFollowupTable = () => {
   const [followUps, setFollowUps] = useState([]);

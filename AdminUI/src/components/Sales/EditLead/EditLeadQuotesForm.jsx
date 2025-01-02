@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { UserContext } from '../../UserProvider';
-import LeadContactForm from './LeadContactForm';
-import EditLeadDetails from './EditLead/EditLeadDetails';
-import EditAddressDetails from './EditLead/EditAddressDetails';
-import EditAdditionalInfo from './EditLead/EditAdditionalInfo';
+import { UserContext } from '../../../UserProvider';
+import LeadContactForm from '../LeadContactForm';
+import EditLeadDetails from './EditLeadDetails';
+import EditAddressDetails from './EditAddressDetails';
+import EditAdditionalInfo from './EditAdditionalInfo';
 
 const EditLeadQuotesForm = ({ lead, onClose, onUpdate }) => {
   const users = useContext(UserContext);

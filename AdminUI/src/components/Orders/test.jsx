@@ -1,171 +1,235 @@
-import { useEffect, useRef } from 'react';
+import Select from 'react-select';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function OrderOrigin({ setOrder, order, origin = {}, index, onChange, onRemove }) {
-  const addressRef = useRef(null);
+function EditQuoteGeneral({ formQuote, setFormQuote }) {
+  const [customers, setCustomers] = useState([]);
+  const [customerRefNos, setCustomerRefNos] = useState([]);
 
+  // Fetch customers and their reference numbers on component mount
   useEffect(() => {
-    const loadGoogleMapsApi = () => {
-      if (window.google && window.google.maps) {
-        initializeAutocomplete();
-        return;
+    const fetchCustomers = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Adjust based on where you store the token
+
+        const { data } = await axios.get('http://127.0.0.1:8000/api/customer', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token
+          },
+        });
+
+        console.log('Fetched customers:', data); // Debugging the fetched data
+
+        // Transform data into the required format for react-select
+        const formattedCustomers = data.map((quote_customer) => ({
+          value: quote_customer.cust_name, // Ensure 'value' is set to 'customer.id'
+          label: quote_customer.cust_name, // Label to display
+          refNo: quote_customer.cust_ref_no, // Reference number
+        }));
+
+        setCustomers(formattedCustomers);
+      } catch (error) {
+        console.error('Error fetching customers:', error);
       }
-      const script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places';
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        if (window.google && window.google.maps) {
-          initializeAutocomplete();
-        }
-      };
-      document.head.appendChild(script);
     };
 
-    loadGoogleMapsApi();
+    fetchCustomers();
   }, []);
 
-  const initializeAutocomplete = () => {
-    const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
-      types: ['address'],
-    });
+  // Update customer reference numbers based on the selected customer
+  useEffect(() => {
+    console.log('Selected customer ID:', formQuote.quote_customer); // Debugging the selected customer
+    if (formQuote.quote_customer) {
+      const selectedCustomer = customers.find((c) => c.value === formQuote.quote_customer);
+      console.log('Selected customer:', selectedCustomer); // Debugging selected customer
 
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place || !place.address_components) {
-        console.error('No valid address selected');
-        return;
-      }
-      updateAddressFields(place);
-    });
-  };
+      setCustomerRefNos(
+        selectedCustomer
+          ? [{ value: selectedCustomer.refNo, label: selectedCustomer.refNo }] // Set reference number if customer is found
+          : []
+      );
+    } else {
+      setCustomerRefNos([]); // Reset refNo if no customer is selected
+    }
+  }, [formQuote.quote_customer, customers]);
 
-  const updateAddressFields = (place) => {
-    const addressComponents = place.address_components;
-
-    const streetNumber = getComponent('street_number', '', addressComponents);
-    const route = getComponent('route', '', addressComponents);
-    const mainAddress = `${streetNumber} ${route}`.trim();
-
-    setOrder((prevQuote) => ({
-      ...prevQuote,
-      origin_location: prevQuote.origin_location.map((p, idx) =>
-        idx === index
-          ? {
-              ...p,
-              address: mainAddress,
-              city: getComponent('locality', '', addressComponents),
-              state: getComponent('administrative_area_level_1', '', addressComponents),
-              country: getComponent('country', '', addressComponents),
-              postal: getComponent('postal_code', '', addressComponents),
-            }
-          : p
-      ),
-    }));
-  };
-
-  const getComponent = (type, fallback, components) => {
-    const component = components.find((c) => c.types.includes(type));
-    return component ? component.long_name : fallback;
-  };
-
-  const handleOrderChange = (e) => {
-    const { name, value } = e.target;
-    const updatedOrigin = { ...origin, [name]: value };
-
-    onChange(index, updatedOrigin);
-  };
+  const quoteTypeOptions = ['FTL', 'LTL'];
 
   return (
-    <div className="contact-form">
-      <div className="form-group">
-        <label>Address</label>
-        <input type="text" name="address" value={origin.address || ''} onChange={handleOrderChange} ref={addressRef} placeholder="Enter address" />
-      </div>
+    <fieldset className="form-section">
+      <legend>General</legend>
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="quoteType">Quote Type*</label>
 
-      <div className="form-group">
-        <label>City</label>
-        <input type="text" name="city" value={origin.city || ''} onChange={handleOrderChange} placeholder="Enter city" />
-      </div>
+          <select id="quoteType" value={formQuote.quote_type} onChange={(e) => setFormQuote({ ...formQuote, quote_type: e.target.value })} required>
+            {quoteTypeOptions.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="customer">Customer</label>
+          <Select
+            id="customer"
+            options={customers}
+            value={customers.find((c) => c.value === formQuote.quote_customer) || null}
+            onChange={(selected) => {
+              console.log('Selected customer:', selected); // Debugging selected customer
+              setFormQuote({ ...formQuote, quote_customer: selected ? selected.value : '' });
+            }}
+            placeholder="Select a customer"
+            isClearable
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="customerRefNo">Customer Ref. No</label>
+          <Select
+            id="customerRefNo"
+            options={customerRefNos}
+            value={customerRefNos.find((c) => c.value === formQuote.customer_ref_no) || null}
+            onChange={(selected) => {
+              console.log('Selected refNo:', selected); // Debugging selected refNo
+              setFormQuote({ ...formQuote, customer_ref_no: selected ? selected.value : '' });
+            }}
+            placeholder="Select a reference number"
+            isClearable
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="accNo">Booked By</label>
+          <input
+            type="text"
+            value={formQuote.quote_booked_by}
+            onChange={(e) => setFormQuote({ ...formQuote, quote_booked_by: e.target.value })}
+            id="accNo"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="branch">Temperature</label>
+          <input
+            type="text"
+            value={formQuote.quote_temperature}
+            onChange={(e) => setFormQuote({ ...formQuote, quote_temperature: e.target.value })}
+            id="branch"
+          />
+        </div>
 
-      <div className="form-group">
-        <label>State</label>
-        <input type="text" name="state" value={origin.state || ''} onChange={handleOrderChange} placeholder="Enter state" />
+        <div className="form-group">
+          <label
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            Hot
+            <input
+              type="checkbox"
+              id="creditApplication"
+              checked={formQuote.quote_hot}
+              onChange={(e) =>
+                setFormQuote({
+                  ...formQuote,
+                  quote_hot: e.target.checked,
+                })
+              }
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            Team
+            <input
+              type="checkbox"
+              id="creditApplication"
+              checked={formQuote.quote_team}
+              onChange={(e) =>
+                setFormQuote({
+                  ...formQuote,
+                  quote_team: e.target.checked,
+                })
+              }
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            Air Ride
+            <input
+              type="checkbox"
+              id="creditApplication"
+              checked={formQuote.quote_air_ride}
+              onChange={(e) =>
+                setFormQuote({
+                  ...formQuote,
+                  quote_air_ride: e.target.checked,
+                })
+              }
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            TARP
+            <input
+              type="checkbox"
+              id="creditApplication"
+              checked={formQuote.quote_tarp}
+              onChange={(e) =>
+                setFormQuote({
+                  ...formQuote,
+                  quote_tarp: e.target.checked,
+                })
+              }
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            Hazmat
+            <input
+              type="checkbox"
+              id="creditApplication"
+              checked={formQuote.quote_hazmat}
+              onChange={(e) =>
+                setFormQuote({
+                  ...formQuote,
+                  quote_hazmat: e.target.checked,
+                })
+              }
+            />
+          </label>
+        </div>
       </div>
-
-      <div className="form-group">
-        <label>Postal Code</label>
-        <input
-          type="text"
-          name="postal"
-          value={origin.postal || ''}
-          onChange={handleOrderChange}
-          pattern="[0-9]{5}"
-          maxLength="5"
-          placeholder="Enter postal code"
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Country</label>
-        <input type="text" name="country" value={origin.country || ''} onChange={handleOrderChange} placeholder="Enter country" />
-      </div>
-
-      <div className="form-group">
-        <label>Date</label>
-        <input type="date" name="rate" value={origin.rate || ''} onChange={handleOrderChange} placeholder="Enter rate" />
-      </div>
-
-      <div className="form-group">
-        <label>Time</label>
-        <input type="time" name="time" value={origin.time || ''} onChange={handleOrderChange} placeholder="Enter time" />
-      </div>
-
-      <div className="form-group">
-        <label>Currency</label>
-        <input type="text" name="currency" value={origin.currency || ''} onChange={handleOrderChange} placeholder="Enter currency code" />
-      </div>
-
-      <div className="form-group">
-        <label>Equipment</label>
-        <input type="text" name="equipment" value={origin.equipment || ''} onChange={handleOrderChange} placeholder="Enter equipment type" />
-      </div>
-
-      <div className="form-group">
-        <label>Pickup PO</label>
-        <input type="text" name="pickup_po" value={origin.pickup_po || ''} onChange={handleOrderChange} placeholder="Enter Pickup PO" />
-      </div>
-
-      <div className="form-group">
-        <label>Notes</label>
-        <textarea name="notes" value={origin.notes || ''} onChange={handleOrderChange} placeholder="Enter notes" />
-      </div>
-
-      <div className="form-group">
-        <label>Packages</label>
-        <input type="number" name="packages" value={origin.packages || ''} onChange={handleOrderChange} placeholder="Enter number of packages" />
-      </div>
-
-      <div className="form-group">
-        <label>Weight</label>
-        <input type="number" name="weight" value={origin.weight || ''} onChange={handleOrderChange} placeholder="Enter weight (kg)" />
-      </div>
-
-      <div className="form-group">
-        <label>Dimensions</label>
-        <input
-          type="text"
-          name="dimensions"
-          value={origin.dimensions || ''}
-          onChange={handleOrderChange}
-          placeholder="Enter dimensions (e.g., 20x20x20 cm)"
-        />
-      </div>
-
-      <button type="button" onClick={() => onRemove(index)} className="remove">
-        Remove
-      </button>
-    </div>
+    </fieldset>
   );
 }
 
-export default OrderOrigin;
+export default EditQuoteGeneral;

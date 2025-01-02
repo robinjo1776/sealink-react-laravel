@@ -2,7 +2,7 @@ import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function EditLeadDetails({ formLead, setFormLead }) {
+function EditFollowupInfo({ followupEdit, setFolloupEdit }) {
   const [customers, setCustomers] = useState([]);
   const [customerRefNos, setCustomerRefNos] = useState([]);
 
@@ -37,60 +37,69 @@ function EditLeadDetails({ formLead, setFormLead }) {
 
   // Update customer reference numbers based on the selected customer
   useEffect(() => {
-    if (formLead.customer_name) {
-      const selectedCustomer = customers.find((c) => c.value === formLead.customer_name);
+    if (followupEdit.customer_name) {
+      const selectedCustomer = customers.find((c) => c.value === followupEdit.customer_name);
       setCustomerRefNos(selectedCustomer ? [{ value: selectedCustomer.refNo, label: selectedCustomer.refNo }] : []);
     } else {
       setCustomerRefNos([]);
     }
-  }, [formLead.customer_name, customers]);
+  }, [followupEdit.customer_name, customers]);
   return (
     <fieldset className="form-section">
-      <legend>Lead Details</legend>
+      <legend>Follow-up Information</legend>
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="leadNo">Lead No*</label>
-          <input type="text" value={formLead.lead_no} onChange={(e) => setFormLead({ ...formLead, lead_no: e.target.value })} id="leadNo" required />
+          <input
+            type="text"
+            value={followupEdit.lead_no}
+            onChange={(e) => setFolloupEdit({ ...followupEdit, lead_no: e.target.value })}
+            id="leadNo"
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="leadDate">Lead Date*</label>
           <input
             type="date"
-            value={formLead.lead_date}
-            onChange={(e) => setFormLead({ ...formLead, lead_date: e.target.value })}
+            value={followupEdit.lead_date}
+            onChange={(e) =>
+              setFolloupEdit({
+                ...followupEdit,
+                lead_date: e.target.value,
+              })
+            }
             id="leadDate"
             required
           />
         </div>
+      </div>
+      <div className="form-row">
         <div className="form-group">
-          <label htmlFor="quote_customer">Customer</label>
+          <label htmlFor="quote_customer">Lead</label>
           <Select
             id="quote_customer"
             options={customers}
-            value={customers.find((c) => c.value === formLead.customer_name) || null}
+            value={customers.find((c) => c.value === followupEdit.customer_name) || null}
             onChange={(selected) => {
-              console.log('Selected customer:', selected); // Debugging selected customer
-              setFormLead({ ...formLead, customer_name: selected ? selected.value : '' });
+              console.log('Selected lead:', selected); // Debugging selected customer
+              setFolloupEdit({ ...followupEdit, customer_name: selected ? selected.value : '' });
             }}
-            placeholder="Select a customer"
+            placeholder="Select a lead"
             isClearable
           />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone</label>
-          <input type="tel" value={formLead.phone} onChange={(e) => setFormLead({ ...formLead, phone: e.target.value })} id="phone" />
+          <input type="tel" value={followupEdit.phone} onChange={(e) => setFolloupEdit({ ...followupEdit, phone: e.target.value })} id="phone" />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input type="email" value={formLead.email} onChange={(e) => setFormLead({ ...formLead, email: e.target.value })} id="email" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="website">Website</label>
-          <input type="text" value={formLead.website} onChange={(e) => setFormLead({ ...formLead, website: e.target.value })} id="website" />
+          <input type="email" value={followupEdit.email} onChange={(e) => setFolloupEdit({ ...followupEdit, email: e.target.value })} id="email" />
         </div>
       </div>
     </fieldset>
   );
 }
 
-export default EditLeadDetails;
+export default EditFollowupInfo;

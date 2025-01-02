@@ -216,13 +216,6 @@ const EditOrderForm = ({ order, onClose, onUpdate }) => {
     }));
   };
 
-  const handleAddCharge = () => {
-    setFormOrder((prevOrder) => ({
-      ...prevOrder,
-      charges: [...prevOrder.charges, { type: '', charge: '', percent: '' }],
-    }));
-  };
-
   const handleRemoveCharge = (index) => {
     setFormOrder((prevOrder) => ({
       ...prevOrder,
@@ -235,13 +228,6 @@ const EditOrderForm = ({ order, onClose, onUpdate }) => {
     setFormOrder((prevOrder) => ({
       ...prevOrder,
       charges: updatedCharges,
-    }));
-  };
-
-  const handleAddDiscount = () => {
-    setFormOrder((prevOrder) => ({
-      ...prevOrder,
-      discounts: [...prevOrder.discounts, { type: '', charge: '', percent: '' }],
     }));
   };
 

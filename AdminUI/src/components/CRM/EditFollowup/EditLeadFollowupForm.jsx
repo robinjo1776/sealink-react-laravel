@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import FollowupProductForm from './FollowupProductForm';
-import FollowupContactForm from './FollowupContactForm';
+import FollowupProductForm from '../FollowupProductForm';
+import FollowupContactForm from '../FollowupContactForm';
+import EditFollowupInfo from './EditFollowupInfo';
 
 const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
-  const [followupEdit, setfolloupEdit] = useState({
+  const [followupEdit, setFolloupEdit] = useState({
     id: '',
     lead_no: '',
     lead_date: '',
@@ -36,7 +37,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
     if (followUp) {
       const parsedContacts = Array.isArray(followUp.contacts) ? followUp.contacts : JSON.parse(followUp.contacts || '[]');
       const parsedProducts = Array.isArray(followUp.products) ? followUp.products : JSON.parse(followUp.products || '[]');
-      setfolloupEdit({
+      setFolloupEdit({
         ...followUp,
         contacts: parsedContacts.length > 0 ? parsedContacts : [],
         products: parsedProducts.length > 0 ? parsedProducts : [],
@@ -90,14 +91,14 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
   };
 
   const handleAddContact = () => {
-    setfolloupEdit((prevFollowup) => ({
+    setFolloupEdit((prevFollowup) => ({
       ...prevFollowup,
       contacts: [...prevFollowup.contacts, { name: '', phone: '', email: '' }],
     }));
   };
 
   const handleRemoveContact = (index) => {
-    setfolloupEdit((prevFollowup) => ({
+    setFolloupEdit((prevFollowup) => ({
       ...prevFollowup,
       contacts: prevFollowup.contacts.filter((_, i) => i !== index),
     }));
@@ -105,21 +106,21 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
 
   const handleContactChange = (index, updatedContact) => {
     const updatedContacts = followupEdit.contacts.map((contact, i) => (i === index ? updatedContact : contact));
-    setfolloupEdit({
+    setFolloupEdit({
       ...followupEdit,
       contacts: updatedContacts,
     });
   };
 
   const handleAddProduct = () => {
-    setfolloupEdit((prevFollowup) => ({
+    setFolloupEdit((prevFollowup) => ({
       ...prevFollowup,
       products: [...prevFollowup.products, { name: '', quantity: '' }],
     }));
   };
 
   const handleRemoveProduct = (index) => {
-    setfolloupEdit((prevFollowup) => ({
+    setFolloupEdit((prevFollowup) => ({
       ...prevFollowup,
       products: prevFollowup.products.filter((_, i) => i !== index),
     }));
@@ -127,7 +128,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
 
   const handleProductChange = (index, updatedProduct) => {
     const updatedProducts = followupEdit.products.map((product, i) => (i === index ? updatedProduct : product));
-    setfolloupEdit({
+    setFolloupEdit({
       ...followupEdit,
       products: updatedProducts,
     });
@@ -175,7 +176,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
     const addressComponents = place.address_components;
     const formattedAddress = place.formatted_address || '';
 
-    setfolloupEdit((prevLead) => ({
+    setFolloupEdit((prevLead) => ({
       ...prevLead,
       address: formattedAddress,
       city: getComponent('locality', '', addressComponents),
@@ -199,65 +200,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
         }}
         className="form-main"
       >
-        <fieldset className="form-section">
-          <legend>Follow-up Information</legend>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="leadNo">Lead No*</label>
-              <input
-                type="text"
-                value={followupEdit.lead_no}
-                onChange={(e) => setfolloupEdit({ ...followupEdit, lead_no: e.target.value })}
-                id="leadNo"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="leadDate">Lead Date*</label>
-              <input
-                type="date"
-                value={followupEdit.lead_date}
-                onChange={(e) =>
-                  setfolloupEdit({
-                    ...followupEdit,
-                    lead_date: e.target.value,
-                  })
-                }
-                id="leadDate"
-                required
-              />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="customerName">Customer Name</label>
-              <input
-                type="text"
-                value={followupEdit.customer_name}
-                onChange={(e) =>
-                  setfolloupEdit({
-                    ...followupEdit,
-                    customer_name: e.target.value,
-                  })
-                }
-                id="customerName"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input type="tel" value={followupEdit.phone} onChange={(e) => setfolloupEdit({ ...followupEdit, phone: e.target.value })} id="phone" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                value={followupEdit.email}
-                onChange={(e) => setfolloupEdit({ ...followupEdit, email: e.target.value })}
-                id="email"
-              />
-            </div>
-          </div>
-        </fieldset>
+        <EditFollowupInfo followupEdit={followupEdit} setFolloupEdit={setFolloupEdit} />
         <fieldset className="form-section">
           <legend>Address Details</legend>
           <div className="form-row">
@@ -266,25 +209,25 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
               <input
                 type="text"
                 value={followupEdit.address}
-                onChange={(e) => setfolloupEdit({ ...followupEdit, address: e.target.value })}
+                onChange={(e) => setFolloupEdit({ ...followupEdit, address: e.target.value })}
                 id="address"
                 ref={addressRef}
               />
             </div>
             <div className="form-group">
               <label htmlFor="city">City</label>
-              <input type="text" value={followupEdit.city} onChange={(e) => setfolloupEdit({ ...followupEdit, city: e.target.value })} id="city" />
+              <input type="text" value={followupEdit.city} onChange={(e) => setFolloupEdit({ ...followupEdit, city: e.target.value })} id="city" />
             </div>
             <div className="form-group">
               <label htmlFor="state">State</label>
-              <input type="text" value={followupEdit.state} onChange={(e) => setfolloupEdit({ ...followupEdit, state: e.target.value })} id="state" />
+              <input type="text" value={followupEdit.state} onChange={(e) => setFolloupEdit({ ...followupEdit, state: e.target.value })} id="state" />
             </div>
             <div className="form-group">
               <label htmlFor="country">Country</label>
               <input
                 type="text"
                 value={followupEdit.country}
-                onChange={(e) => setfolloupEdit({ ...followupEdit, country: e.target.value })}
+                onChange={(e) => setFolloupEdit({ ...followupEdit, country: e.target.value })}
                 id="country"
               />
             </div>
@@ -294,7 +237,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 type="text"
                 value={followupEdit.postal_code}
                 onChange={(e) =>
-                  setfolloupEdit({
+                  setFolloupEdit({
                     ...followupEdit,
                     postal_code: e.target.value,
                   })
@@ -307,7 +250,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
               <input
                 type="text"
                 value={followupEdit.unit_no}
-                onChange={(e) => setfolloupEdit({ ...followupEdit, unit_no: e.target.value })}
+                onChange={(e) => setFolloupEdit({ ...followupEdit, unit_no: e.target.value })}
                 id="unitNo"
               />
             </div>
@@ -322,7 +265,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 type="text"
                 value={followupEdit.lead_type}
                 onChange={(e) =>
-                  setfolloupEdit({
+                  setFolloupEdit({
                     ...followupEdit,
                     lead_type: e.target.value,
                   })
@@ -336,7 +279,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 type="text"
                 value={followupEdit.contact_person}
                 onChange={(e) =>
-                  setfolloupEdit({
+                  setFolloupEdit({
                     ...followupEdit,
                     contact_person: e.target.value,
                   })
@@ -355,7 +298,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 type="date"
                 value={followupEdit.next_follow_up_date}
                 onChange={(e) =>
-                  setfolloupEdit({
+                  setFolloupEdit({
                     ...followupEdit,
                     next_follow_up_date: e.target.value,
                   })
@@ -368,7 +311,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
               <select
                 value={followupEdit.lead_status}
                 onChange={(e) =>
-                  setfolloupEdit({
+                  setFolloupEdit({
                     ...followupEdit,
                     lead_status: e.target.value,
                   })
@@ -394,7 +337,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 key={index}
                 product={product}
                 formFollowup={followupEdit}
-                setformFollowup={setfolloupEdit}
+                setformFollowup={setFolloupEdit}
                 onChange={handleProductChange}
                 onRemove={handleRemoveProduct}
               />
@@ -412,7 +355,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 key={index}
                 contact={contact}
                 formFollowup={followupEdit}
-                setformFollowup={setfolloupEdit}
+                setformFollowup={setFolloupEdit}
                 onChange={handleContactChange}
                 onRemove={handleRemoveContact}
               />
@@ -427,7 +370,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="remarks">Remarks</label>
-              <textarea value={followupEdit.remarks} onChange={(e) => setfolloupEdit({ ...followupEdit, remarks: e.target.value })} id="remarks" />
+              <textarea value={followupEdit.remarks} onChange={(e) => setFolloupEdit({ ...followupEdit, remarks: e.target.value })} id="remarks" />
             </div>
             <div className="form-group">
               <label htmlFor="equipment">Equipment</label>
@@ -435,7 +378,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
                 id="equipment"
                 value={followupEdit.equipment}
                 onChange={(e) =>
-                  setfolloupEdit({
+                  setFolloupEdit({
                     ...followupEdit,
                     equipment: e.target.value,
                   })
@@ -451,7 +394,7 @@ const EditLeadFollowupForm = ({ followUp, onClose, onUpdate }) => {
             </div>
             <div className="form-group">
               <label htmlFor="notes">Notes</label>
-              <textarea value={followupEdit.notes} onChange={(e) => setfolloupEdit({ ...followupEdit, notes: e.target.value })} id="notes" />
+              <textarea value={followupEdit.notes} onChange={(e) => setFolloupEdit({ ...followupEdit, notes: e.target.value })} id="notes" />
             </div>
           </div>
         </fieldset>
